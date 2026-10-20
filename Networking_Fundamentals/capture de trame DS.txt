@@ -1,0 +1,21 @@
+@MAC dest   01:00:5e:7f:ff:fa
+@MAC source   00:50:56:c0:00:01
+type trame : DIX
+type paquet: IPV4
+type segment : protocole 11
+
+Entete 20 Octet (mba3ed 0800 aana 45 w 5 en dec =5 donc 5*4=20)  => pas d'options sur l'en-tete
+00 -> qualite de sevice 
+longueur totale: 00ca)16=202 octet
+Flag  : 3 bits du poids le plus fort   (00 00)16 en binaire 
+
+TTL  1 octet sa valeur est 01
+Protocol 11
+CRC(checksum) : 3a c1
+@IP source  c0:a8:e3:01 
+                          192.168.227.1
+@IP dest   ef:ff:ff:fa
+                   239.255.255.250
+durée de vie 01
+paquet n'est pas  fragmenté car MF=0 & Fragment Offset=0 
+DATA de paquet =segment
