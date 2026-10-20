@@ -1,0 +1,40 @@
+WEBVTT
+
+00:06.260 --> 00:15.320
+In this section, you'll learn about etherchannel, which can be used to bundle multiple physical interfaces
+
+00:15.560 --> 00:18.960
+into a single logical interface.
+
+00:19.310 --> 00:24.460
+I'll cover why we need etherchannel and spoiler alert,
+
+00:24.470 --> 00:27.170
+it's because of spanning-tree.
+
+00:27.660 --> 00:34.990
+I'll also cover how the etherchannel load-balancing and redundancy works.
+
+00:35.390 --> 00:43.310
+You'll learn what all the different protocols that are available for etherchannel, how to configure and
+
+00:43.310 --> 00:45.200
+how to verify them.
+
+00:45.860 --> 00:53.510
+And then finally, we'll talk about another problem where if your switches uplinking to two different
+
+00:53.510 --> 01:03.170
+switches for redundancy, even if you're using etherchannel, spanning-tree is going to cut your available
+
+01:03.170 --> 01:04.310
+bandwidth in half.
+
+01:04.690 --> 01:05.150
+Cisco do
+
+01:05.150 --> 01:13.880
+have some technologies that will avoid that though - StackWise, VSS and vPC.
+
+01:13.880 --> 01:21.440
+We will cover an overview of those multi-chassis etherchannel options in the last lecture.

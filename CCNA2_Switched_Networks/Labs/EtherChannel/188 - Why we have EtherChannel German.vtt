@@ -1,0 +1,283 @@
+WEBVTT
+
+00:06.460 --> 00:15.670
+In diesem Vortrag erfahren Sie, warum wir etherchannel haben, und wir beginnen mit
+
+00:15.670 --> 00:20.140
+einem kurzen Rückblick auf das Campus-Designmodell.
+
+00:20.470 --> 00:25.420
+Also werden unsere Endhosts wie unsere PCs
+
+00:25.440 --> 00:32.770
+an unsere Access-Layer-Switches angeschlossen. Unsere Zugriffsschicht schaltet den Uplink zu den Switches der Verteilungsschicht und
+
+00:32.770 --> 00:36.040
+dann den Uplink zu den Switches der Kernschicht.
+
+00:36.850 --> 00:42.390
+Endhosts senden nicht ständig Datenverkehr in das Netzwerk.
+
+00:42.610 --> 00:46.030
+Die meiste Zeit ist ihre Netzwerkverbindung im Leerlauf.
+
+00:46.270 --> 00:51.970
+Wenn Sie darüber nachdenken, was Sie tun, wenn Sie an einem PC sitzen, an
+
+00:51.970 --> 00:58.000
+einem wWrd-Dokument oder einer Excel-Tabelle oder ähnlichem arbeiten, gibt es tatsächlich keinen Datenverkehr über das Netzwerk.
+
+00:58.360 --> 01:05.440
+Aus diesem Grund können Sie sich mit weniger Uplinks zu jeder höheren Schicht verbinden als die Anzahl der Hosts, die
+
+01:05.440 --> 01:11.830
+Sie haben, und dennoch eine akzeptable Netzwerkleistung beibehalten, da Sie nicht die gesamte mögliche Bandbreite unterstützen müssen, die
+
+01:11.830 --> 01:16.660
+Ihre Hosts haben, weil wir nicht alle sind werde es gleichzeitig benutzen.
+
+01:17.390 --> 01:24.700
+Aber wenn ich eine Folie zurückgehe, sehen Sie hier, wir haben unsere beiden Gebäude, wir haben für das
+
+01:24.700 --> 01:32.590
+Beispiel vier Access-Layer-Switches in jedem Gebäude, und sagen wir, es sind 48-Port-Switches und ich habe An jeden Switch sind
+
+01:32.590 --> 01:34.060
+40 Endhosts angeschlossen.
+
+01:34.270 --> 01:43.590
+Das wäre also 4x40. 160 Hosts im Hauptgebäude, 160 Hosts auch im Gebäude 1.
+
+01:43.810 --> 01:51.130
+Sie stellen Uplink zu zwei Verteilerschaltern in beiden Gebäuden her.
+
+01:51.430 --> 01:58.930
+Ich habe also 160 Geräte in beiden Gebäuden, aber keine 160 Uplinks, die von der Zugriffsschicht zur
+
+01:58.930 --> 02:00.280
+Verteilungsschicht gehen.
+
+02:00.520 --> 02:06.370
+Außerdem habe ich nicht so viele Uplinks, die von der Verteilungsschicht bis zur Kernschicht reichen.
+
+02:06.520 --> 02:09.640
+Ich muss nicht so viele eingeben, weil
+
+02:09.640 --> 02:12.910
+ich weiß, dass meine PCs nicht gleichzeitig senden werden.
+
+02:12.910 --> 02:14.860
+Sie brauchen nicht wirklich viel Bandbreite.
+
+02:17.000 --> 02:25.050
+Als Faustregel empfiehlt sich, wie viel Überbuchung Sie in Ihrem Campus-LAN haben sollten:
+
+02:25.050 --> 02:34.010
+20:1 von der Zugangsschicht zur Verteilungsschicht. Das heißt, wenn Sie 20 PCs haben, die
+
+02:34.010 --> 02:41.330
+mit 1-Gbit/s-Netzwerkkarten auf der Zugriffsschicht verbunden sind, benötigen Sie einen einzelnen 1G-Uplink zur
+
+02:41.330 --> 02:45.200
+Verteilungsschicht, um ihren Datenverkehr zu unterstützen.
+
+02:45.680 --> 02:50.840
+Die Empfehlung lautet 4:1 für die Verteilung auf Core-Layer-Links.
+
+02:51.140 --> 02:58.790
+Und bedenken Sie, dass dies allgemeine Werte sind. Sie sollten den Datenverkehr in Ihrem Netzwerk analysieren, um
+
+02:58.790 --> 03:04.940
+sicherzustellen, dass Ihre Links nicht überlastet sind, da dies von bestimmten Datenverkehrsmustern in Ihrem Netzwerk, den
+
+03:05.120 --> 03:07.700
+von Ihnen ausgeführten Anwendungen usw. abhängt. was für Sie eine gute Überzeichnungsquote ist.
+
+03:07.880 --> 03:11.240
+Das sind gute Baseballfiguren.
+
+03:11.570 --> 03:13.550
+Switches haben oft
+
+03:15.650 --> 03:23.480
+dedizierte Uplink-Ports, die eine höhere Bandbreite haben als die Bandbreite ihrer Zugangsports. Zum Beispiel ein 48-Port 1-Gbit/s-Switch mit einem Paar von 10 Gbit/s-Uplinks, und
+
+03:23.480 --> 03:31.760
+das kann beim Abonnementverhältnis helfen.
+
+03:31.760 --> 03:34.210
+Wenn beispielsweise 48 x
+
+03:34.640 --> 03:40.790
+1 Gbit/s-Clients an diesen Switch angeschlossen sind, beträgt die mögliche Gesamtbandbreite 48 Gbit/s.
+
+03:40.790 --> 03:44.170
+Sie haben Ihre 2x10-Gbit/s-Uplinks, ungefähr
+
+03:44.570 --> 03:51.770
+20 Gbit/s auf Ihren Uplink-Links, das ergibt ein Abonnementverhältnis von 2. 4:1.
+
+03:51.770 --> 03:54.950
+Hätten wir diese
+
+03:55.370 --> 04:01.370
+10-Gbit/s-Uplinks nicht, wären die Uplinks auch 1 Gbit/s, wäre das Bezugsverhältnis 24:1.
+
+04:01.370 --> 04:03.190
+Offensichtlich nicht so gut.
+
+04:03.200 --> 04:04.880
+Wenn Sie also
+
+04:05.360 --> 04:11.750
+Switches mit Uplinks mit höherer Bandbreite haben, ist eine Überbuchung normalerweise kein Problem.
+
+04:11.750 --> 04:13.550
+Wir haben jedoch ein Problem, wenn wir 2 Uplinks verbinden möchten und dieses Problem ist Spanning-Tree. Da Spanning-Tree
+
+04:13.940 --> 04:24.530
+Redundanz bietet, bietet es jedoch keinen Lastausgleich. Spanning-Tree wählt immer den einen besten Pfad
+
+04:24.560 --> 04:32.660
+aus, um Schleifen zu vermeiden.
+
+04:32.660 --> 04:36.290
+Wenn ein Switch also mehrere gleiche Kostenpfade hat, wechseln sie offensichtlich nie zur Root-Bridge.
+
+04:36.440 --> 04:42.200
+Es wird einer dieser Ports ausgewählt, der die niedrigste Port-ID hat.
+
+04:42.470 --> 04:46.970
+Es wird nicht über alle Lasten verteilt.
+
+04:46.970 --> 04:49.610
+In unserem Beispiel hier mit dem Diagramm
+
+04:49.950 --> 04:56.480
+haben wir also Uplinks von unserem Access-Layer Access1-Switch zum Dist1-Switch, und wir haben zwei 10-Gbit/s-Ethernet-Schnittstellen, 0/1 und 0/2.
+
+04:56.480 --> 05:03.560
+0/1 wird als Root-Port ausgewählt, da es die niedrigste Port-ID hat und T0/2 blockiert.
+
+05:04.010 --> 05:12.820
+Obwohl wir also zwei 10-Gbit/s-Ethernet-Uplinks physisch verbunden haben, erhalten
+
+05:13.040 --> 05:20.420
+wir nur eine Uplink-Bandbreite von 10 Gbit/s.
+
+05:20.420 --> 05:21.740
+Nicht die 20 Gbit/s, da Spanning-Tree einen dieser Links blockieren wird.
+
+05:21.980 --> 05:26.480
+Das ist also das Problem, wir erhalten nicht unsere gesamte verfügbare, physisch verbundene Uplink-Bandbreite.
+
+05:28.470 --> 05:34.800
+Die Lösung ist Etherchannel. Etherchannel gruppiert mehrere physische Schnittstellen zu
+
+05:35.010 --> 05:44.100
+einer einzigen logischen Schnittstelle. Und Spanning-Tree sieht diesen Etherchannel dann als eine einzige Schnittstelle, damit keine Ports
+
+05:44.100 --> 05:46.080
+blockiert werden.
+
+05:46.080 --> 05:51.700
+Wir erhalten jetzt die volle Bandbreite von 20 Gbit/s.
+
+05:51.990 --> 05:55.770
+Wenn Sie also auf die vorherige Folie zurückblicken, als
+
+05:56.190 --> 06:02.340
+wir etherchannel nicht verwendet haben, sieht Spanning-Tree dies als eine mögliche Schleife an, da der Verkehr
+
+06:02.340 --> 06:08.870
+bis T0/1 und dann zurück zu T0/2 und dann wieder bis zu T0 . gehen könnte /1 wieder.
+
+06:08.910 --> 06:11.460
+Wir haben dort eine potenzielle Schleife, wenn wir keinen Etherchannel haben. Aber wenn wir etherchannel für Spanning-Tree konfigurieren, zählt es
+
+06:11.490 --> 06:17.310
+als ein einzelner Link, als eine einzige Schnittstelle auf beiden Seiten. Spanning-Tree sieht es
+
+06:17.310 --> 06:24.860
+also nicht als potentielle Schleife.
+
+06:24.870 --> 06:27.180
+Und jetzt erhalten wir die volle Bandbreite von 20 Gbit/s.
+
+06:27.400 --> 06:30.990
+Der Datenverkehr wird über alle Links im Etherchannel ausgeglichen.
+
+06:32.190 --> 06:37.000
+Der Verkehr von meinen PCs, der stromaufwärts geht, wird also auf alle Verbindungen verteilt. Das gleiche gilt für den Datenverkehr, der in die andere
+
+06:37.170 --> 06:42.660
+Richtung zurückkommt. Es bietet nicht
+
+06:42.660 --> 06:45.720
+nur einen Lastausgleich, sondern auch Redundanz. Wenn eine Schnittstelle ausfällt, wird
+
+06:45.930 --> 06:52.350
+ihr Datenverkehr auf die verbleibenden Links umgeleitet.
+
+06:52.350 --> 06:54.420
+Das war also Etherchannel auf unseren Switches.
+
+06:55.590 --> 06:59.190
+Dasselbe können wir auch auf unseren Servern mit NIC Teaming machen.
+
+06:59.430 --> 07:05.460
+Um eine Folie zurück zu kehren: Etherchannel ist der Ort, an
+
+07:05.460 --> 07:12.900
+dem wir mehrere physische Ports in einem einzigen logischen Port auf unseren Inter-Switch-Links bündeln können. Auf unseren Servern können wir mit NIC Teaming mehrere physische Netzwerkkarten in einer
+
+07:12.900 --> 07:17.550
+einzigen logischen Schnittstelle bündeln. Der Vorteil, den wir daraus ziehen,
+
+07:17.580 --> 07:25.200
+ist, dass wir den Lastausgleich und die Redundanz wieder erhalten.
+
+07:25.200 --> 07:29.820
+Und weil das Betriebssystem eine einzige Schnittstelle sieht, haben
+
+07:30.030 --> 07:36.000
+wir dort nur eine IP-Adresse, was die Konfiguration wesentlich komfortabler und einfacher macht.
+
+07:36.000 --> 07:39.650
+Ich füge diese Informationen auch hier ein, weil ich Ihnen
+
+07:39.960 --> 07:46.620
+die Terminologie erklären und Sie wissen lassen wollte, dass es mehrere verschiedene Namen für das im Grunde genommen gleiche gibt.
+
+07:46.620 --> 07:51.540
+Etherchannel auf unseren Switches wird auch als Port-Channel bezeichnet.
+
+07:52.230 --> 07:56.760
+In der Tat, wenn Sie mich während des Abschnitts darüber sprechen
+
+07:56.910 --> 08:02.250
+hören, werden Sie wahrscheinlich hören, dass ich es eher Port-Kanal nenne, eher einen Ether-Kanal.
+
+08:02.250 --> 08:03.930
+Leute in der Branche, wir neigen dazu, es öfter so zu nennen.
+
+08:04.140 --> 08:06.930
+Es kann auch als LAG bezeichnet werden, was für Link Aggregation oder Link Bundle steht.
+
+08:07.200 --> 08:12.930
+Wenn wir unsere physischen Schnittstellen auf unseren Servern bündeln, nennen wir es normalerweise NIC-Teaming.
+
+08:13.350 --> 08:19.890
+Es kann auch als Bonding, NIC-Balancing und auch Link Aggregation bezeichnet werden.
+
+08:20.040 --> 08:25.440
+OK, deshalb haben wir Etherchannel.
+
+08:25.630 --> 08:29.580
+Es bringt uns über dieses Problem mit Spanning-Tree hinweg.
+
+08:29.820 --> 08:32.520
+Und auch einen schnellen Überblick über die Terminologie.
+
+08:32.670 --> 08:35.830
+Wir sehen uns im nächsten Vortrag.

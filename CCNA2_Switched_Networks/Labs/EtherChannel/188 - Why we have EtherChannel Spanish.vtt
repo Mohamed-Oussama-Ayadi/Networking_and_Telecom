@@ -1,0 +1,283 @@
+WEBVTT
+
+00:06.460 --> 00:15.670
+En esta conferencia, aprenderá por qué tenemos etherchannel y comenzaremos con una revisión muy rápida
+
+00:15.670 --> 00:20.140
+del modelo de diseño del campus nuevamente.
+
+00:20.470 --> 00:25.420
+Entonces, nuestro host final, como nuestras PC, se conectan a
+
+00:25.440 --> 00:32.770
+nuestros conmutadores de capa de acceso. Nuestra capa de acceso conmuta el enlace ascendente a los conmutadores de la capa de
+
+00:32.770 --> 00:36.040
+distribución y luego se enlaza hacia los conmutadores de la capa central.
+
+00:36.850 --> 00:42.390
+Los hosts finales no envían tráfico constantemente a la red.
+
+00:42.610 --> 00:46.030
+La mayor parte del tiempo su conexión de red está inactiva.
+
+00:46.270 --> 00:51.970
+Si piensa en lo que está haciendo cuando está sentado en una PC, si está trabajando en
+
+00:51.970 --> 00:58.000
+un documento wWrd o una hoja de cálculo de Excel o algo así, no hay tráfico en la red.
+
+00:58.360 --> 01:05.440
+Debido a esto, puede conectarse con menos enlaces ascendentes a cada capa superior a la cantidad de hosts que tiene y
+
+01:05.440 --> 01:11.830
+aún así mantener un rendimiento de red aceptable porque no necesita admitir todo el ancho de banda posible que
+
+01:11.830 --> 01:16.660
+tienen sus hosts porque no todos somos lo va a usar al mismo tiempo.
+
+01:17.390 --> 01:24.700
+Pero si retrocedo una diapositiva, verá que aquí tenemos nuestros dos edificios, tenemos cuatro conmutadores de capa de acceso
+
+01:24.700 --> 01:32.590
+en cada edificio para el ejemplo, y digamos que son conmutadores de 48 puertos y yo tengo 40 hosts finales conectados
+
+01:32.590 --> 01:34.060
+a cada conmutador.
+
+01:34.270 --> 01:43.590
+Entonces eso sería 4x40. 160 anfitriones en el edificio principal, 160 anfitriones en el edificio 1 también.
+
+01:43.810 --> 01:51.130
+Se están conectando a un par de interruptores de distribución en ambos edificios.
+
+01:51.430 --> 01:58.930
+Así que tengo 160 dispositivos en ambos edificios, pero no tengo 160 enlaces ascendentes que van desde la capa de acceso a la
+
+01:58.930 --> 02:00.280
+capa de distribución.
+
+02:00.520 --> 02:06.370
+Además, no tengo esa cantidad de enlaces ascendentes que van desde la capa de distribución hasta la capa central.
+
+02:06.520 --> 02:09.640
+No necesito poner tantos porque sé que
+
+02:09.640 --> 02:12.910
+mis PC no van a transmitir al mismo tiempo.
+
+02:12.910 --> 02:14.860
+En realidad, no necesitan tanto ancho de banda.
+
+02:17.000 --> 02:25.050
+Una recomendación de la regla empírica inicial para la cantidad de sobresuscripción que debe tener en la LAN de su campus es
+
+02:25.050 --> 02:34.010
+20: 1 desde la capa de acceso a la capa de distribución. Es decir, si tuviera 20 PC conectadas con tarjetas de
+
+02:34.010 --> 02:41.330
+red de 1 Gbps en la capa de acceso, necesitaría un solo enlace ascendente de 1G a
+
+02:41.330 --> 02:45.200
+la capa de distribución para soportar su tráfico.
+
+02:45.680 --> 02:50.840
+La recomendación es 4: 1 para la distribución a los enlaces de la capa central.
+
+02:51.140 --> 02:58.790
+Y tenga en cuenta que esos son valores generales. Debe analizar el tráfico en su red para verificar
+
+02:58.790 --> 03:04.940
+que sus enlaces no estén congestionados porque depende de patrones de tráfico particulares en su
+
+03:05.120 --> 03:07.700
+red, qué aplicaciones está ejecutando, etc. cuál será una buena tasa de sobresuscripción para usted.
+
+03:07.880 --> 03:11.240
+Estas son buenas cifras aproximadas.
+
+03:11.570 --> 03:13.550
+Los conmutadores a menudo tienen
+
+03:15.650 --> 03:23.480
+puertos de enlace ascendente dedicados que tienen un ancho de banda mayor que el ancho de banda en sus puertos de acceso. Por ejemplo, un conmutador de 1 Gbps de 48 puertos con un par de enlaces ascendentes de 10 Gbps,
+
+03:23.480 --> 03:31.760
+y eso puede ayudar con la tasa de suscripción.
+
+03:31.760 --> 03:34.210
+Por ejemplo, si tiene clientes de
+
+03:34.640 --> 03:40.790
+48x1Gbps conectados a ese conmutador, entonces el ancho de banda total posible sería de 48 Gbps.
+
+03:40.790 --> 03:44.170
+Tiene sus enlaces ascendentes de 2x10Gbps, aproximadamente
+
+03:44.570 --> 03:51.770
+20Gbps en sus enlaces ascendentes, por lo que da una proporción de suscripción de 2. 4: 1.
+
+03:51.770 --> 03:54.950
+Si no tuviéramos esos enlaces
+
+03:55.370 --> 04:01.370
+ascendentes de 10 Gbps, si los enlaces ascendentes también fueran de 1 Gbps, la relación de suscripción sería de 24: 1.
+
+04:01.370 --> 04:03.190
+Obviamente no tan bueno.
+
+04:03.200 --> 04:04.880
+Entonces, normalmente, cuando tiene
+
+04:05.360 --> 04:11.750
+conmutadores que tienen enlaces ascendentes de mayor ancho de banda, la suscripción excesiva no será un problema.
+
+04:11.750 --> 04:13.550
+Sin embargo, tenemos un problema cuando queremos conectar 2 enlaces ascendentes y ese problema es el árbol de expansión. Debido a que es
+
+04:13.940 --> 04:24.530
+de árbol de expansión, proporciona redundancia, pero no proporciona equilibrio de carga. Spanning-tree siempre selecciona la mejor ruta
+
+04:24.560 --> 04:32.660
+para evitar bucles.
+
+04:32.660 --> 04:36.290
+Entonces, si un conmutador tiene múltiples rutas de igual costo, obviamente nunca cambiarán hacia el puente raíz.
+
+04:36.440 --> 04:42.200
+Seleccionará uno de esos puertos, el que tiene la ID de puerto más baja.
+
+04:42.470 --> 04:46.970
+No va a equilibrar la carga en todos ellos.
+
+04:46.970 --> 04:49.610
+Entonces, en nuestro ejemplo aquí con el diagrama, tenemos
+
+04:49.950 --> 04:56.480
+enlaces ascendentes desde nuestro conmutador Access1 de la capa de acceso al conmutador Dist1, y tenemos dos interfaces Ethernet de 10 Gbps, 0/1 y 0/2.
+
+04:56.480 --> 05:03.560
+Se seleccionará 0/1 como puerto raíz ya que obtuvo el ID de puerto más bajo y T0 / 2 está bloqueando.
+
+05:04.010 --> 05:12.820
+Entonces, aunque conectamos físicamente dos enlaces ascendentes Ethernet de 10 Gbps, solo obtenemos
+
+05:13.040 --> 05:20.420
+un ancho de banda de enlace ascendente de 10 Gbps.
+
+05:20.420 --> 05:21.740
+No el de 20 Gbps, porque el árbol de expansión va a bloquear uno de esos enlaces.
+
+05:21.980 --> 05:26.480
+Así que ese es el problema, no obtenemos todo nuestro ancho de banda de enlace ascendente disponible y físicamente conectado.
+
+05:28.470 --> 05:34.800
+La solución es etercanal. Etherchannel agrupa varias interfaces físicas en
+
+05:35.010 --> 05:44.100
+una única interfaz lógica. Y spanning-tree luego ve ese etherchannel como una interfaz única para que no bloquee
+
+05:44.100 --> 05:46.080
+ningún puerto.
+
+05:46.080 --> 05:51.700
+Ahora obtenemos el valor total de 20 Gbps de ancho de banda.
+
+05:51.990 --> 05:55.770
+Entonces, si mira hacia atrás en la diapositiva anterior, cuando
+
+05:56.190 --> 06:02.340
+no estábamos usando etherchannel, spanning-tree lo ve como un posible bucle porque el tráfico podría subir T0
+
+06:02.340 --> 06:08.870
+/ 1 y luego volver a T0 / 2, y luego volver a T0 / 1 de nuevo.
+
+06:08.910 --> 06:11.460
+Tenemos un bucle potencial allí cuando no tenemos etherchannel. Pero cuando configuramos etherchannel, para spanning-tree, cuenta como
+
+06:11.490 --> 06:17.310
+un solo enlace, como una sola interfaz en ambos lados. Entonces, el árbol de expansión
+
+06:17.310 --> 06:24.860
+no lo ve como un bucle potencial.
+
+06:24.870 --> 06:27.180
+Y ahora obtenemos el valor total de 20 Gbps de ancho de banda.
+
+06:27.400 --> 06:30.990
+La carga del tráfico se equilibrará en todos los enlaces que están en el etherchannel.
+
+06:32.190 --> 06:37.000
+Por lo tanto, el tráfico de mis PC que va en sentido ascendente se equilibrará en la carga de todos los enlaces. Lo mismo ocurre con el tráfico que regresa en la otra
+
+06:37.170 --> 06:42.660
+dirección, no solo proporciona equilibrio
+
+06:42.660 --> 06:45.720
+de carga, sino que también proporciona redundancia. Si una interfaz falla, su
+
+06:45.930 --> 06:52.350
+tráfico fallará a los enlaces restantes.
+
+06:52.350 --> 06:54.420
+Así que ése era etherchannel en nuestros conmutadores.
+
+06:55.590 --> 06:59.190
+Podemos hacer básicamente lo mismo en nuestros servidores con NIC Teaming.
+
+06:59.430 --> 07:05.460
+Volviendo una diapositiva, etherchannel es donde podemos agrupar múltiples
+
+07:05.460 --> 07:12.900
+puertos físicos en un solo puerto lógico en nuestros enlaces entre conmutadores. En nuestros servidores, con NIC Teaming, podemos agrupar varias tarjetas de red físicas en
+
+07:12.900 --> 07:17.550
+una única interfaz lógica. El beneficio que obtenemos de esto
+
+07:17.580 --> 07:25.200
+es que obtenemos el equilibrio de carga y la redundancia nuevamente.
+
+07:25.200 --> 07:29.820
+Y debido a que el sistema operativo lo ve como una única interfaz, solo
+
+07:30.030 --> 07:36.000
+tenemos una dirección IP allí, lo que hace que las cosas sean mucho más convenientes y simples de configurar.
+
+07:36.000 --> 07:39.650
+También incluyo esta información aquí porque quería explicarle
+
+07:39.960 --> 07:46.620
+la terminología y hacerle saber que hay varios nombres diferentes para lo que básicamente es lo mismo.
+
+07:46.620 --> 07:51.540
+Etherchannel en nuestros conmutadores también se conoce como canal de puerto.
+
+07:52.230 --> 07:56.760
+De hecho, cuando me escuchen hablar de eso durante la sección,
+
+07:56.910 --> 08:02.250
+probablemente me escuchen llamarlo canal de puerto más que un canal de ethernet.
+
+08:02.250 --> 08:03.930
+Gente de la industria, solemos llamarlo así con más frecuencia.
+
+08:04.140 --> 08:06.930
+También se puede conocer como LAG, que significa agregación de enlaces o paquete de enlaces.
+
+08:07.200 --> 08:12.930
+Cuando agrupamos nuestras interfaces físicas en nuestros servidores, normalmente lo llamamos NIC Teaming.
+
+08:13.350 --> 08:19.890
+También puede denominarse vinculación, equilibrio de NIC y, nuevamente, agregación de enlaces.
+
+08:20.040 --> 08:25.440
+Bien, por eso tenemos etherchannel.
+
+08:25.630 --> 08:29.580
+Nos ayuda a superar ese problema con el árbol de expansión.
+
+08:29.820 --> 08:32.520
+Y también una descripción general rápida de la terminología.
+
+08:32.670 --> 08:35.830
+Nos vemos en la próxima conferencia.

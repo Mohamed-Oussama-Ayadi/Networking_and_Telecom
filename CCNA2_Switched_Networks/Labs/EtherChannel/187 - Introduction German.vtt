@@ -1,0 +1,37 @@
+WEBVTT
+
+00:06.260 --> 00:15.320
+In diesem Abschnitt erfahren Sie mehr über Etherchannel, mit dem mehrere physische Schnittstellen zu einer einzigen
+
+00:15.560 --> 00:18.960
+logischen Schnittstelle gebündelt werden können.
+
+00:19.310 --> 00:24.460
+Ich werde behandeln, warum wir Etherchannel und Spoiler-Alarm brauchen,
+
+00:24.470 --> 00:27.170
+es liegt an Spanning-Tree.
+
+00:27.660 --> 00:34.990
+Ich werde auch behandeln, wie der Etherchannel-Lastenausgleich und die Redundanz funktionieren.
+
+00:35.390 --> 00:43.310
+Sie erfahren, welche verschiedenen Protokolle für Etherchannel verfügbar sind, wie Sie sie konfigurieren
+
+00:43.310 --> 00:45.200
+und überprüfen.
+
+00:45.860 --> 00:53.510
+Und schließlich werden wir über ein weiteres Problem sprechen, bei dem Spanning-Tree Ihre
+
+00:53.510 --> 01:03.170
+verfügbare Bandbreite halbiert, wenn Ihre Switches aus Redundanzgründen auf zwei verschiedene Switches hochschalten, selbst wenn Sie Etherchannel
+
+01:03.170 --> 01:04.310
+verwenden.
+
+01:04.690 --> 01:13.880
+Cisco hat einige Technologien, die dies jedoch vermeiden - StackWise, VSS und vPC.
+
+01:13.880 --> 01:21.440
+In der letzten Vorlesung werden wir einen Überblick über diese Multi-Chassis-Etherchannel-Optionen geben.

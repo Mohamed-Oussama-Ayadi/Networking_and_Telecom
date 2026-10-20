@@ -1,0 +1,37 @@
+WEBVTT
+
+00:06.260 --> 00:15.320
+Nesta seção, você aprenderá sobre etherchannel, que pode ser usado para agrupar várias interfaces físicas
+
+00:15.560 --> 00:18.960
+em uma única interface lógica.
+
+00:19.310 --> 00:24.460
+Vou cobrir porque precisamos do etherchannel e do spoiler de alerta,
+
+00:24.470 --> 00:27.170
+é por causa da spanning-tree.
+
+00:27.660 --> 00:34.990
+Também cobrirei como funciona o balanceamento de carga do etherchannel e a redundância.
+
+00:35.390 --> 00:43.310
+Você aprenderá quais são os diferentes protocolos disponíveis para etherchannel, como configurá-los
+
+00:43.310 --> 00:45.200
+e verificá-los.
+
+00:45.860 --> 00:53.510
+E então, finalmente, falaremos sobre outro problema em que se seus switches fizerem uplink para
+
+00:53.510 --> 01:03.170
+dois switches diferentes para redundância, mesmo se você estiver usando etherchannel, o spanning-tree vai cortar sua largura de banda disponível
+
+01:03.170 --> 01:04.310
+pela metade.
+
+01:04.690 --> 01:13.880
+A Cisco tem algumas tecnologias que evitarão isso - StackWise, VSS e vPC.
+
+01:13.880 --> 01:21.440
+Cobriremos uma visão geral dessas opções de etherchannel com vários chassis na última aula.

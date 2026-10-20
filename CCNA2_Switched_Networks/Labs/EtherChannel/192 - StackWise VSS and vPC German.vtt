@@ -1,0 +1,277 @@
+WEBVTT
+
+00:06.370 --> 00:16.510
+In diesem Vortrag lernen Sie Ciscos Multi-Chassis-Etherchannel-Optionen von StackWise, vPC und VSS
+
+00:16.510 --> 00:17.370
+kennen.
+
+00:17.650 --> 00:25.400
+Passende Etherchannel-Einstellungen müssen an den Schaltern auf beiden Seiten des Links konfiguriert werden.
+
+00:25.420 --> 00:26.800
+Das weißt du schon.
+
+00:27.220 --> 00:34.360
+Sie können separate Portkanäle von einem Switch zu redundanten Upstream-Switches konfigurieren, wie Sie im Diagramm
+
+00:34.360 --> 00:35.710
+hier sehen.
+
+00:35.900 --> 00:44.050
+Ich habe meinen Access-Layer-Access3-Switch und er hat einen Portkanal mit gebündelten Links bis zu CD1 und er
+
+00:44.410 --> 00:51.400
+hat einen weiteren separaten Port Kanal mit anderen physikalischen Schnittstellen, die in einem Portkanal
+
+00:51.400 --> 00:56.500
+bis zu CD2 gebündelt sind. Das Problem dabei ist,
+
+00:56.560 --> 01:04.960
+dass Spanning-Tree diese separaten Portkanäle als zwei separate Schnittstellen sieht und einen Pfad blockiert, wenn
+
+01:04.960 --> 01:08.670
+eine Schleife wie hier gebildet wird.
+
+01:08.890 --> 01:10.450
+In unserem Beispiel
+
+01:10.450 --> 01:12.640
+ist CD1 also die Root-Bridge.
+
+01:13.000 --> 01:18.430
+Der Portkanal von Access3 zu diesem wird also Forwarding sein.
+
+01:18.790 --> 01:26.950
+Aber der zu CD2 führende Portkanal würde eine potentielle Schleife bilden. Spanning-Tree wird also diesen
+
+01:26.950 --> 01:29.040
+Port-Kanal blockieren.
+
+01:29.770 --> 01:37.090
+Ich habe hier also vier physikalische Schnittstellen als Uplinks konfiguriert, aber nur zwei davon sind Forwarding, also
+
+01:37.090 --> 01:40.890
+bekomme ich nur die Hälfte meiner möglichen Bandbreite.
+
+01:41.200 --> 01:46.750
+Das bringt uns zurück zu dem gleichen Problem, dass wir wieder nur
+
+01:46.750 --> 01:53.290
+die Hälfte unserer verfügbaren physischen Bandbreite verwenden. Dieselbe Topologie haben wir in der letzten Vorlesung im Labor konfiguriert.
+
+01:53.440 --> 01:57.310
+Die Dinge waren also besser, nachdem wir Etherchannel konfiguriert hatten.
+
+01:57.580 --> 02:00.060
+So war es, bevor wir es gemacht haben.
+
+02:00.520 --> 02:08.260
+Also noch einmal, CD1 ist die Root-Bridge und Sie sehen von Access3, dass es diese vier physischen Uplinks hat, aber
+
+02:08.410 --> 02:14.770
+nur einer davon leitete den Verkehr weiter, das war die Schnittstelle, die mit CD1 verbunden war,
+
+02:14.770 --> 02:17.850
+und genau das gleiche auch auf Access4.
+
+02:17.860 --> 02:24.940
+Also vier physische Ports, von denen nur einer den Verkehr weiterleitet. Nachdem wir etherchannel konfiguriert haben,
+
+02:25.210 --> 02:30.520
+haben wir jetzt zwei von vier Weiterleitungsverkehr statt einer.
+
+02:30.700 --> 02:31.810
+Es ist also besser.
+
+02:31.990 --> 02:36.670
+Und tatsächlich habe ich das Labor immer noch am Laufen, also lass uns dort weitermachen und das einfach überprüfen.
+
+02:36.790 --> 02:42.040
+Also gehe ich zu Access3 und mache eine etherchannel-Zusammenfassung.
+
+02:42.950 --> 02:52.730
+Und Sie können sehen, dass ich meine beiden Port-Kanäle habe, einer geht zum ersten
+
+02:52.730 --> 02:56.690
+Core-Distribution-Layer-Switch. Der zweite geht auf den zweiten zu. Sie sind beide oben.
+
+02:57.080 --> 03:03.910
+Dann mache ich ein Show-Spanning-Tree-Vlan 10, das ein VLAN ist, in dem sich meine PCs befinden.
+
+03:04.430 --> 03:07.100
+Ich kann sehen, dass einer von diesen
+
+03:07.100 --> 03:09.070
+2 Portkanälen Verkehr weiterleitet.
+
+03:09.290 --> 03:17.660
+Dies ist der Portkanal, der mit der Root-Bridge verbunden ist, und der andere blockiert, weil er eine
+
+03:17.660 --> 03:19.180
+Potenzialschleife bildet.
+
+03:19.790 --> 03:22.720
+Es ist also immer noch nicht perfekt.
+
+03:23.240 --> 03:32.420
+Wenn wir zu den Folien zurückkehren, können wir dies so konfigurieren, dass wir tatsächlich
+
+03:32.420 --> 03:37.190
+alle unsere physisch verbundenen Uplinks weiterleiten.
+
+03:37.370 --> 03:41.630
+Und das tun wir mit Multi-Chassis EtherChannel.
+
+03:41.900 --> 03:49.520
+Einige Switches werden das also unterstützen. Wenn wir es konfigurieren, unterstützt der Switch einen gemeinsamen
+
+03:49.700 --> 03:51.770
+Etherchannel von verschiedenen Switches.
+
+03:51.980 --> 03:59.270
+Sie sehen also das Diagramm, das ich hier habe. Wenn ich eine Folie, ein
+
+04:00.280 --> 04:06.810
+paar Folien, zurückgehe, hätten wir normalerweise 2 separate Port-Kanäle, einen
+
+04:07.600 --> 04:16.330
+zu CD1 und einen zu CD2. Wenn diese Core-Distribution-Layer-Switches jedoch Multi-Chassis-Etherchannel unterstützen, kann ich einen einzelnen Port-Channel
+
+04:16.480 --> 04:18.950
+erstellen, der zu beiden geht.
+
+04:19.500 --> 04:23.740
+Nun müssen die Switches wieder mit passenden Einstellungen konfiguriert werden.
+
+04:23.890 --> 04:31.030
+Wenn Sie Etherchannel konfigurieren, benötigen Sie auf beiden Seiten der Links übereinstimmende Einstellungen. Hier hat Access3 einen Port-Kanal,
+
+04:31.030 --> 04:36.010
+der stromaufwärts geht, und die Switches CD1 und CD2
+
+04:36.010 --> 04:43.420
+haben einen gemeinsamen Port-Kanal, der stromabwärts geht. CD1 und CD2 müssen also Advanced-Level-Switches
+
+04:43.420 --> 04:51.290
+sein, die das Sprechen miteinander unterstützen und einen gemeinsam genutzten Port-Kanal haben, der stromabwärts geht.
+
+04:51.400 --> 04:56.200
+Das wird von einigen Cisco-Switch-Modellen unterstützt.
+
+04:57.350 --> 05:04.310
+Wenn Sie dies konfigurieren, ist Spanning-Tree weiterhin aktiviert, sieht jedoch auf beiden
+
+05:04.310 --> 05:11.570
+Seiten nur eine einzige logische Schnittstelle. Es sieht einen Port-Kanal, der von Access3 stromaufwärts geht, und es sieht
+
+05:11.570 --> 05:15.380
+einen einzelnen Port-Kanal, der von CD1 stromabwärts geht und mit CD2 geteilt wird.
+
+05:15.530 --> 05:17.870
+Es sieht dies also nur als einen einzigen Link.
+
+05:18.020 --> 05:19.520
+Es gibt also keine Schleife.
+
+05:19.740 --> 05:22.600
+Spanning-Tree blockiert keinen der Ports.
+
+05:22.760 --> 05:24.470
+Wir haben sie alle weiterleiten.
+
+05:24.650 --> 05:31.190
+Wir nutzen unsere gesamte physische Bandbreite voll aus, unterstützen vollen Lastausgleich und Redundanz über
+
+05:31.190 --> 05:32.270
+alle Schnittstellen.
+
+05:32.390 --> 05:37.760
+Wenn eine der Schnittstellen ausfällt, wird auf eine andere verfügbare Schnittstelle umgeschaltet.
+
+05:38.960 --> 05:50.630
+Die von Cisco zur Verfügung stehenden Technologien, die dies unterstützen, sind also StackWise, VSS und vPC.
+
+05:51.500 --> 05:58.250
+Nun, ein einziger Switch wird nicht all dies unterstützen. Verschiedene Switch-Plattformen unterstützen verschiedene
+
+05:58.250 --> 05:59.390
+Optionen.
+
+05:59.570 --> 06:05.660
+Und wenn ein Switch einen unterstützt, wird es nur einer sein. Der Switch unterstützt also entweder
+
+06:05.660 --> 06:11.650
+StackWise oder VSS oder vPC, nicht zwei oder drei gleichzeitig.
+
+06:11.930 --> 06:14.270
+Und das ist nur bei den High-End-Switches der Fall.
+
+06:14.270 --> 06:19.390
+Wenn Sie einen der unteren Switches von Cisco besitzen, wird dieser nicht unterstützt.
+
+06:19.700 --> 06:28.940
+Welche Option wird also von welcher Switch-Familie unterstützt? Nun, StackWise ist auf Catalyst-Switch-Plattformen,
+
+06:28.940 --> 06:30.770
+einschließlich Catalyst
+
+06:30.770 --> 06:32.360
+3750,
+
+06:32.360 --> 06:34.500
+3850 und 9000.
+
+06:34.820 --> 06:41.870
+Da Cisco sehr regelmäßig neue Switch-Modelle auf den Markt bringt und wenn wir ein neues Switch-Modell auf
+
+06:42.020 --> 06:47.080
+den Markt bringen, wird es wahrscheinlich eine dieser drei Optionen unterstützen.
+
+06:47.090 --> 06:49.190
+Dies wird also im Laufe der Zeit aktualisiert.
+
+06:50.000 --> 06:56.630
+Wenn Sie sich das Bild hier ansehen, handelt es sich um einen Stapel von Switches, die mit StackWise konfiguriert werden.
+
+06:56.780 --> 07:01.970
+StackWise verwendet spezielle proprietäre Kabel auf der Rückseite dieser Switches.
+
+07:02.270 --> 07:10.070
+Wenn Sie einen StackWise-Stack konfigurieren, funktionieren die separaten physischen Switches alle so, als ob sie ein Switch wären, und sie
+
+07:10.070 --> 07:14.330
+werden auch so konfiguriert, als ob sie ein Switch wären.
+
+07:14.690 --> 07:21.890
+Das ist ähnlich wie bei der nächsten Option, VSS, dem Virtual Switching System. Dies wird von den
+
+07:21.890 --> 07:25.910
+Catalyst 4500- und 6500-Familien unterstützt.
+
+07:26.240 --> 07:28.580
+Und die letzte Option ist eine
+
+07:28.880 --> 07:35.150
+eigene, ein bisschen anders ist vPC, Virtual Port Channel. Das wird von den Nexus-Switches unterstützt.
+
+07:35.420 --> 07:42.170
+Und anstatt die Switches zusammenzustapeln und dann wie ein einzelner Switch zu verwalten, werden sie bei Verwendung
+
+07:42.170 --> 07:48.950
+auf dem Nexus immer noch als zwei separate Switches konfiguriert, aber Sie führen eine passende Konfiguration auf ihnen
+
+07:48.950 --> 07:53.390
+durch und das ermöglicht eine gemeinsame Nutzung Port-Kanal von diesen Switches.
+
+07:53.820 --> 08:00.080
+OK, das sind also die MCE-Optionen. Auf der CCNA-Prüfungsebene erwartet
+
+08:00.470 --> 08:05.990
+Cisco, dass Sie einen umfassenden Überblick darüber haben, aber nicht,
+
+08:05.990 --> 08:13.610
+dass Sie wissen, wie diese konfiguriert werden. Wenn Sie zum CCNP-Level oder zu einem der anderen CCNA-Tracks wie
+
+08:13.610 --> 08:17.660
+Data Center wechseln, erfahren Sie, wie Sie diese Technologien konfigurieren und überwachen.

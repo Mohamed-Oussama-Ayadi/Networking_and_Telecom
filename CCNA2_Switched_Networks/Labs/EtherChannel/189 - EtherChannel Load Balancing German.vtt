@@ -1,0 +1,157 @@
+WEBVTT
+
+00:06.360 --> 00:14.130
+In dieser Vorlesung erfahren Sie, wie der Etherchannel-Lastausgleich funktioniert, und ich werde das Diagramm, das Sie hier
+
+00:14.130 --> 00:17.970
+auf der Folie sehen, in dieser Vorlesung verwenden.
+
+00:18.390 --> 00:24.990
+Ich habe also zwei Switches, die vier Links zwischen sich haben, die zu einem Etherchannel gruppiert wurden, und
+
+00:25.170 --> 00:31.140
+jeder dieser vier Links ist 1-Gbit / s-Ethernet-Schnittstellen. Beginnen Sie einfach mit gi0/1 auf der
+
+00:31.140 --> 00:38.920
+linken Seite und gehen Sie zu gi0/4 auf der rechten Seite. Im unteren Schalter habe ich
+
+00:38.940 --> 00:41.700
+einige PCs eingesteckt.
+
+00:41.700 --> 00:43.530
+Ich habe PC-1 und PC-2.
+
+00:43.770 --> 00:45.000
+Und dann der
+
+00:45.000 --> 00:49.110
+oberste Schalter, ich habe einige Server. Es gibt Server-1 und Server-2.
+
+00:49.440 --> 00:57.780
+In diesem Vortrag werden wir also behandeln, wie die Etherchannel-Last die verschiedenen Flüsse ausgleicht, die über die Verbindungen zwischen
+
+00:57.780 --> 00:59.520
+den Switches laufen.
+
+00:59.730 --> 01:08.250
+Ein Flow ist eine Kommunikation von einem Client zu einem Server unter Verwendung einer bestimmten Anwendung. Wenn PC-1 in unserem Beispielbeispiel eine Websitzung
+
+01:08.250 --> 01:15.780
+zu Server-1 öffnet und PC-2 eine FTP-Sitzung zu Server-2 öffnet, würden zwei Flüsse
+
+01:15.780 --> 01:18.270
+durch unsere Schalter gehen.
+
+01:18.690 --> 01:26.220
+Und mit Etherchannel wird ein einzelner Datenfluss auf eine einzelne Port-Kanalschnittstelle verteilt.
+
+01:26.580 --> 01:33.600
+Zum Beispiel gehen alle Pakete im Fluss von PC-1 zu Server-1 immer über die Schnittstelle gi0/1.
+
+01:33.600 --> 01:41.340
+Alle Pakete und der Fluss von PC-2 zu Server-2 gehen immer über die Schnittstelle gi0/2.
+
+01:42.390 --> 01:48.600
+Wenn man sich das mit einer Animation ansieht, trifft das erste Paket und der Fluss von PC-1
+
+01:49.020 --> 01:50.970
+zu Server-1 den ersten Schalter.
+
+01:51.150 --> 01:56.640
+Der Switch entscheidet, über welche Schnittstelle er den Lastausgleich durchführen wird.
+
+01:56.820 --> 02:01.740
+In unserem Beispiel wählt es gi0/1 und das geht an den Server.
+
+02:02.040 --> 02:06.690
+Das nächste Paket im Fluss wird ebenfalls an dieselbe Schnittstelle weitergeleitet.
+
+02:06.690 --> 02:12.780
+Es kommt also in den Switch, es verteilt es wieder auf die gleiche Schnittstelle und dann geht es hoch zum Server.
+
+02:13.730 --> 02:21.830
+Beim zweiten Flow, von PC-2 zu Server-2, der in den Switch kommt, verwendet der Switch diesen Algorithmus, um zu
+
+02:21.830 --> 02:27.520
+entscheiden, auf welche Schnittstelle er die Last verteilt – in unserem Beispiel gi0/2,
+
+02:27.650 --> 02:33.020
+und er geht zum Server. Wenn das zweite, das dritte und das vierte
+
+02:33.020 --> 02:37.130
+usw. Paket von diesem Fluss eingehen, werden sie alle auf dieselbe Schnittstelle geladen.
+
+02:38.360 --> 02:44.570
+Pakete aus demselben Fluss werden immer auf derselben Schnittstelle lastenausgleichend ausgeführt. Sie sind nicht Load-Balanced
+
+02:44.570 --> 02:51.230
+Round-Robin über alle Schnittstellen im Port-Kanal. Zum Beispiel verteilen wir nicht das erste
+
+02:51.230 --> 02:57.410
+Paket von PC-1 auf Server-1 auf der Schnittstelle gi0/1 und dann das zweite
+
+02:57.410 --> 03:00.620
+Paket auf demselben Fluss auf gi0/2.
+
+03:01.010 --> 03:07.990
+Der Grund dafür ist, dass Round-Robin-Load-Balancing dazu führen kann, dass Pakete nicht in der richtigen Reihenfolge am
+
+03:08.000 --> 03:11.390
+Ziel ankommen, was einige Anwendungen zerstören würde.
+
+03:11.390 --> 03:13.340
+Es stellt also sicher, dass das nicht passiert.
+
+03:13.520 --> 03:19.220
+Wir laden Pakete immer vom gleichen Flow auf die gleiche Schnittstelle, damit sie immer in der richtigen Reihenfolge
+
+03:19.220 --> 03:19.700
+ankommen.
+
+03:21.030 --> 03:26.670
+Das passiert also nicht, Sie sehen, dass das erste Paket im Fluss zur Schnittstelle gi0/1 übergegangen ist,
+
+03:26.940 --> 03:31.190
+das zweite Paket im selben Fluss über gi0/2, das tun wir nicht.
+
+03:32.850 --> 03:39.240
+Da dies also funktioniert, weil ein einzelner Datenfluss immer die Last auf dieselbe
+
+03:39.690 --> 03:46.320
+Schnittstelle verteilt, erhält jeder einzelne Datenfluss maximal eine Bandbreite eines einzelnen Links im Portkanal.
+
+03:46.770 --> 03:52.980
+Das ist in unserem Beispiel, in dem wir 1-Gbit/s-Verbindungen zwischen unseren Switches verwendeten, eine maximale Bandbreite von 1
+
+03:52.980 --> 03:54.090
+Gbit/s pro Datenfluss.
+
+03:54.450 --> 03:59.610
+Aber es gibt eine Gesamtbandbreite von 4 Gbit/s über alle verfügbaren Datenflüsse.
+
+04:00.540 --> 04:04.910
+So kann man sich einen Hafenkanal als mehrspurige Autobahn vorstellen.
+
+04:05.250 --> 04:11.700
+Die Autos bleiben immer auf ihrer eigenen und einer einzigen Spur, aber da es mehrere Spuren
+
+04:11.700 --> 04:14.130
+gibt, kommt der Gesamtverkehr schneller dorthin.
+
+04:14.310 --> 04:20.220
+Offensichtlich ein seltsames Beispiel, wenn wir nur einen Uplink anstelle von vier hätten, haben wir nicht so viel Gesamtbandbreite
+
+04:20.220 --> 04:23.190
+zwischen den Switches verfügbar. Etherchannel
+
+04:23.190 --> 04:29.620
+bietet Redundanz sowie Lastausgleich. Wenn ein Link fehlschlägt, werden die Datenflüsse auf
+
+04:29.630 --> 04:31.700
+die verbleibenden Links verteilt.
+
+04:31.920 --> 04:35.310
+OK, so funktionieren Lastenausgleich und Redundanz.
+
+04:35.660 --> 04:39.150
+Wir sehen uns im nächsten Vortrag für mehr etherchannel.

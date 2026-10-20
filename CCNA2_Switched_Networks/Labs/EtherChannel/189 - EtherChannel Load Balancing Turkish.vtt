@@ -1,0 +1,154 @@
+WEBVTT
+
+00:06.360 --> 00:14.130
+Bu derste, etherchannel yük dengelemenin nasıl çalıştığını öğreneceksiniz ve bu ders boyunca buradaki
+
+00:14.130 --> 00:17.970
+slaytta gördüğünüz diyagramı kullanacağım.
+
+00:18.390 --> 00:24.990
+Yani aralarında bir etherchannel olarak gruplandırılmış dört bağlantı bulunan iki anahtarım var ve bu dört bağlantının
+
+00:25.170 --> 00:31.140
+her biri 1Gbps Ethernet arayüzleri. Soldaki gi0/1'den başlayarak
+
+00:31.140 --> 00:38.920
+sağdaki gi0/4'e kadar. Alttaki anahtarda bazı bilgisayarlar
+
+00:38.940 --> 00:41.700
+takılı.
+
+00:41.700 --> 00:43.530
+PC-1 ve PC-2 var.
+
+00:43.770 --> 00:45.000
+Ve sonra üst anahtar,
+
+00:45.000 --> 00:49.110
+bazı sunucularım var. Sunucu-1 ve Sunucu-2 var.
+
+00:49.440 --> 00:57.780
+Bu derste, etherchannel yükünün anahtarlar arasındaki bağlantılar üzerinden geçen farklı akışları nasıl dengelediğini
+
+00:57.780 --> 00:59.520
+ele alacağız.
+
+00:59.730 --> 01:08.250
+Akış, belirli bir uygulama kullanılarak bir istemciden sunucuya yapılan iletişimdir. Örneğimizde PC-1, Sunucu-1'e bir web oturumu
+
+01:08.250 --> 01:15.780
+açarsa ve PC-2, Sunucu-2'ye bir FTP oturumu açarsa, anahtarlarımızdan geçen
+
+01:15.780 --> 01:18.270
+iki akışımız olur.
+
+01:18.690 --> 01:26.220
+Ve etherchannel ile, tek bir akış tek bir port kanal arayüzüne yük dengelenir.
+
+01:26.580 --> 01:33.600
+Örneğin, PC-1'den Sunucu-1'e giden akıştaki tüm paketler her zaman gi0/1 arabirimi üzerinden gider.
+
+01:33.600 --> 01:41.340
+PC-2'den Server-2'ye giden tüm paketler ve akış her zaman gi0/2 arayüzü üzerinden gider.
+
+01:42.390 --> 01:48.600
+Buna bir animasyonla bakacak olursak, PC-1'den Sunucu-1'e giden ilk paket ve akış,
+
+01:49.020 --> 01:50.970
+ilk anahtara çarpar.
+
+01:51.150 --> 01:56.640
+Anahtar, hangi arayüz üzerinden yük dengelemesi yapacağına karar verir.
+
+01:56.820 --> 02:01.740
+Örneğimizde gi0/1'i seçer ve bu sunucuya gider.
+
+02:02.040 --> 02:06.690
+Akıştaki bir sonraki paket de aynı arayüze gidecektir.
+
+02:06.690 --> 02:12.780
+Yani anahtara geliyor, yük dengelemesini yine aynı arayüze yapıyor ve sonra sunucuya gidiyor.
+
+02:13.730 --> 02:21.830
+PC-2'den Sunucu-2'ye giden ve anahtara gelen ikinci akışta, anahtar bu algoritmayı kullanarak hangi
+
+02:21.830 --> 02:27.520
+arayüz üzerinde yük dengelemesi yapacağına karar verir - örneğimizde
+
+02:27.650 --> 02:33.020
+gi0/2 ve sunucuya gider. Bu akıştan ikinci, üçüncü, dördüncü ve benzeri paketler
+
+02:33.020 --> 02:37.130
+geldiğinde, hepsi aynı arayüz üzerinde yük dengelemesine tabi tutulacaktır.
+
+02:38.360 --> 02:44.570
+Aynı akıştan gelen paketler her zaman aynı arayüz üzerinde yük dengelemesine tabi tutulur. Port kanalındaki tüm arayüzler arasında
+
+02:44.570 --> 02:51.230
+yuvarlak robin yük dengelemesi yapılmaz. Örneğin, gi0/1 arayüzünde PC-1'den
+
+02:51.230 --> 02:57.410
+Sunucu-1'e giden ilk paketi ve ardından aynı akıştaki ikinci paketi
+
+02:57.410 --> 03:00.620
+gi0/2'ye yük dengelemiyoruz.
+
+03:01.010 --> 03:07.990
+Bunun nedeni, round-robin yük dengelemenin paketlerin hedefe sırasız ulaşmasına neden olabilmesi
+
+03:08.000 --> 03:11.390
+ve bunun da bazı uygulamaları bozabilmesidir.
+
+03:11.390 --> 03:13.340
+Bu yüzden bunun olmamasını sağlar.
+
+03:13.520 --> 03:19.700
+Aynı akıştan gelen paketleri her zaman aynı arayüze yükleriz, böylece her zaman sırayla ulaşırlar.
+
+03:21.030 --> 03:26.670
+Yani bu gerçekleşmez, akıştaki ilk paketin gi0/1 arayüzüne gittiğini görürsünüz, aynı
+
+03:26.940 --> 03:31.190
+akıştaki ikinci paket gi0/2 üzerinden gider, bunu yapmayız.
+
+03:32.850 --> 03:39.240
+Bu şekilde çalıştığından, tek bir akış her zaman aynı arayüz üzerinde yük dengelemesi aldığından, herhangi
+
+03:39.690 --> 03:46.320
+bir tek akış maksimum olarak bağlantı noktası kanalındaki tek bir bağlantının bant genişliğini alır.
+
+03:46.770 --> 03:52.980
+Bu, anahtarlarımız arasında 1Gbps bağlantılar kullandığımız örneğimizde akış başına maksimum 1Gbps bant genişliği
+
+03:52.980 --> 03:54.090
+anlamına gelir.
+
+03:54.450 --> 03:59.610
+Ancak mevcut tüm akışlarda 4Gbps'lik bir toplam bant genişliği vardır.
+
+04:00.540 --> 04:04.910
+Yani bir liman kanalını çok şeritli bir otoyol olarak düşünebilirsiniz.
+
+04:05.250 --> 04:11.700
+Arabalar her zaman kendi şeritlerinde ve tek bir şeritte kalırlar, ancak birden fazla şerit olduğu için
+
+04:11.700 --> 04:14.130
+genel trafik oraya daha hızlı ulaşır.
+
+04:14.310 --> 04:20.220
+Açıkçası garip bir örnek, eğer dört yerine sadece bir yukarı bağlantımız olsaydı, anahtarlar arasında çok fazla toplam bant
+
+04:20.220 --> 04:23.190
+genişliğine sahip olmazdık. Etherchannel, yük dengelemenin
+
+04:23.190 --> 04:29.620
+yanı sıra yedeklilik de sağlar. Bir bağlantı arızalanırsa, akışlar kalan bağlantılara
+
+04:29.630 --> 04:31.700
+yük dengelemesi yapılacaktır.
+
+04:31.920 --> 04:35.310
+Tamam, yük dengeleme ve yedeklilik bu şekilde çalışır.
+
+04:35.660 --> 04:39.150
+Daha fazla etherchannel için bir sonraki derste görüşmek üzere.

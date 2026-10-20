@@ -1,0 +1,412 @@
+WEBVTT
+
+00:06.230 --> 00:15.470
+Bu bölümde, bir laboratuvar demosu ile port kanallarını, etherchannel'ı nasıl yapılandıracağınızı göreceksiniz, bu yüzden spanning-tree
+
+00:15.470 --> 00:20.830
+bölümünde kullandığım laboratuvar topolojisinin aynısını kullanıyorum.
+
+00:21.110 --> 00:28.070
+CD1 ve CD2 olmak üzere iki çekirdek dağıtım katmanı anahtarımız ve Access3 ve Access4 olmak
+
+00:28.070 --> 00:32.210
+üzere birkaç erişim katmanı anahtarımız var.
+
+00:32.510 --> 00:37.250
+VLAN'ları ve trunk'ları zaten kurdum.
+
+00:37.520 --> 00:48.380
+CD1'i spanning-tree kök köprüsü birincil ve CD2'yi spanning-tree kök köprüsü ikincil olarak yapılandırdım.
+
+00:48.740 --> 00:57.590
+Buradaki şemaya bakarsanız, hem Acc3 hem de erişim katmanı anahtarı 4'te dört yukarı bağlantı olduğunu görebilirsiniz, ancak
+
+00:57.590 --> 01:07.370
+aslında aktif olan ve trafiği ileten yalnızca bir tanesi vardır.
+
+01:07.370 --> 01:07.370
+Her
+
+01:07.400 --> 01:14.210
+ikisinde de, CD1 kök köprü olduğu için CD1'e bakan bir arayüzdür.
+
+01:14.390 --> 01:21.050
+Yani orada dört bağlantım var, ancak yalnızca birinden bant genişliğini kullanabiliyorum, bu yüzden bunu geliştirmek
+
+01:21.050 --> 01:21.710
+istiyorum.
+
+01:22.340 --> 01:27.110
+Bu yüzden Access3'ten CD1'e giden bir port kanalı oluşturacağım.
+
+01:27.380 --> 01:34.460
+Ayrıca Access3'ten CD2'ye giden farklı bir port kanalı oluşturacağım.
+
+01:34.460 --> 01:37.700
+Farklı bir anahtara gidiyor, bu yüzden farklı bir port kanalı olacak.
+
+01:37.940 --> 01:45.890
+Ve sonra Access4'ten port kanallarını yapılandıracağım - biri CD1'e diğeri CD2'ye gidecek.
+
+01:46.280 --> 01:55.120
+İlk port kanalını Access3'ten CD1'e yapacağım ve bunun için LACP kullanacağım.
+
+01:55.370 --> 02:01.520
+Yani Access3 fa0/23 ve 24 üzerindeki arayüzlerde olacak.
+
+02:01.670 --> 02:05.350
+CD1 tarafında da durum aynı.
+
+02:05.360 --> 02:09.560
+Bu yüzden onları aynı eşleşen yapılandırmayla yapılandıracağım.
+
+02:09.860 --> 02:17.270
+Daha sonra Access3'ten CD2'ye port kanalı yapacağım ve bunun için PAgP kullanacağım.
+
+02:17.510 --> 02:19.300
+Şimdi, gerçek dünyada, umarım
+
+02:19.310 --> 02:22.370
+bunun çılgınca bir şey olacağı açıktır.
+
+02:22.550 --> 02:29.540
+Port kanallarınız için her zaman tek bir protokolü standartlaştırırsınız ve LACP kullanmanız önerilir.
+
+02:29.810 --> 02:33.440
+Bir taraf LACP'yi desteklemiyorsa statik kullanabilirsiniz.
+
+02:33.740 --> 02:34.880
+Ancak laboratuvar demosu
+
+02:34.900 --> 02:39.380
+için size tüm farklı protokolleri göstermek istiyorum, bu yüzden ilkini LACP ile yapacağım.
+
+02:39.530 --> 02:44.030
+İkincisini PAgP ile yapacağım.
+
+02:44.030 --> 02:49.340
+Üçüncü olarak, port kanalı Access4'ten aynı taraftaki CD2'ye gidecektir.
+
+02:49.340 --> 02:55.730
+Topolojinin sağ tarafında, bunun için statik kullanacağım, böylece üçünü de göreceksiniz ve bir
+
+02:55.730 --> 02:59.660
+tane kaldı, bu yüzden bunun için yine LACP kullanacağım.
+
+03:00.020 --> 03:02.570
+Tamam, yapılandıracağım şey bu.
+
+03:02.600 --> 03:07.070
+Şimdi Access3 anahtarımızla başlayalım.
+
+03:07.430 --> 03:10.100
+İlk port kanalını ben yapacağım.
+
+03:10.100 --> 03:18.470
+Yani fa0/23 ve 24 arayüzlerinde CD1'e kadar LACP olacak.
+
+03:18.830 --> 03:26.240
+Eğer burada bulabilirsem Access3 anahtarına geçeceğim. İşte burada.
+
+03:27.180 --> 03:33.620
+Ve aslında, size ilk olarak spanning-tree'yi de göstermek istiyorum. Böylece bunu kontrol edebiliriz - show spanning-tree.
+
+03:33.620 --> 03:47.450
+Ve bilgisayarlarım VLAN 10'da. show spanning-tree VLAN10 ve fa0/1 üzerinde yönlendirme yaptığımı görebiliyorum.
+
+03:47.810 --> 03:56.630
+Bu aslında bilgisayara doğru bakıyor, bu yüzden çalıştırmayı gösterip yapılandırmayı ve fa0/1 arayüzünü kontrol ediyorum, hepsi
+
+03:56.990 --> 03:58.390
+iyi görünüyor.
+
+03:58.640 --> 04:01.000
+Yani VLAN 10'da.
+
+04:01.010 --> 04:08.840
+switchport modu erişimi PC'ye doğru bakar. Yani yukarı bağlantılardan önce fa0/21 ila 24 ve şimdi bunlardan
+
+04:08.840 --> 04:10.490
+yalnızca biri iletiliyor.
+
+04:10.490 --> 04:16.850
+Bu, kök köprüm olan CD1'e bağlı bir bağlantı noktası.
+
+04:17.240 --> 04:19.640
+Bunu bir etherchannel'a koyalım.
+
+04:19.640 --> 04:26.360
+Bu yüzden global yapılandırmaya gideceğim, arayüz aralığı fa0/23-24.
+
+04:26.540 --> 04:33.890
+CD1'e bağlı olan şeydir ve bir port kanalı sağlamak için kanal grubu 1 modudur,
+
+04:33.920 --> 04:43.430
+o zaman LACP olmasını istiyorum, bu yüzden modu aktif yapacağım ve bunu yapar yapmaz benim için
+
+04:43.430 --> 04:48.050
+bir port kanalı arayüzü oluşturacak.
+
+04:48.050 --> 04:52.400
+Eğer show ip interface brief yaparsam, en üstte bu yeni portchannel
+
+04:53.910 --> 04:59.400
+arayüzünü görebiliyorum ve portchannel üzerinde arayüz seviyesi ayarlarımı
+
+04:59.400 --> 05:03.030
+yapılandırmam gerekiyor.
+
+05:03.030 --> 05:12.120
+Bunu yapmak için arayüz bağlantı noktalarına gidiyorum. Po'yu steno olarak kullanabilirim. portchannel 1 için po1 arayüzü.
+
+05:12.540 --> 05:21.690
+Ve sonra burada switchport mode trunk demek istiyorum çünkü başka bir switch'e bağlanıyor.
+
+05:21.690 --> 05:28.590
+Ve switchport trunk native vlan 199 kullandığımız yerel VLAN'dır.
+
+05:28.600 --> 05:34.540
+Ayrıca izin verilen VLAN'ları burada da normal olarak ve bir üretim ortamında ayarlardım.
+
+05:34.590 --> 05:41.670
+Tamam, bu kadar. Access3 tarafında yapıldı. Bunu bağlantıların diğer tarafında,
+
+05:41.670 --> 05:46.110
+yani CD1'de yapalım. Aynı konfigürasyonu buraya da koyacağım.
+
+05:46.410 --> 05:53.070
+Bu yüzden t'yi yapılandırın ve arayüz aralığı fa0/23-24 olsun.
+
+05:53.410 --> 05:57.090
+Artık her iki taraftaki arayüzlerin aynı
+
+05:57.090 --> 06:04.980
+numaralı arayüz olması gerekmiyor. Bu tarafta fa0/9 ve 10 arayüzü ve diğer tarafta 23 ve 24 arayüzü olabilir.
+
+06:04.980 --> 06:06.600
+Ve bu gayet iyi çalışacaktır.
+
+06:06.930 --> 06:10.350
+Ancak mümkünse en iyisi ve en kolayı, her iki tarafta
+
+06:10.650 --> 06:13.740
+da aynı arayüz numarasını kullanmaktır.
+
+06:13.830 --> 06:18.180
+Bu sadece insan yöneticiler olarak neler olup bittiğini anlamamızı kolaylaştırıyor.
+
+06:18.660 --> 06:25.740
+Tamam, arayüzleri ve ardından kanal grubu 1 modunu etkin olarak belirledim.
+
+06:25.740 --> 06:31.880
+Burada pasif diyebilirdim, ancak en iyi uygulama her iki tarafta da aktif yapmaktır ve böylece onları karıştıramazsınız.
+
+06:32.250 --> 06:34.860
+Port kanalının geldiğini görüyorum.
+
+06:34.860 --> 06:38.640
+Henüz yapılandırmadığım için yerel vlan uyuşmazlığı alıyorum.
+
+06:38.910 --> 06:40.240
+Bunu şimdi yapalım.
+
+06:40.260 --> 06:51.030
+Bu yüzden portchannel 1 arayüzüne, switchport mode trunk ve switchport trunk native vlan 199'a gideceğim ve şimdi her iki tarafta da aynı native
+
+06:51.030 --> 06:52.290
+VLAN'a sahip olduğum
+
+06:52.710 --> 06:58.380
+için engellemeyi kaldırdığını görüyorum, bu yüzden iyi görünüyor.
+
+06:58.800 --> 07:04.320
+Şimdi yapılacak bir sonraki şey port kanalının açılıp açılmadığını kontrol etmek,
+
+07:04.710 --> 07:06.930
+tamam, bu yüzden bir show etherchannel
+
+07:08.280 --> 07:14.880
+summary yapacağım ve hepsi iyi görünüyor, görmek istediğim buydu, port kanalı 1 için SU, bu bir katman
+
+07:14.880 --> 07:17.970
+2 arayüzü olduğu anlamına geliyor ve U kullanımda
+
+07:17.970 --> 07:25.560
+anlamına geliyor, bu da temelde açık olduğu ve fa0/23 ve 24 portları olduğu anlamına geliyor.
+
+07:25.950 --> 07:28.920
+Ve ikisi de port kanalında. Yani her şey iyi görünüyor.
+
+07:29.160 --> 07:35.310
+İşte benim LACP yapılandırmam buydu.
+
+07:35.910 --> 07:44.040
+Ardından, Access3'ten CD2 anahtarına kadar PAgP yapalım.
+
+07:46.520 --> 07:52.880
+Şimdi komut satırıma geçin ve bu arayüz aralığı fa0/21 olacak - 22 sağ taraftaki
+
+07:52.880 --> 08:01.000
+CD2 anahtarına bağlı olan arayüzler ve kanal grubu diyeceğim Şimdi zaten 1 kullandım, bu
+
+08:01.490 --> 08:10.460
+yüzden bir sonraki için 2 kullanacağım ve PAgP yapmak için 'mod arzu edilir' diyeceğim.
+
+08:11.720 --> 08:19.730
+Port kanalının oluşturulduğunu görüyorum ve ardından port kanalı 2 arayüzüne geçiyorum. Şimdi, switchport mode trunk ve switchport trunk native
+
+08:19.780 --> 08:23.650
+vlan 199 CD2 üzerinde olan diğer taraftaki yürüyüş
+
+08:25.030 --> 08:28.390
+ayarlarını birlikte yapılandırdığımdan emin
+
+08:29.250 --> 08:35.940
+olmam gerekiyor, bu yüzden bir yapılandırma t ve arayüz fa0/21 - 22, umarım şimdi her iki tarafta
+
+08:36.780 --> 08:48.420
+da aynı arayüzleri kullanmanın faydasını görebilirsiniz.
+
+08:48.420 --> 08:48.420
+Bunu gerçekten düşünmüyorum.
+
+08:48.690 --> 08:54.780
+Her iki tarafta da aynı olduğunu biliyorum ve sadece aralık anahtar kelimesini oraya koymayı unuttum.
+
+08:54.780 --> 08:58.680
+Bu yüzden bir aralık belirliyorum ve her iki tarafta da aynısını kullanıyorum.
+
+08:58.680 --> 08:59.760
+Yani güzel ve mantıklı.
+
+08:59.760 --> 09:04.380
+Kafamın karışmasını ve bir şeyleri karıştırmamı engelliyor. Ve kanal grubu, burada henüz
+
+09:04.900 --> 09:10.980
+bir port kanalı oluşturmadım, ancak diğer tarafta 2 kullandığım için, işleri
+
+09:10.980 --> 09:18.760
+mantıklı tutmak için bu tarafta da 2 kullanacağım, bu nedenle kanal grubu 2 modu arzu edilir.
+
+09:19.290 --> 09:28.440
+Bu da bir PAgP, o zaman bu sefer portchannel 2 arayüzüne gitmem gerekiyor ve switchport
+
+09:28.440 --> 09:34.110
+mode trunk, switchport trunk native vlan 199 Tamam,
+
+09:35.360 --> 09:41.630
+bu benim ilkim.
+
+09:41.630 --> 09:41.630
+İşin bitti. Tamam olup olmadığını kontrol edelim.
+
+09:42.450 --> 09:43.370
+Yani etherchannel
+
+09:43.410 --> 09:45.750
+özetini gösterin ve bu da
+
+09:46.680 --> 09:48.220
+hazır.
+
+09:48.240 --> 09:51.240
+Hepsi de iyi. İlk ikisi tamamlandı.
+
+09:51.690 --> 09:55.980
+Sırada Access4 var.
+
+09:56.950 --> 10:01.930
+Ve topolojinin aynı sağ tarafına giden port kanallarını yapılandıracağım.
+
+10:01.960 --> 10:10.390
+Bu yüzden global yapılandırmaya gidiyorum ve sağ tarafta arayüz aralığı
+
+10:10.390 --> 10:19.330
+fa0/23 - 24 ve kanal grubu 1 modu Bu sefer bunu statik yapacağım.
+
+10:19.330 --> 10:20.620
+Yani devam edecek.
+
+10:21.650 --> 10:29.690
+Ve bu benim statik yapılandırmam, şimdi interface portchannel 1, switchport mode trunk ve
+
+10:29.690 --> 10:34.100
+switchport trunk native vlan 199'a gidebilirim.
+
+10:34.460 --> 10:44.510
+CD2'de bulunan diğer tarafı buna ve bağlantıya yapılandırmam gerekiyor, bu yüzden global yapılandırmaya gideceğim.
+
+10:44.910 --> 10:57.440
+Bu, fa0/23-24 arayüz aralığı ve ardından kanal-grup 1 modu açık.
+
+10:58.870 --> 11:07.900
+Ve burada fa0/23'ün DTP modu nedeniyle uyumlu olmadığına dair bir hata mesajı aldığımı görüyorum.
+
+11:08.350 --> 11:13.660
+Arayüzüme bakarsam, bir show run yapacağım ve fa0/23 ve fa0/24
+
+11:14.230 --> 11:16.410
+arayüzlerinde ayarların
+
+11:16.420 --> 11:18.430
+orada ve diğer tarafta
+
+11:18.780 --> 11:22.670
+da aynı olduğunu görebiliyorum.
+
+11:22.960 --> 11:28.210
+Yani bu sadece paket izleyicideki bir aksaklık.
+
+11:28.450 --> 11:32.410
+Eterkanal zaten bir saniye içinde açılacaktır.
+
+11:33.010 --> 11:42.280
+O halde konfigürasyonları tamamlayalım. Config t ve ardından interface portchannel
+
+11:42.280 --> 11:51.570
+1, switchport mode trunk ve switchport trunk native vlan 199'a gideceğim.
+
+11:51.580 --> 11:53.630
+Ve bu hata mesajını ortadan kaldıracaktır.
+
+11:53.680 --> 11:54.480
+Bu iyi görünüyor.
+
+11:55.360 --> 12:02.650
+Ve sonra bir gösteri etherchannel özeti yaparsam ve evet, orada ortaya çıktığını görebiliyorum.
+
+12:02.830 --> 12:09.280
+Bazen bunu paket izleyicide ilk yapılandırdığınızda, statik yaptığınızda size bu hata mesajını verebilir,
+
+12:09.280 --> 12:12.390
+ancak yine de yapılandırmayı tamamlayın.
+
+12:12.610 --> 12:16.540
+Bir dakika beklemeniz gerekebilir, ardından port kanalı gelecektir.
+
+12:16.810 --> 12:26.020
+İşte daha önce oluşturduğum port kanalı, PAgP olan, Access3'e gidiyor ve bu da Access4'e giden az önce
+
+12:26.140 --> 12:31.990
+yapılandırdığım statik kanal. Protokolde nerede bir çizgi gösterdiğini görebilirsiniz.
+
+12:31.990 --> 12:34.180
+Bu, bunun statik olduğu anlamına gelir.
+
+12:34.630 --> 12:38.440
+Tamam, böylece ilk üç port kanalım yapılandırılmış oldu.
+
+12:38.530 --> 12:41.650
+Çalışır durumda olduklarını doğruladım.
+
+12:41.830 --> 12:46.620
+Dördüncüyü yapacağım, o da başka bir LACP olacak.
+
+12:46.660 --> 12:50.080
+Bunu yaparken beni görmenize gerek yok çünkü zaten yapılandırdığımı gördünüz.
+
+12:50.440 --> 12:57.940
+Bunun spanning-tree'yi nasıl etkileyeceğine bakacağımız bir sonraki derste görüşmek
+
+12:57.940 --> 12:58.750
+üzere.

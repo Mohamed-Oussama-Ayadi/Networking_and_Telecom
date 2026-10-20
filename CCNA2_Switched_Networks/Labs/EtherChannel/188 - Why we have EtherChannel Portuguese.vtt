@@ -1,0 +1,283 @@
+WEBVTT
+
+00:06.460 --> 00:15.670
+Nesta aula, você aprenderá por que temos etherchannel e começaremos fazendo uma revisão muito rápida
+
+00:15.670 --> 00:20.140
+do modelo de design do campus novamente.
+
+00:20.470 --> 00:25.420
+Portanto, nosso host final, como nossos PCs, são plugados em
+
+00:25.440 --> 00:32.770
+nossos switches da camada de acesso. Nossos switches da camada de acesso fazem o uplink para os switches da camada de distribuição
+
+00:32.770 --> 00:36.040
+e, em seguida, fazem o uplink para os switches da camada de núcleo.
+
+00:36.850 --> 00:42.390
+Os hosts finais não enviam tráfego constantemente para a rede.
+
+00:42.610 --> 00:46.030
+Na maioria das vezes, a conexão de rede fica ociosa.
+
+00:46.270 --> 00:51.970
+Se você pensar no que está fazendo quando está sentado em um PC, se estiver trabalhando em
+
+00:51.970 --> 00:58.000
+um documento wWrd ou uma planilha do Excel ou algo parecido, não há tráfego realmente passando pela rede.
+
+00:58.360 --> 01:05.440
+Por causa disso, você pode se conectar em menos uplinks para cada camada superior do que o número de hosts que você tem
+
+01:05.440 --> 01:11.830
+e ainda manter um desempenho de rede aceitável, porque você não precisa oferecer suporte a toda a largura de banda
+
+01:11.830 --> 01:16.660
+possível que seus hosts têm, porque não somos todos vai usá-lo ao mesmo tempo.
+
+01:17.390 --> 01:24.700
+Mas se eu voltar um slide, você verá que aqui temos nossos dois edifícios, temos quatro switches de camada de
+
+01:24.700 --> 01:32.590
+acesso em cada edifício para o exemplo, e digamos que eles sejam switches de 48 portas e eu tenho 40 hosts finais
+
+01:32.590 --> 01:34.060
+conectados a cada switch.
+
+01:34.270 --> 01:43.590
+Então isso seria 4x40. 160 hosts no Edifício Principal, 160 hosts no Edifício 1 também.
+
+01:43.810 --> 01:51.130
+Eles estão conectando-se a um par de interruptores de distribuição em ambos os edifícios.
+
+01:51.430 --> 01:58.930
+Portanto, tenho 160 dispositivos em ambos os edifícios, mas não tenho 160 uplinks indo da camada de acesso para a
+
+01:58.930 --> 02:00.280
+camada de distribuição.
+
+02:00.520 --> 02:06.370
+Além disso, não tenho essa quantidade de uplinks indo da camada de distribuição até a camada central.
+
+02:06.520 --> 02:09.640
+Não preciso colocar tantos porque sei que
+
+02:09.640 --> 02:12.910
+meus PCs não vão transmitir ao mesmo tempo.
+
+02:12.910 --> 02:14.860
+Na verdade, eles não precisam de tanta largura de banda.
+
+02:17.000 --> 02:25.050
+Uma recomendação prática inicial para quanto excesso de assinaturas você deve ter na LAN do seu campus é 20:
+
+02:25.050 --> 02:34.010
+1 da camada de acesso para a camada de distribuição. Ou seja, se você tivesse 20 PCs conectados com placas de
+
+02:34.010 --> 02:41.330
+rede de 1 Gbps na camada de acesso, precisaria de um único uplink de 1 G para
+
+02:41.330 --> 02:45.200
+a camada de distribuição para suportar seu tráfego.
+
+02:45.680 --> 02:50.840
+A recomendação é 4: 1 para a distribuição para links da camada central.
+
+02:51.140 --> 02:58.790
+E tenha em mente que esses são valores gerais. Você deve analisar o tráfego em sua rede para verificar
+
+02:58.790 --> 03:04.940
+se seus links não estão congestionados porque isso depende de padrões de tráfego específicos em sua rede,
+
+03:05.120 --> 03:07.700
+quais aplicativos você está executando, etc. o que será uma boa proporção de excesso de assinaturas para você.
+
+03:07.880 --> 03:11.240
+Estes são bons valores aproximados.
+
+03:11.570 --> 03:13.550
+Os switches geralmente têm portas
+
+03:15.650 --> 03:23.480
+de uplink dedicadas que possuem largura de banda maior do que a largura de banda em suas portas de acesso. Por exemplo, um switch de 1 Gbps de 48 portas com um par de uplinks de 10 Gbps
+
+03:23.480 --> 03:31.760
+e isso pode ajudar na proporção da assinatura.
+
+03:31.760 --> 03:34.210
+Por exemplo, se você tiver clientes
+
+03:34.640 --> 03:40.790
+de 48x1 Gbps conectados a esse switch, a largura de banda total possível seria de 48 Gbps.
+
+03:40.790 --> 03:44.170
+Você tem uplinks de 2x10 Gbps, cerca
+
+03:44.570 --> 03:51.770
+de 20 Gbps em seus links de uplink, o que dá uma taxa de assinatura de 2. 4: 1.
+
+03:51.770 --> 03:54.950
+Se não tivéssemos esses uplinks
+
+03:55.370 --> 04:01.370
+de 10 Gbps, se os uplinks também fossem de 1 Gbps, a proporção de assinatura seria de 24: 1.
+
+04:01.370 --> 04:03.190
+Obviamente não tão bom.
+
+04:03.200 --> 04:04.880
+Normalmente, quando você tem
+
+04:05.360 --> 04:11.750
+switches com uplinks de largura de banda maiores, o excesso de assinatura não será um problema.
+
+04:11.750 --> 04:13.550
+No entanto, temos um problema quando queremos conectar 2 uplinks e esse problema é a árvore estendida. Porque spanning tree,
+
+04:13.940 --> 04:24.530
+ele fornece redundância, mas não fornece balanceamento de carga. Spanning-tree sempre seleciona o melhor caminho
+
+04:24.560 --> 04:32.660
+para evitar loops.
+
+04:32.660 --> 04:36.290
+Portanto, se um switch tem vários caminhos de custo igual, eles obviamente nunca mudam para a bridge raiz.
+
+04:36.440 --> 04:42.200
+Ele selecionará uma dessas portas, aquela que possui o menor ID de porta.
+
+04:42.470 --> 04:46.970
+Não vai haver equilíbrio de carga em todos eles.
+
+04:46.970 --> 04:49.610
+Portanto, em nosso exemplo aqui com o diagrama, temos
+
+04:49.950 --> 04:56.480
+uplinks de nosso switch Access1 da camada de acesso indo para o switch Dist1 e temos duas interfaces Ethernet de 10 Gbps, 0/1 e 0/2.
+
+04:56.480 --> 05:03.560
+0/1 será selecionado como a porta raiz, pois obteve o ID de porta mais baixo e T0 / 2 está bloqueando.
+
+05:04.010 --> 05:12.820
+Portanto, embora tenhamos conectado fisicamente dois uplinks Ethernet de 10 Gbps, obtemos
+
+05:13.040 --> 05:20.420
+apenas 10 Gbps de largura de banda de uplink.
+
+05:20.420 --> 05:21.740
+Não os 20 Gbps, porque o spanning-tree irá bloquear um desses links.
+
+05:21.980 --> 05:26.480
+Então esse é o problema, não temos toda a nossa largura de banda de uplink fisicamente conectada disponível.
+
+05:28.470 --> 05:34.800
+A solução é etherchannel. Etherchannel agrupa várias interfaces físicas em
+
+05:35.010 --> 05:44.100
+uma única interface lógica. E o spanning-tree então vê aquele etherchannel como uma única interface, então ele não
+
+05:44.100 --> 05:46.080
+bloqueia nenhuma porta.
+
+05:46.080 --> 05:51.700
+Agora temos o valor total de 20 Gbps de largura de banda.
+
+05:51.990 --> 05:55.770
+Então, se você olhar para trás no slide anterior, quando
+
+05:56.190 --> 06:02.340
+não estávamos usando etherchannel, o spanning-tree vê isso como um loop possível porque o tráfego poderia subir
+
+06:02.340 --> 06:08.870
+T0 / 1 e depois voltar para T0 / 2, e então voltar para T0 / 1 novamente.
+
+06:08.910 --> 06:11.460
+Temos um loop de potencial aí quando não temos etherchannel. Mas quando configuramos o etherchannel, para spanning-tree, ele conta
+
+06:11.490 --> 06:17.310
+como um único link, como uma única interface em ambos os lados. Portanto, a árvore geradora
+
+06:17.310 --> 06:24.860
+não o vê como um loop potencial.
+
+06:24.870 --> 06:27.180
+E agora temos o valor total de 20 Gbps de largura de banda.
+
+06:27.400 --> 06:30.990
+O tráfego terá balanceamento de carga em todos os links que estão no etherchannel.
+
+06:32.190 --> 06:37.000
+Portanto, o tráfego de meus PCs indo para o upstream terá balanceamento de carga em todos os links. O mesmo para o tráfego voltando na outra direção, ele
+
+06:37.170 --> 06:42.660
+não apenas fornece balanceamento
+
+06:42.660 --> 06:45.720
+de carga, mas também fornece redundância. Se uma interface cair, seu
+
+06:45.930 --> 06:52.350
+tráfego falhará para os links restantes.
+
+06:52.350 --> 06:54.420
+Então esse era o etherchannel em nossos interruptores.
+
+06:55.590 --> 06:59.190
+Podemos fazer basicamente a mesma coisa em nossos servidores com o NIC Teaming.
+
+06:59.430 --> 07:05.460
+Voltando ao slide, etherchannel é onde podemos agrupar várias
+
+07:05.460 --> 07:12.900
+portas físicas em uma única porta lógica em nossos links entre switches. Em nossos servidores, com NIC Teaming, podemos agrupar várias placas de rede físicas em
+
+07:12.900 --> 07:17.550
+uma única interface lógica. O benefício que obtemos com
+
+07:17.580 --> 07:25.200
+isso é o balanceamento de carga e a redundância novamente.
+
+07:25.200 --> 07:29.820
+E como o sistema operacional é visto como uma única interface, temos
+
+07:30.030 --> 07:36.000
+apenas um endereço IP nele, o que torna as coisas muito mais convenientes e simples de configurar.
+
+07:36.000 --> 07:39.650
+Estou colocando essas informações aqui também porque queria explicar
+
+07:39.960 --> 07:46.620
+a terminologia para você e informar que existem vários nomes diferentes para o que é basicamente a mesma coisa.
+
+07:46.620 --> 07:51.540
+Etherchannel em nossos switches também é conhecido como canal de porta.
+
+07:52.230 --> 07:56.760
+Na verdade, quando você me ouvir falando sobre isso durante a
+
+07:56.910 --> 08:02.250
+seção, provavelmente me ouvirá chamá-lo de canal de porta, mais parecido com um etherchannel.
+
+08:02.250 --> 08:03.930
+Pessoas da indústria, tendemos a chamá-lo assim com mais frequência.
+
+08:04.140 --> 08:06.930
+Também pode ser conhecido como LAG, que significa agregação de links ou pacote de links.
+
+08:07.200 --> 08:12.930
+Quando agrupamos nossas interfaces físicas em nossos servidores, geralmente chamamos isso de NIC Teaming.
+
+08:13.350 --> 08:19.890
+Também pode ser chamado de ligação, balanceamento de NIC e, novamente, agregação de link.
+
+08:20.040 --> 08:25.440
+OK, é por isso que temos etherchannel.
+
+08:25.630 --> 08:29.580
+Isso nos ajuda a superar o problema com a árvore geradora.
+
+08:29.820 --> 08:32.520
+E também uma rápida visão geral da terminologia.
+
+08:32.670 --> 08:35.830
+Até a próxima palestra.

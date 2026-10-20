@@ -1,0 +1,157 @@
+WEBVTT
+
+00:06.360 --> 00:14.130
+Trong bài giảng này, bạn sẽ tìm hiểu về cách hoạt động của cân bằng tải etherchannel và tôi sẽ sử dụng sơ đồ mà bạn
+
+00:14.130 --> 00:17.970
+thấy trên trang trình bày ở đây trong suốt bài giảng này.
+
+00:18.390 --> 00:24.990
+Vì vậy, tôi có hai thiết bị chuyển mạch có bốn liên kết giữa chúng được nhóm thành một kênh etherchan và mỗi liên kết
+
+00:25.170 --> 00:31.140
+trong bốn liên kết đó là giao diện Ethernet 1Gbps. Chỉ bắt đầu với gi0 / 1
+
+00:31.140 --> 00:38.920
+ở bên trái và gi0 / 4 ở bên phải. Trong công tắc dưới cùng, tôi đã cắm
+
+00:38.940 --> 00:41.700
+một số PC ở đó.
+
+00:41.700 --> 00:43.530
+Tôi có PC-1 và PC-2.
+
+00:43.770 --> 00:45.000
+Và sau đó là nút
+
+00:45.000 --> 00:49.110
+chuyển trên cùng, tôi có một số máy chủ. Có Máy chủ-1 và Máy chủ-2.
+
+00:49.440 --> 00:57.780
+Vì vậy, trong bài giảng này, chúng ta sẽ đề cập đến cách cân bằng tải etherchannel giữa các luồng khác nhau đi qua các liên
+
+00:57.780 --> 00:59.520
+kết giữa các công tắc.
+
+00:59.730 --> 01:08.250
+Luồng là một giao tiếp từ máy khách đến máy chủ bằng một ứng dụng cụ thể. Nếu PC-1, trong ví dụ mẫu của chúng tôi, mở phiên web
+
+01:08.250 --> 01:15.780
+tới Máy chủ-1 và PC-2 mở phiên FTP tới Máy chủ-2, chúng tôi sẽ có hai luồng đi qua các thiết
+
+01:15.780 --> 01:18.270
+bị chuyển mạch của chúng tôi.
+
+01:18.690 --> 01:26.220
+Và với etherchannel, một luồng đơn được cân bằng tải trên một giao diện kênh cổng duy nhất.
+
+01:26.580 --> 01:33.600
+Ví dụ: tất cả các gói trong luồng từ PC-1 đến Server-1, luôn đi qua giao diện gi0 / 1.
+
+01:33.600 --> 01:41.340
+Tất cả các gói và luồng từ PC-2 đến Server-2 luôn đi qua giao diện gi0 / 2.
+
+01:42.390 --> 01:48.600
+Vì vậy, xem xét điều đó với một hoạt ảnh, gói đầu tiên và luồng từ PC-1 đến Server-1, nó
+
+01:49.020 --> 01:50.970
+chạm vào công tắc đầu tiên.
+
+01:51.150 --> 01:56.640
+Công tắc quyết định giao diện nào sẽ cân bằng tải.
+
+01:56.820 --> 02:01.740
+Nó chọn gi0 / 1 trong ví dụ của chúng tôi và chuyển đến máy chủ.
+
+02:02.040 --> 02:06.690
+Gói tiếp theo trong luồng cũng sẽ chuyển đến cùng một giao diện.
+
+02:06.690 --> 02:12.780
+Vì vậy, nó xuất hiện trong công tắc, nó tải cân bằng lại với cùng một giao diện và sau đó nó đi lên máy chủ.
+
+02:13.730 --> 02:21.830
+Trong luồng thứ hai, từ PC-2 đến Máy chủ-2 đi vào bộ chuyển đổi, bộ chuyển đổi sẽ sử dụng thuật toán này để quyết định
+
+02:21.830 --> 02:27.520
+giao diện nào để cân bằng tải lên - gi0 / 2 trong ví dụ của chúng
+
+02:27.650 --> 02:33.020
+tôi và nó sẽ chuyển đến máy chủ. Khi các gói thứ hai, thứ ba và thứ tư, v.v.
+
+02:33.020 --> 02:37.130
+đến từ luồng đó, tất cả chúng sẽ được cân bằng tải trên cùng một giao diện.
+
+02:38.360 --> 02:44.570
+Các gói từ cùng một luồng luôn được cân bằng tải trên cùng một giao diện. Chúng không tải cân bằng vòng tròn
+
+02:44.570 --> 02:51.230
+trên tất cả các giao diện trong kênh cổng. Ví dụ: chúng tôi không tải cân bằng gói
+
+02:51.230 --> 02:57.410
+đầu tiên từ PC-1 đến Server-1 trên giao diện gi0 / 1 và sau đó gói thứ hai
+
+02:57.410 --> 03:00.620
+trên cùng luồng đó đến gi0 / 2.
+
+03:01.010 --> 03:07.990
+Lý do cho điều đó là cân bằng tải theo vòng tròn có thể khiến các gói đến không đúng thứ tự tại điểm
+
+03:08.000 --> 03:11.390
+đến và điều đó sẽ làm hỏng một số ứng dụng.
+
+03:11.390 --> 03:13.340
+Vì vậy, nó đảm bảo rằng điều đó không xảy ra.
+
+03:13.520 --> 03:19.220
+Chúng tôi luôn tải các gói số dư từ cùng một luồng đến cùng một giao diện, vì vậy chúng sẽ luôn đến theo
+
+03:19.220 --> 03:19.700
+thứ tự.
+
+03:21.030 --> 03:26.670
+Vì vậy, điều này không xảy ra, bạn thấy gói đầu tiên trên luồng đã chuyển sang giao diện gi0 / 1,
+
+03:26.940 --> 03:31.190
+gói thứ hai trong cùng luồng qua gi0 / 2, chúng tôi không làm điều đó.
+
+03:32.850 --> 03:39.240
+Vì vậy, bởi vì cách này hoạt động, bởi vì một luồng duy nhất luôn được cân bằng tải trên cùng một giao diện,
+
+03:39.690 --> 03:46.320
+bất kỳ luồng đơn nào cũng nhận băng thông của một liên kết duy nhất trong kênh cổng làm băng thông tối đa của nó.
+
+03:46.770 --> 03:52.980
+Đó là băng thông tối đa 1Gbps cho mỗi luồng trong ví dụ của chúng tôi, trong đó chúng tôi đang sử dụng liên kết 1Gbps giữa các thiết
+
+03:52.980 --> 03:54.090
+bị chuyển mạch của mình.
+
+03:54.450 --> 03:59.610
+Nhưng có một băng thông tổng hợp là 4Gbps trên tất cả các luồng có sẵn.
+
+04:00.540 --> 04:04.910
+Vì vậy, bạn có thể nghĩ về một kênh cảng như một đường ô tô nhiều làn.
+
+04:05.250 --> 04:11.700
+Các ô tô luôn đi trên làn đường riêng và một làn đường duy nhất, nhưng vì có nhiều làn đường nên
+
+04:11.700 --> 04:14.130
+giao thông tổng thể đến đó nhanh hơn.
+
+04:14.310 --> 04:20.220
+Rõ ràng là một ví dụ kỳ lạ, nếu chúng ta chỉ có một đường lên thay vì 4 đường lên, chúng ta không có nhiều băng thông tổng thể khả
+
+04:20.220 --> 04:23.190
+dụng giữa các thiết bị chuyển mạch. Etherchannel cung cấp
+
+04:23.190 --> 04:29.620
+khả năng dự phòng cũng như cân bằng tải. Nếu một liên kết không thành công, các luồng sẽ được cân bằng
+
+04:29.630 --> 04:31.700
+tải cho các liên kết còn lại.
+
+04:31.920 --> 04:35.310
+OK, vậy đó là cách cân bằng tải và dự phòng hoạt động.
+
+04:35.660 --> 04:39.150
+Hẹn gặp lại các bạn trong bài giảng tiếp theo để biết thêm về etherchannel.

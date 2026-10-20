@@ -1,0 +1,37 @@
+WEBVTT
+
+00:06.260 --> 00:15.320
+Dans cette section, vous découvrirez l'etherchannel, qui peut être utilisé pour regrouper plusieurs interfaces physiques
+
+00:15.560 --> 00:18.960
+en une seule interface logique.
+
+00:19.310 --> 00:24.460
+Je vais expliquer pourquoi nous avons besoin d'etherchannel et d'alerte spoiler,
+
+00:24.470 --> 00:27.170
+c'est à cause de spanning-tree.
+
+00:27.660 --> 00:34.990
+Je couvrirai également le fonctionnement de l'équilibrage de charge et de la redondance Etherchannel.
+
+00:35.390 --> 00:43.310
+Vous apprendrez quels sont les différents protocoles disponibles pour etherchannel, comment les configurer et
+
+00:43.310 --> 00:45.200
+comment les vérifier.
+
+00:45.860 --> 00:53.510
+Et puis enfin, nous parlerons d'un autre problème où si vos commutateurs se connectent
+
+00:53.510 --> 01:03.170
+à deux commutateurs différents pour la redondance, même si vous utilisez etherchannel, spanning-tree va réduire de moitié votre bande
+
+01:03.170 --> 01:04.310
+passante disponible.
+
+01:04.690 --> 01:13.880
+Cisco a cependant quelques technologies qui éviteront cela - StackWise, VSS et vPC.
+
+01:13.880 --> 01:21.440
+Nous couvrirons un aperçu de ces options etherchannel multi-châssis dans la dernière conférence.

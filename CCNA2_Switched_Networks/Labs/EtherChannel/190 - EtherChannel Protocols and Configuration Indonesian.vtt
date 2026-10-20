@@ -1,0 +1,376 @@
+WEBVTT
+
+00:06.610 --> 00:15.300
+Dalam kuliah ini, Anda akan belajar tentang protokol etherchannel yang berbeda dan cara mengonfigurasi dan memverifikasinya.
+
+00:15.760 --> 00:23.350
+Jadi ada tiga protokol yang tersedia. Itu LACP dan PaGP dan statis.
+
+00:23.350 --> 00:28.680
+Jadi yang pertama adalah LACP, protokol kontrol agregasi tautan.
+
+00:29.110 --> 00:31.390
+Ini adalah standar terbuka.
+
+00:31.390 --> 00:35.620
+Jadi itu didukung semua vendor switch. Dengan LACP, sakelar di
+
+00:35.620 --> 00:43.000
+kedua sisi menegosiasikan pembuatan dan pemeliharaan saluran port. Dan ketiga metode yang tersedia, ini adalah yang
+
+00:43.000 --> 00:45.530
+paling disukai untuk digunakan.
+
+00:46.540 --> 00:53.720
+Berikutnya adalah PaGP, yang merupakan protokol agregasi port milik Cisco.
+
+00:54.040 --> 00:56.710
+Ini bekerja mirip dengan LACP.
+
+00:56.950 --> 01:02.140
+Di mana pun sakelar di kedua sisi, negosiasikan pembuatan dan pemeliharaan saluran port lagi.
+
+01:02.380 --> 01:06.820
+Tetapi tidak disarankan untuk menggunakan PaGP karena ini adalah hak milik.
+
+01:07.660 --> 01:13.570
+Dan opsi ketiga yang kita miliki adalah mengkonfigurasi etherchannel statis. Dengan statis, sakelar tidak menegosiasikan
+
+01:13.570 --> 01:19.840
+pembuatan dan pemeliharaan, tetapi pengaturan masih harus berbaris di kedua sisi agar
+
+01:19.840 --> 01:21.630
+saluran port muncul.
+
+01:21.820 --> 01:24.940
+Jadi dengan ketiganya, Anda memiliki dua sakelar yang
+
+01:25.200 --> 01:29.430
+memiliki tautan di antara mereka dan Anda akan mengonfigurasinya ke dalam saluran porta.
+
+01:29.710 --> 01:35.860
+Anda perlu mengonfigurasi pengaturan yang sama di kedua sisi, di kedua sakelar. Dan untuk statis, ini yang akan
+
+01:35.880 --> 01:43.300
+kita gunakan jika LACP tidak didukung di kedua sisi. LACP akan didukung di semua sakelar
+
+01:43.300 --> 01:50.700
+Cisco, tetapi mungkin Anda terhubung ke sakelar vendor lain atau server atau semacamnya.
+
+01:51.160 --> 01:53.890
+Jadi itu adalah tiga pilihan yang berbeda.
+
+01:54.160 --> 01:58.600
+Konfigurasi untuk semua benar-benar mirip.
+
+01:58.780 --> 02:05.050
+Mereka semua sebenarnya menggunakan perintah yang sama, yaitu perintah grup saluran, tetapi pada kata kunci yang kami
+
+02:05.050 --> 02:10.870
+gunakan bersama dengan Grup Saluran yang memutuskan mana dari tiga protokol yang akan digunakan.
+
+02:12.770 --> 02:20.150
+Untuk parameter baik chinless, saya menyentuh ini beberapa menit yang lalu di mana saya mengatakan bahwa konfigurasi
+
+02:20.150 --> 02:23.060
+harus cocok di kedua sisi tautan.
+
+02:23.360 --> 02:27.410
+Antarmuka harus memiliki konfigurasi yang cocok.
+
+02:27.830 --> 02:33.860
+Jadi pengaturan yang harus sama di kedua sisi termasuk kecepatan dan duplex, apakah port diatur
+
+02:33.860 --> 02:36.050
+ke akses atau mode trunk.
+
+02:36.260 --> 02:43.110
+VLAN asli, VLAN yang diizinkan di sana, dan VLAN akses, jika itu adalah port akses.
+
+02:44.270 --> 02:53.360
+Jadi melihat konfigurasi. Yang pertama kita lihat adalah LACP. Antarmuka LACP Anda dapat diatur sebagai aktif
+
+02:53.360 --> 02:54.860
+atau pasif.
+
+02:55.010 --> 03:01.480
+Jadi mari kita lihat, kita akan mengkonfigurasi saluran port antara Switch1 dan Switch2. Jika interface Switch1
+
+03:01.490 --> 03:07.160
+aktif dan Switch2 pasif, portchannel akan muncul.
+
+03:08.030 --> 03:16.040
+Tetapi jika kedua sisi diset pasif, portchannel tidak akan muncul. Dan jika kedua sisi aktif, portchannel
+
+03:16.250 --> 03:18.280
+akan muncul.
+
+03:18.860 --> 03:23.390
+Jadi disarankan untuk mengonfigurasi kedua sisi sebagai aktif.
+
+03:23.390 --> 03:28.280
+Pilihan Anda adalah kedua sisi sebagai aktif atau satu sisi aktif dan satu sisi pasif.
+
+03:28.430 --> 03:33.470
+Paling mudah hanya mengkonfigurasi keduanya sebagai aktif karena dengan begitu Anda tidak perlu khawatir tentang mana
+
+03:33.470 --> 03:35.560
+sisi aktif dan mana sisi pasif.
+
+03:37.340 --> 03:43.880
+Jadi inilah konfigurasi kami, itu dikonfigurasi pada tingkat antarmuka. Jadi tentukan antarmuka yang ingin Anda kelompokkan
+
+03:43.880 --> 03:45.430
+di portchannel.
+
+03:45.520 --> 03:53.030
+Di sini kita melihat rentang antarmuka fa0/23 - 24, dan kemudian perintah kita adalah mode channel-group
+
+03:53.030 --> 03:54.350
+1 aktif.
+
+03:54.590 --> 04:01.550
+Segera setelah Anda memasukkan perintah itu, itu akan membuat antarmuka logis baru, yang merupakan antarmuka portchannel
+
+04:01.550 --> 04:02.210
+Anda.
+
+04:02.420 --> 04:07.190
+Di sini kita mengonfigurasi channel-group 1, sehingga akan membuat portchannel 1.
+
+04:07.220 --> 04:13.550
+Alasan mengapa ada nomor di sini adalah karena Anda mungkin memiliki saluran port yang berbeda ke sakelar
+
+04:13.550 --> 04:16.340
+tetangga yang berbeda. Jadi katakanlah kita memiliki Switch1.
+
+04:16.350 --> 04:22.010
+Kami punya portchannel menuju Switch2, kami bisa membuat portchannel 1. Jika kita juga punya portchannel
+
+04:22.010 --> 04:23.870
+menuju Switch3, Kita
+
+04:24.020 --> 04:26.200
+bisa membuat portchannel 2.
+
+04:27.110 --> 04:33.740
+Jadi itulah perintah untuk membuat portchannel Anda. Setelah saluran port dibuat, sebagian besar
+
+04:33.740 --> 04:37.370
+pengaturan antarmuka Anda diatur pada tingkat saluran port.
+
+04:37.580 --> 04:38.420
+Jadi untuk
+
+04:38.420 --> 04:42.950
+melakukan itu, kita sebut interface portchannel 1, dan kemudian mode switchport trunk.
+
+04:43.070 --> 04:47.250
+Kami juga akan mengatur VLAN asli, VLAN yang diizinkan, dll. pada tingkat ini.
+
+04:47.270 --> 04:48.180
+Dan Anda juga perlu mengonfigurasi pengaturan yang cocok di sakelar di sisi lain. Jadi Anda
+
+04:50.150 --> 04:56.410
+melihat bahwa konfigurasi di sini persis sama.
+
+04:56.420 --> 04:59.150
+Kami melakukannya pertama kali di Switch1 dan kemudian kami melakukan konfigurasi yang cocok di Switch2.
+
+04:59.310 --> 05:04.640
+Jadi itu LACP.
+
+05:05.330 --> 05:07.970
+Jadi jika LACP, itu adalah perintah grup saluran dan kemudian Anda menggunakan aktif atau pasif. Konfigurasi untuk PaGP sama, tetapi
+
+05:07.970 --> 05:17.360
+daripada menggunakan aktif atau pasif, kami menggunakan yang diinginkan atau otomatis.
+
+05:17.540 --> 05:23.870
+Dan aturan serupa yang kami miliki dengan LACP di mana
+
+05:24.020 --> 05:31.280
+jika satu sisi diinginkan dan yang lainnya otomatis, maka saluran port akan muncul.
+
+05:31.280 --> 05:32.630
+Jika kedua sisi otomatis, tidak akan.
+
+05:32.810 --> 05:35.420
+Dan jika kedua belah pihak diinginkan, itu akan terjadi.
+
+05:35.600 --> 05:38.360
+Jadi sekali lagi, jika Anda akan menggunakan PaGP, yang tidak disarankan, maka atur kedua sisi sesuai keinginan.
+
+05:38.540 --> 05:44.900
+Maka Anda tidak perlu khawatir tentang mana yang diinginkan dan mana yang otomatis.
+
+05:44.900 --> 05:48.260
+Jadi melihat konfigurasinya, persis sama dengan LACP. Tapi di sini kita katakan mode channel-group
+
+05:49.070 --> 05:57.080
+1 diinginkan daripada channel satu, mode channel-group 1 aktif.
+
+05:57.230 --> 06:01.420
+Jadi Anda bisa tahu dari kata kunci di akhir apakah itu LACP atau PaGP. Atau, ketika kita sampai ke
+
+06:01.430 --> 06:08.360
+slide berikutnya, statis. Untuk statis, sekali lagi, konfigurasinya persis sama, tetapi kami mengatakan mode
+
+06:08.360 --> 06:11.060
+grup saluran 1 aktif. Sangat aktif
+
+06:11.060 --> 06:19.190
+untuk LACP, diinginkan untuk PaGP dan untuk statis. Sisa konfigurasi persis sama
+
+06:19.460 --> 06:24.410
+untuk semuanya.
+
+06:24.410 --> 06:25.970
+Jadi begitulah cara kami mengkonfigurasinya. Bagaimana kami memverifikasinya, ada
+
+06:27.110 --> 06:35.660
+satu perintah pisau Swiss Army untuk memeriksa etherchannel, yang menunjukkan ringkasan etherchannel. Dan Anda melihat bendera di bawah sana.
+
+06:35.660 --> 06:41.330
+Jadi ini memberi tahu Anda apa arti sebenarnya dari semua huruf di sini.
+
+06:41.490 --> 06:44.450
+Melihat ke bawah, kita dapat melihat bahwa ini adalah Grup 1, saluran port pertama kami. Antarmuka portchannel adalah Portchannel 1, dan dalam tanda
+
+06:44.690 --> 06:50.700
+kurung saya melihat huruf kapital S dan huruf kapital U.
+
+06:50.700 --> 06:55.880
+Kapital S berarti di layer 2 portchannel.
+
+06:56.150 --> 06:59.780
+Anda juga dapat mengonfigurasi saluran port layer 3 juga. Pada antarmuka, Anda akan mengatakan tidak ada switchport dan
+
+06:59.960 --> 07:04.970
+meletakkan alamat IP di sana.
+
+07:04.970 --> 07:08.120
+Tapi lebih umum itu akan menjadi portchannel layer 2.
+
+07:08.420 --> 07:11.450
+Kapital U berarti sedang digunakan, yang pada dasarnya berarti sudah habis.
+
+07:11.630 --> 07:17.150
+Saya dapat melihat bahwa protokolnya adalah LACP dan di sebelah
+
+07:17.600 --> 07:23.240
+kanan saya dapat melihat bahwa port saya adalah fa0/23 dan fa0/24.
+
+07:23.240 --> 07:27.230
+A modal P berarti mereka berada di portchannel. Untuk portchannel layer 2, jika Anda melihat huruf
+
+07:27.380 --> 07:32.810
+lain selain yang Anda
+
+07:32.810 --> 07:38.720
+lihat di sini, ada masalah dengan portchannel dan itu tidak akan muncul. Jika ada masalah dengan saluran port Anda, sejauh ini, masalah yang paling umum adalah pengaturan Anda tidak
+
+07:38.720 --> 07:42.380
+cocok di kedua sisi.
+
+07:42.620 --> 07:48.340
+Jadi lihat antarmuka, baik level
+
+07:48.350 --> 07:54.350
+antarmuka fisik dan juga level antarmuka portchannel.
+
+07:54.350 --> 07:54.710
+Dan pastikan bahwa pengaturannya persis sama di kedua sisi.
+
+07:54.860 --> 07:58.600
+Juga, pastikan bahwa Anda telah memilih antarmuka yang benar yang juga terhubung satu sama lain.
+
+07:58.880 --> 08:03.990
+Oke, jadi itu adalah perintah ringkasan show
+
+08:04.760 --> 08:06.230
+etherchannel kami. Anda juga dapat menunjukkan etherchannel dan itu akan memberi Anda
+
+08:06.230 --> 08:10.190
+lebih banyak keluaran verbose, tetapi ringkasan benar-benar memberi tahu Anda semua yang perlu Anda ketahui.
+
+08:10.190 --> 08:14.210
+Perintah terakhir yang harus dilihat adalah show spanning-tree vlan. Karena seperti yang kami jelaskan sebelumnya, alasan menggunakan etherchannel adalah
+
+08:14.780 --> 08:21.350
+untuk menghindari spanning-tree mematikan beberapa tautan Anda.
+
+08:21.350 --> 08:28.310
+Jadi setelah Anda mengonfigurasi ini, Anda ingin memeriksa apakah spanning-tree berfungsi
+
+08:28.460 --> 08:31.340
+seperti yang Anda inginkan.
+
+08:31.340 --> 08:34.190
+Jadi contohnya di sini sebelum kita mengkonfigurasi etherchannel. Jika Anda melihat gambar di sebelah kanan, kami memiliki Switch
+
+08:34.560 --> 08:41.210
+Access 3 dengan uplink ke CD1 switch kami, yang merupakan distribusi inti.
+
+08:41.240 --> 08:47.150
+CD1 adalah jembatan akar untuk spanning-tree.
+
+08:47.150 --> 08:51.710
+Dan jika kita melihat Access3, ada dua link yang menuju ke CD1.
+
+08:52.040 --> 08:56.240
+Jika kita tidak meletakkannya di portchannel, maka spanning-tree
+
+08:56.390 --> 09:01.940
+melihatnya sebagai loop potensial, dan itu akan memblokir salah satu tautan. Melihat output dari perintah show spanning-tree vlan 1 kami di
+
+09:02.030 --> 09:07.400
+sini, lihat ke bawah, saya
+
+09:07.400 --> 09:08.230
+dapat
+
+09:08.620 --> 09:09.820
+melihat bahwa
+
+09:09.980 --> 09:11.660
+fa0/23 sedang diteruskan. Ini adalah port root pada Access3. Dan fa0/24 memblokir untuk mencegah loop.
+
+09:11.660 --> 09:19.820
+Jadi ini adalah antarmuka Ethernet cepat.
+
+09:20.060 --> 09:21.830
+Dalam contoh kami, saya hanya mendapatkan 100Mbps bandwidth uplink daripada 200Mbps dengan dua port saya.
+
+09:21.830 --> 09:28.790
+Untuk memperbaikinya, kami mengkonfigurasi etherchannel.
+
+09:29.390 --> 09:32.180
+Setelah Anda mengkonfigurasi etherchannel, kita dapat menempatkan perintah yang sama. Dan lagi, tunjukkan spanning-tree vlan
+
+09:32.390 --> 09:37.220
+1 Dan sekarang jika
+
+09:37.370 --> 09:39.230
+saya kembali
+
+09:39.770 --> 09:47.030
+ke slide, sebelum portchannel, Anda melihat spanning-tree melihat antarmuka fisik, fa0/23 dan fa0/24.
+
+09:47.030 --> 09:50.810
+Ketika kita meletakkannya di portchannel, spanning-tree hanya melihat satu antarmuka logis itu.
+
+09:51.080 --> 09:57.410
+Jadi ia melihatnya sebagai satu tautan, yang bukan merupakan loop potensial sejauh menyangkut pohon rentang.
+
+09:57.530 --> 10:03.050
+Jadi sekarang di portchannel, itu diteruskan. Saya tidak memiliki port yang memblokir.
+
+10:03.410 --> 10:08.930
+Saya mendapatkan bandwidth penuh dari kedua antarmuka fisik sekarang.
+
+10:09.050 --> 10:12.530
+Oke, begitulah konfigurasi dan verifikasi kami.
+
+10:12.950 --> 10:18.920
+Sampai jumpa di kuliah berikutnya.

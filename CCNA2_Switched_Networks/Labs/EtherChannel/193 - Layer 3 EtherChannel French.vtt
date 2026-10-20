@@ -1,0 +1,247 @@
+WEBVTT
+
+00:07.260 --> 00:14.070
+Dans cette conférence, vous découvrirez les canaux Ethernet de couche 3. Dans les conférences précédentes de cette section, vous avez vu
+
+00:14.230 --> 00:17.400
+comment configurer les canaux Ethernet de la couche 2.
+
+00:17.550 --> 00:20.550
+Nous pouvons également configurer les canaux Ethernet de couche 3.
+
+00:20.670 --> 00:28.050
+Vous pouvez le voir avec l'exemple de configuration ici. Et la configuration est en fait exactement la même.
+
+00:28.320 --> 00:35.940
+La seule différence est que nous faisons des ports un port de couche 3 avec la commande no switchport.
+
+00:36.120 --> 00:42.270
+C'est donc une commande standard que vous pouvez utiliser sur un commutateur de couche 3 chaque fois que vous utilisez etherchannel ou pour
+
+00:42.270 --> 00:48.390
+ne pas dire que le port est un port de couche 3 afin que vous puissiez y mettre une adresse IP.
+
+00:48.510 --> 00:54.800
+Voyons donc la configuration. Donc, dans la configuration globale, j'ai dit la plage d'interface gi1/0/1 -
+
+00:54.810 --> 00:55.770
+2 Et puis je
+
+00:55.920 --> 01:01.470
+dis pas de port de commutation pour créer ces ports de couche 3, puis je vais les configurer en tant que
+
+01:01.470 --> 01:02.400
+canal de port.
+
+01:02.530 --> 01:07.320
+Je dis donc le mode groupe de canaux 1, puis les mêmes options que celles que nous avions pour la couche 2.
+
+01:07.500 --> 01:14.210
+Il peut être actif, automatique, souhaitable, activé ou passif, selon le moment où vous souhaitez en faire un
+
+01:14.250 --> 01:16.860
+canal Ethernet statique avec activé, ou
+
+01:17.100 --> 01:23.610
+nous pouvons utiliser actif ou passif pour LACP ou nous pouvons utiliser auto ou souhaitable pour PaGP.
+
+01:25.140 --> 01:31.500
+Cela regroupera donc les ports dans un etherchannel. Nous pouvons ensuite mettre notre autre configuration sur
+
+01:31.500 --> 01:32.670
+notre etherchannel.
+
+01:32.850 --> 01:36.080
+C'est là que nous allons mettre notre adresse IP.
+
+01:36.330 --> 01:40.560
+Nous disons donc interface port-channel 1, celui qui est lié au numéro de groupe de canaux.
+
+01:40.710 --> 01:47.550
+Et puis dans cet exemple, nous dirions l'adresse IP 192. 168. 0. 1 255.
+
+01:47.550 --> 01:47.550
+255. 255. 252.
+
+01:47.550 --> 01:51.060
+Et n'oubliez pas de ne pas arrêter l'interface.
+
+01:51.360 --> 01:55.710
+OK, c'est donc un etherchannel de couche 3. C'est la configuration complète.
+
+01:55.980 --> 02:01.740
+Donc, cela aurait pu être une conférence très courte, mais il y a une autre implication de cela. Je veux vous parler d'autre
+
+02:01.740 --> 02:05.790
+chose ici, et c'est la conception du réseau.
+
+02:06.480 --> 02:13.920
+Donc, en regardant notre conception de campus traditionnelle avec la couche de distribution et d'accès de base. Et la façon dont cela serait fait à
+
+02:13.920 --> 02:20.790
+l'origine serait qu'il y aurait des liens de couche 2 entre les commutateurs de couche d'accès
+
+02:20.790 --> 02:24.210
+et les commutateurs de couche de distribution.
+
+02:24.480 --> 02:32.550
+Et la passerelle par défaut pour les hôtes finaux serait sur les commutateurs de la couche de distribution et nous aurions un arbre
+
+02:32.550 --> 02:39.450
+couvrant entre la couche d'accès et la couche de distribution car ce sont des liens de couche 2.
+
+02:40.230 --> 02:47.220
+Eh bien, une tendance que vous pouvez voir de plus en plus maintenant est de mettre des liens de couche 3 partout.
+
+02:47.640 --> 02:52.230
+Et l'avantage que vous en retirez, c'est que vous n'utilisez plus spanning-tree.
+
+02:52.440 --> 02:55.800
+Le spanning-tree est un mal nécessaire.
+
+02:55.980 --> 03:02.160
+Le mauvais côté du spanning-tree est qu'il a tendance à fermer la moitié de vos liens et qu'il est
+
+03:02.160 --> 03:04.920
+également très lent à se remettre d'un échec.
+
+03:05.070 --> 03:08.550
+Donc c'est mauvais, mais ça fait quand même du bien.
+
+03:08.550 --> 03:13.500
+Vous en avez toujours besoin car ce serait bien pire si vous aviez une boucle de couche 2 dans votre réseau, car
+
+03:13.500 --> 03:15.830
+cela ne ferait que mettre votre réseau en panne.
+
+03:16.080 --> 03:20.580
+Nous nous assurons donc de ne pas avoir de boucles de couche 2 en activant le spanning-tree.
+
+03:20.700 --> 03:26.490
+Mais le mauvais côté est qu'il est lent à récupérer après des échecs et qu'il coupe la moitié de nos liens.
+
+03:26.580 --> 03:32.910
+Donc, ce serait mieux si nous pouvions avoir des liens de couche 3 partout et ne plus utiliser le spanning-tree, n'est-ce pas ?
+
+03:32.910 --> 03:36.660
+Maintenant, vous vous demandez peut-être, eh bien, d'accord, eh bien, pourquoi ne l'avons-nous pas toujours fait ?
+
+03:36.690 --> 03:40.890
+Pourquoi avions-nous auparavant des liens de couche 2 entre la couche d'accès et la couche de distribution ?
+
+03:40.890 --> 03:42.840
+Maintenant, dans de nombreux réseaux modernes,
+
+03:42.840 --> 03:47.340
+nous avons toujours des liens de couche 2 de l'accès à la couche de distribution.
+
+03:47.520 --> 03:51.420
+Mais une tendance croissante que vous verrez maintenant est que la couche 3 est
+
+03:51.610 --> 03:57.270
+partout et la raison pour laquelle cela est possible est que le prix des commutateurs de couche 3 a beaucoup baissé.
+
+03:57.510 --> 04:03.720
+À l'époque, les commutateurs de couche 3 étaient beaucoup plus chers que les commutateurs de couche 2.
+
+04:03.870 --> 04:09.480
+Et vos commutateurs de couche d'accès où vous aviez un nombre élevé de ports, où vous aviez tous vos hôtes branchés, donc
+
+04:09.480 --> 04:15.270
+vous aviez beaucoup de commutateurs de couche d'accès et ce n'était tout simplement pas possible du point de vue du coût d'intégrer
+
+04:15.510 --> 04:18.930
+des commutateurs de couche 3 sur tous vos commutateurs de couche d'accès.
+
+04:19.170 --> 04:25.680
+Mais comme le temps a passé et que les prix des commutateurs de couche 3 ont baissé, il est plus possible
+
+04:25.680 --> 04:27.260
+de le faire maintenant.
+
+04:27.480 --> 04:33.960
+Donc, si vous installez des commutateurs de couche 3 partout, y compris dans la couche d'accès, vous avez maintenant les liens de couche 3
+
+04:33.960 --> 04:39.240
+de la couche d'accès à la couche de distribution. Cela signifie que vous avez une adresse IP
+
+04:39.240 --> 04:42.480
+sur ce port ici et une adresse IP sur ce port ici.
+
+04:42.570 --> 04:48.780
+Donc, parce que tout est en couche 3, vous n'avez plus de spanning-tree en cours d'exécution. Le spanning-tree ne fonctionne que sur
+
+04:48.780 --> 04:51.450
+les liens de couche 2.
+
+04:51.630 --> 04:57.870
+Ainsi, la façon dont vous avez déterminé les chemins entre vos commutateurs n'est plus déterminée
+
+04:57.870 --> 04:59.070
+par spanning-tree.
+
+04:59.220 --> 05:01.950
+Il est déterminé par votre protocole de routage.
+
+05:01.950 --> 05:06.800
+Ainsi, lorsque vous utilisez des liens de couche 3 partout, vous configurez également un protocole de routage ici, et
+
+05:07.170 --> 05:13.620
+c'est au protocole de routage de gérer la détermination du chemin. Avec vos protocoles de routage, ils prennent en charge l'équilibrage
+
+05:13.620 --> 05:18.150
+de charge à coût égal, de sorte que vous n'aurez pas à fermer les liens.
+
+05:18.300 --> 05:22.830
+Tous vos liens seront toujours disponibles et le trafic sera équilibré sur chacun d'eux.
+
+05:23.060 --> 05:25.800
+De plus, vos protocoles de routage se rétablissent des échecs.
+
+05:25.800 --> 05:28.610
+Ils convergent beaucoup plus rapidement que le spanning-tree.
+
+05:28.740 --> 05:35.790
+C'est donc un avantage que vous obtenez là-bas. Maintenant, lorsque vous faites cela, la dernière chose que je vais vous dire à ce sujet, c'est que
+
+05:35.940 --> 05:40.380
+la passerelle par défaut ne sera pas sur les commutateurs de la couche de distribution maintenant comme elle le serait avec la couche 2.
+
+05:40.380 --> 05:46.140
+Sur la couche d'accès, la passerelle par défaut pour votre hôte final sera sur les commutateurs de la couche d'accès.
+
+05:46.260 --> 05:52.710
+Et si vous y réfléchissez, cela doit être parce que nous allons avoir un sous-réseau IP ici et
+
+05:52.710 --> 05:59.370
+nous allons avoir un sous-réseau IP différent ici. Et la passerelle par défaut de vos hôtes doit se trouver dans le
+
+05:59.370 --> 06:00.270
+même sous-réseau IP.
+
+06:00.450 --> 06:05.280
+Ainsi, votre passerelle par défaut va maintenant être configurée sur vos commutateurs de couche d'accès et vous allez
+
+06:05.280 --> 06:06.480
+avoir un routage partout,
+
+06:06.480 --> 06:08.500
+des liens de couche 3 partout au-dessus.
+
+06:08.940 --> 06:09.260
+D'ACCORD.
+
+06:09.540 --> 06:15.780
+Oh, et j'ai mis cela dans la conférence etherchannel parce que très souvent, quand vous faites cela, vous allez
+
+06:15.780 --> 06:22.320
+avoir des etherchannels qui montent entre vos commutateurs et quand vous avez la couche 3 partout, bien sûr, il va
+
+06:22.320 --> 06:24.900
+y avoir être la couche 3 etherchannels.
+
+06:25.050 --> 06:27.450
+OK, c'est tout ce que j'avais besoin de vous
+
+06:27.450 --> 06:29.190
+dire ici. Rendez-vous dans la prochaine conférence.

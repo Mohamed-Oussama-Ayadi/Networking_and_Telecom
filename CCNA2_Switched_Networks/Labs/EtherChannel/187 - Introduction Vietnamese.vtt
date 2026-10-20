@@ -1,0 +1,37 @@
+WEBVTT
+
+00:06.260 --> 00:15.320
+Trong phần này, bạn sẽ tìm hiểu về etherchannel, có thể được sử dụng để gói nhiều giao diện vật lý
+
+00:15.560 --> 00:18.960
+vào một giao diện logic duy nhất.
+
+00:19.310 --> 00:24.460
+Tôi sẽ trình bày lý do tại sao chúng ta cần cảnh báo etherchannel và
+
+00:24.470 --> 00:27.170
+spoiler, đó là vì cây bao trùm.
+
+00:27.660 --> 00:34.990
+Tôi cũng sẽ trình bày cách thức hoạt động của cân bằng tải và dự phòng kênh etherchannel.
+
+00:35.390 --> 00:43.310
+Bạn sẽ tìm hiểu tất cả các giao thức khác nhau có sẵn cho etherchannel, cách định cấu hình và
+
+00:43.310 --> 00:45.200
+cách xác minh chúng.
+
+00:45.860 --> 00:53.510
+Và cuối cùng, chúng ta sẽ nói về một vấn đề khác trong đó nếu bạn chuyển liên kết lên hai thiết
+
+00:53.510 --> 01:03.170
+bị chuyển mạch khác nhau để dự phòng, ngay cả khi bạn đang sử dụng etherchannel, thì cây bao trùm sẽ cắt giảm một nửa băng thông khả
+
+01:03.170 --> 01:04.310
+dụng của bạn.
+
+01:04.690 --> 01:13.880
+Tuy nhiên, Cisco có một số công nghệ sẽ tránh được điều đó - StackWise, VSS và vPC.
+
+01:13.880 --> 01:21.440
+Chúng tôi sẽ trình bày tổng quan về các tùy chọn kênh etherchannel đa khung đó trong bài giảng cuối cùng.

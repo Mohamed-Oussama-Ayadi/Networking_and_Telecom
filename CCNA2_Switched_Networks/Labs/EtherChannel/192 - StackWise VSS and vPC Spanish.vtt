@@ -1,0 +1,277 @@
+WEBVTT
+
+00:06.370 --> 00:16.510
+En esta lección, aprenderá acerca de las opciones de etherchannel multi-chasis de Cisco de StackWise, vPC y
+
+00:16.510 --> 00:17.370
+VSS.
+
+00:17.650 --> 00:25.400
+Los ajustes de etherchannel coincidentes deben configurarse en los conmutadores en ambos lados del enlace.
+
+00:25.420 --> 00:26.800
+Eso ya lo sabes.
+
+00:27.220 --> 00:34.360
+Puede configurar canales de puerto separados desde un conmutador a conmutadores ascendentes redundantes como se ve en el
+
+00:34.360 --> 00:35.710
+diagrama aquí,
+
+00:35.900 --> 00:44.050
+tengo mi conmutador Access3 de capa de acceso y tiene un canal de puerto con enlaces agrupados que van hasta
+
+00:44.410 --> 00:51.400
+CD1 y tiene otro puerto separado canal con otras interfaces físicas que están agrupadas en un canal
+
+00:51.400 --> 00:56.500
+de puerto que sube a CD2. El problema con esto es
+
+00:56.560 --> 01:04.960
+que el árbol de expansión vería esos canales de puerto separados como dos interfaces separadas y bloqueará una
+
+01:04.960 --> 01:08.670
+ruta si se forma un bucle como aquí.
+
+01:08.890 --> 01:10.450
+Entonces, en nuestro
+
+01:10.450 --> 01:12.640
+ejemplo, CD1 es el puente raíz.
+
+01:13.000 --> 01:18.430
+Entonces, el canal de puerto de Access3 a ese será Reenvío.
+
+01:18.790 --> 01:26.950
+Pero el canal del puerto que sube a CD2 formaría un bucle potencial. Entonces, el árbol de expansión va a bloquear
+
+01:26.950 --> 01:29.040
+ese canal de puerto.
+
+01:29.770 --> 01:37.090
+Así que tengo cuatro interfaces físicas configuradas como enlaces ascendentes aquí, pero solo dos de ellas son de reenvío, por lo que
+
+01:37.090 --> 01:40.890
+solo obtengo la mitad de mi ancho de banda posible.
+
+01:41.200 --> 01:46.750
+Así que eso nos trae de vuelta al mismo problema de usar solo la mitad
+
+01:46.750 --> 01:53.290
+de nuestro ancho de banda físico disponible nuevamente. Configuramos esa misma topología en el laboratorio en la última conferencia.
+
+01:53.440 --> 01:57.310
+Así que las cosas mejoraron después de configurar etherchannel.
+
+01:57.580 --> 02:00.060
+Así era antes de que lo hiciéramos.
+
+02:00.520 --> 02:08.260
+Entonces, nuevamente, CD1 es el puente raíz y, como ve desde Access3, tiene esos cuatro enlaces ascendentes físicos,
+
+02:08.410 --> 02:14.770
+pero solo uno de ellos reenvía tráfico, que era la interfaz conectada a CD1
+
+02:14.770 --> 02:17.850
+y exactamente igual en Access4 también.
+
+02:17.860 --> 02:24.940
+Entonces, cuatro puertos físicos, solo uno de ellos reenvía tráfico. Después de configurar etherchannel, tenemos dos
+
+02:25.210 --> 02:30.520
+de los cuatro tráfico de reenvío ahora en lugar de uno.
+
+02:30.700 --> 02:31.810
+Entonces es mejor.
+
+02:31.990 --> 02:36.670
+Y, de hecho, todavía tengo el laboratorio en funcionamiento, así que vayamos allí y verifiquemos eso.
+
+02:36.790 --> 02:42.040
+Así que pasaré a Access3 y haré un resumen de show etherchannel.
+
+02:42.950 --> 02:52.730
+Y puede ver que tengo mis dos canales de puerto, uno va hasta el primer conmutador de la capa de distribución
+
+02:52.730 --> 02:56.690
+del núcleo. El segundo va subiendo al segundo. Ambos están levantados.
+
+02:57.080 --> 03:03.910
+Luego hago un show spanning-tree vlan 10, que es una VLAN en la que están mis PC.
+
+03:04.430 --> 03:07.100
+Puedo ver que de esos 2 canales de puerto,
+
+03:07.100 --> 03:09.070
+uno de ellos está reenviando tráfico.
+
+03:09.290 --> 03:17.660
+Este es el canal del puerto conectado al puente raíz y el otro está bloqueado porque está formando
+
+03:17.660 --> 03:19.180
+un bucle potencial.
+
+03:19.790 --> 03:22.720
+Entonces todavía no es perfecto.
+
+03:23.240 --> 03:32.420
+Si volvemos a las diapositivas, hay una manera de configurar esto para que realmente estemos
+
+03:32.420 --> 03:37.190
+reenviando todos nuestros enlaces ascendentes conectados físicamente.
+
+03:37.370 --> 03:41.630
+Y la forma en que lo hacemos es con EtherChannel de múltiples chasis.
+
+03:41.900 --> 03:49.520
+Entonces, algunos interruptores lo admitirán. Cuando lo configuramos, el conmutador admite un etherchannel
+
+03:49.700 --> 03:51.770
+compartido desde diferentes conmutadores.
+
+03:51.980 --> 03:59.270
+Entonces ves el diagrama que tengo aquí ahora. Si retrocedo una diapositiva, un par
+
+04:00.280 --> 04:06.810
+de diapositivas, normalmente tendríamos 2 canales de puerto separados, uno que sube
+
+04:07.600 --> 04:16.330
+a CD1 y otro que sube a CD2. Sin embargo, cuando esos conmutadores de la capa de distribución del núcleo admiten etherchannel de varios chasis, puedo
+
+04:16.480 --> 04:18.950
+hacer un canal de puerto único que vaya a ambos.
+
+04:19.500 --> 04:23.740
+Ahora, nuevamente, los interruptores deben configurarse con ajustes coincidentes.
+
+04:23.890 --> 04:31.030
+Cuando configura etherchannel, necesita ajustes coincidentes en ambos lados de los enlaces. Así que aquí, Access3 tiene un canal
+
+04:31.030 --> 04:36.010
+de puerto en sentido ascendente y los conmutadores CD1 y CD2
+
+04:36.010 --> 04:43.420
+tienen un canal de puerto compartido en sentido descendente. Por lo tanto, CD1 y CD2 deben ser
+
+04:43.420 --> 04:51.290
+conmutadores de nivel avanzado que admitan hablar entre sí y tener un canal de puerto compartido en sentido descendente.
+
+04:51.400 --> 04:56.200
+Eso es compatible con algunos modelos de conmutador Cisco.
+
+04:57.350 --> 05:04.310
+Cuando configura esto, el árbol de expansión todavía está habilitado, pero solo ve una
+
+05:04.310 --> 05:11.570
+única interfaz lógica en ambos lados. Ve un canal de puerto que va hacia arriba de Access3 y ve un
+
+05:11.570 --> 05:15.380
+canal de puerto único que va hacia abajo de CD1 y se comparte con CD2.
+
+05:15.530 --> 05:17.870
+Entonces lo ve como un solo enlace.
+
+05:18.020 --> 05:19.520
+Entonces no hay bucle allí.
+
+05:19.740 --> 05:22.600
+Spanning-tree no bloquea ninguno de los puertos.
+
+05:22.760 --> 05:24.470
+Los tenemos todos reenviando.
+
+05:24.650 --> 05:31.190
+Obtenemos el uso completo de todo nuestro ancho de banda físico, admite el equilibrio de carga completo y la redundancia en
+
+05:31.190 --> 05:32.270
+todas las interfaces.
+
+05:32.390 --> 05:37.760
+Si alguna de las interfaces falla, pasará a otra interfaz disponible.
+
+05:38.960 --> 05:50.630
+Entonces, las tecnologías que Cisco tiene disponibles que admiten esto son StackWise, VSS y vPC.
+
+05:51.500 --> 05:58.250
+Ahora, un solo conmutador no va a admitir todos estos. Diferentes plataformas de conmutadores, admiten diferentes
+
+05:58.250 --> 05:59.390
+opciones.
+
+05:59.570 --> 06:05.660
+Y si un conmutador admite uno, solo será uno. Por lo tanto, el conmutador admitirá
+
+06:05.660 --> 06:11.650
+StackWise o VSS o admitirá vPC, no dos o tres al mismo tiempo.
+
+06:11.930 --> 06:14.270
+Y esto es solo en los interruptores de gama alta.
+
+06:14.270 --> 06:19.390
+Si tiene uno de los conmutadores de gama baja de Cisco, este no será compatible.
+
+06:19.700 --> 06:28.940
+Entonces, ¿qué opción es compatible con qué familia de conmutadores? Bueno, StackWise está en las plataformas de conmutadores
+
+06:28.940 --> 06:30.770
+Catalyst, incluidos los
+
+06:30.770 --> 06:32.360
+Catalyst
+
+06:32.360 --> 06:34.500
+3750, 3850 y 9000.
+
+06:34.820 --> 06:41.870
+Debido a que Cisco presenta nuevos modelos de conmutadores con mucha frecuencia y cuando presentamos un nuevo
+
+06:42.020 --> 06:47.080
+modelo de conmutador, es probable que admita una de estas tres opciones.
+
+06:47.090 --> 06:49.190
+Entonces esto se actualizará con el tiempo.
+
+06:50.000 --> 06:56.630
+Si echas un vistazo a la imagen aquí, esta es una pila de conmutadores que se están configurando con StackWise.
+
+06:56.780 --> 07:01.970
+StackWise utiliza cables patentados especiales en la parte posterior de estos conmutadores.
+
+07:02.270 --> 07:10.070
+Cuando configura una pila StackWise, todos los conmutadores físicos independientes funcionan como si fueran un solo conmutador y
+
+07:10.070 --> 07:14.330
+también están configurados como si fueran un solo conmutador.
+
+07:14.690 --> 07:21.890
+Eso es similar a la siguiente opción, que es VSS, el sistema de conmutación virtual. Eso es compatible con
+
+07:21.890 --> 07:25.910
+las familias Catalyst 4500 y 6500.
+
+07:26.240 --> 07:28.580
+Y la última opción es
+
+07:28.880 --> 07:35.150
+propia, un poco diferente es vPC, Virtual Port Channel. Eso es compatible con los conmutadores Nexus.
+
+07:35.420 --> 07:42.170
+Y en lugar de apilar los interruptores juntos y luego ser administrados como si fuera un solo interruptor, cuando
+
+07:42.170 --> 07:48.950
+usa esto en el Nexus, todavía están configurados como dos interruptores separados, pero hace una configuración coincidente en ellos
+
+07:48.950 --> 07:53.390
+y eso permite un intercambio compartido. canal de puerto de esos conmutadores.
+
+07:53.820 --> 08:00.080
+Bien, esas son las opciones de MCE. En el nivel de examen
+
+08:00.470 --> 08:05.990
+CCNA, Cisco espera que conozca una descripción general amplia de ellos,
+
+08:05.990 --> 08:13.610
+pero no esperan que sepa cómo configurarlos. Si pasa al nivel CCNP o una de las otras pistas
+
+08:13.610 --> 08:17.660
+CCNA como Centro de datos, aprenderá cómo configurar y monitorear estas tecnologías.

@@ -1,0 +1,7 @@
+lorsque on envoi RTS et on  ne reçoit pas le cts donc il y a eu une collision
+de meme  si on ne reçoit pas l ack 
+3 type de trame : donnee /controle/gestion
+trame format
+sous type  (4bits) par expl cts /rts/ ack trame de controle 
+deapot 43 : trame de gestion n'est pas à apprendre mais à connaitre seulement 
+on essaye de reduire le nb bits c pk trame cts et ack on a pas besoin @source c est à dire la machine qui est en train de répondre 

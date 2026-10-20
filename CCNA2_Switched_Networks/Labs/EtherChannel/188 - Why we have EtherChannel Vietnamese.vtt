@@ -1,0 +1,283 @@
+WEBVTT
+
+00:06.460 --> 00:15.670
+Trong bài giảng này, bạn sẽ tìm hiểu về lý do tại sao chúng ta có etherchannel và chúng ta sẽ bắt đầu bằng việc
+
+00:15.670 --> 00:20.140
+xem xét lại rất nhanh mô hình thiết kế khuôn viên trường.
+
+00:20.470 --> 00:25.420
+Vì vậy, máy chủ lưu trữ cuối của chúng tôi như PC của chúng tôi được cắm
+
+00:25.440 --> 00:32.770
+vào thiết bị chuyển mạch lớp truy cập của chúng tôi. Lớp truy cập của chúng tôi chuyển liên kết lên đến các thiết bị chuyển mạch lớp phân
+
+00:32.770 --> 00:36.040
+phối, và sau đó chúng liên kết lên các thiết bị chuyển mạch lớp lõi.
+
+00:36.850 --> 00:42.390
+Máy chủ cuối không liên tục gửi lưu lượng vào mạng.
+
+00:42.610 --> 00:46.030
+Hầu hết thời gian kết nối mạng của họ không hoạt động.
+
+00:46.270 --> 00:51.970
+Nếu bạn nghĩ về những gì bạn đang làm khi bạn đang ngồi trên PC, nếu bạn đang làm việc trên
+
+00:51.970 --> 00:58.000
+tài liệu wWrd hoặc bảng tính Excel hoặc thứ gì đó tương tự, sẽ không có lưu lượng truy cập thực sự qua mạng.
+
+00:58.360 --> 01:05.440
+Do đó, bạn có thể kết nối trên ít liên kết lên đến mỗi lớp cao hơn so với số lượng máy chủ bạn có và vẫn duy
+
+01:05.440 --> 01:11.830
+trì hiệu suất mạng có thể chấp nhận được vì bạn không cần hỗ trợ tất cả băng thông có thể mà máy chủ của
+
+01:11.830 --> 01:16.660
+bạn có bởi vì chúng tôi không phải tất cả sẽ được sử dụng nó cùng một lúc.
+
+01:17.390 --> 01:24.700
+Nhưng nếu tôi quay lại trang trình bày, bạn thấy ở đây chúng tôi có hai tòa nhà của chúng tôi, chúng tôi có bốn công
+
+01:24.700 --> 01:32.590
+tắc lớp truy cập trong mỗi tòa nhà chẳng hạn, và giả sử rằng chúng là công tắc 48 cổng và tôi có 40 máy chủ cuối được
+
+01:32.590 --> 01:34.060
+cắm vào mỗi công tắc.
+
+01:34.270 --> 01:43.590
+Vì vậy, đó sẽ là 4x40. 160 máy chủ trong Tòa nhà chính, 160 máy chủ cũng trong Tòa nhà 1.
+
+01:43.810 --> 01:51.130
+Họ đang liên kết với một cặp công tắc phân phối trong cả hai tòa nhà.
+
+01:51.430 --> 01:58.930
+Vì vậy, tôi có 160 thiết bị trong cả hai tòa nhà, nhưng tôi không có 160 liên kết lên đi từ lớp truy cập
+
+01:58.930 --> 02:00.280
+đến lớp phân phối.
+
+02:00.520 --> 02:06.370
+Ngoài ra, vì vậy tôi không có số lượng liên kết lên đi từ lớp phân phối lên đến lớp cốt lõi.
+
+02:06.520 --> 02:09.640
+Tôi không cần đặt nhiều như vậy vì tôi biết rằng
+
+02:09.640 --> 02:12.910
+các máy tính của tôi sẽ không truyền tải cùng một lúc.
+
+02:12.910 --> 02:14.860
+Họ thực sự không cần nhiều băng thông như vậy.
+
+02:17.000 --> 02:25.050
+Đề xuất quy tắc ngón tay cái bắt đầu cho số lượng đăng ký quá mức bạn nên có trong mạng LAN của khuôn viên trường
+
+02:25.050 --> 02:34.010
+của mình là 20: 1 từ lớp truy cập đến lớp phân phối. Có nghĩa là, nếu bạn có 20 PC được kết nối với
+
+02:34.010 --> 02:41.330
+card mạng 1 Gbps ở lớp truy cập, bạn sẽ yêu cầu một liên kết lên 1G duy nhất đến
+
+02:41.330 --> 02:45.200
+lớp phân phối để hỗ trợ lưu lượng của chúng.
+
+02:45.680 --> 02:50.840
+Khuyến nghị là 4: 1 cho việc phân phối đến các liên kết lớp lõi.
+
+02:51.140 --> 02:58.790
+Và hãy nhớ rằng đó là những giá trị chung. Bạn nên phân tích lưu lượng truy cập trên mạng của mình để xác minh
+
+02:58.790 --> 03:04.940
+rằng các liên kết của bạn không bị tắc nghẽn vì nó phụ thuộc vào các dạng lưu lượng truy cập cụ thể trong
+
+03:05.120 --> 03:07.700
+mạng của bạn, ứng dụng bạn đang chạy, v.v. tỷ lệ đăng ký quá mức tốt cho bạn là bao nhiêu.
+
+03:07.880 --> 03:11.240
+Đây là những con số tốt về sân bóng.
+
+03:11.570 --> 03:13.550
+Các thiết bị chuyển mạch
+
+03:15.650 --> 03:23.480
+thường có các cổng đường lên chuyên dụng có băng thông cao hơn băng thông trên các cổng truy cập của chúng. Ví dụ: bộ chuyển mạch 48 cổng 1Gbps với một cặp liên kết lên 10Gbps và điều đó
+
+03:23.480 --> 03:31.760
+có thể giúp cải thiện tỷ lệ đăng ký.
+
+03:31.760 --> 03:34.210
+Ví dụ: nếu bạn đã cắm
+
+03:34.640 --> 03:40.790
+máy khách 48x1Gbps vào công tắc đó, thì tổng băng thông có thể có sẽ là 48 Gbps.
+
+03:40.790 --> 03:44.170
+Bạn đã có các liên kết lên
+
+03:44.570 --> 03:51.770
+2x10Gbps, khoảng 20Gbps trên các liên kết lên của bạn, do đó, tỷ lệ đăng ký là 2. 4: 1.
+
+03:51.770 --> 03:54.950
+Nếu chúng tôi không có
+
+03:55.370 --> 04:01.370
+các liên kết lên 10Gbps đó, nếu các liên kết lên cũng là 1Gbps, thì tỷ lệ đăng ký sẽ là 24: 1.
+
+04:01.370 --> 04:03.190
+Rõ ràng là không tốt bằng.
+
+04:03.200 --> 04:04.880
+Vì vậy, thông thường khi bạn
+
+04:05.360 --> 04:11.750
+có các thiết bị chuyển mạch có liên kết băng thông cao hơn, thì việc đăng ký quá mức sẽ không phải là vấn đề.
+
+04:11.750 --> 04:13.550
+Tuy nhiên, chúng tôi có một vấn đề khi chúng tôi muốn kết nối 2 liên kết lên và vấn đề đó là cây bao trùm. Bởi vì cây bao
+
+04:13.940 --> 04:24.530
+trùm, nó cung cấp dự phòng, nhưng nó không cung cấp cân bằng tải. Spanning-tree luôn chọn một con đường tốt nhất
+
+04:24.560 --> 04:32.660
+để tránh các vòng lặp.
+
+04:32.660 --> 04:36.290
+Vì vậy, nếu một công tắc có nhiều đường dẫn chi phí bằng nhau, rõ ràng là chúng không bao giờ chuyển sang cầu gốc.
+
+04:36.440 --> 04:42.200
+Nó sẽ chọn một trong những cổng đó, cổng có ID cổng thấp nhất.
+
+04:42.470 --> 04:46.970
+Nó sẽ không cân bằng tải trên tất cả chúng.
+
+04:46.970 --> 04:49.610
+Vì vậy, trong ví dụ của chúng tôi ở đây với sơ đồ,
+
+04:49.950 --> 04:56.480
+chúng tôi đã có các liên kết lên từ công tắc Access1 lớp truy cập của chúng tôi đến công tắc Dist1 và chúng tôi có hai giao diện Ethernet 10Gbps, 0/1 và 0/2.
+
+04:56.480 --> 05:03.560
+0/1 sẽ được chọn làm cổng gốc vì nó có ID cổng thấp nhất và T0 / 2 đang bị chặn.
+
+05:04.010 --> 05:12.820
+Vì vậy, mặc dù chúng tôi đã kết nối vật lý hai đường dẫn lên Ethernet 10Gbps,
+
+05:13.040 --> 05:20.420
+chúng tôi chỉ nhận được giá trị 10Gbps của băng thông đường lên.
+
+05:20.420 --> 05:21.740
+Không phải 20Gbps, bởi vì cây bao trùm sẽ chặn một trong những liên kết đó.
+
+05:21.980 --> 05:26.480
+Vì vậy, đó là vấn đề, chúng tôi không nhận được tất cả băng thông đường lên có sẵn, được kết nối vật lý của chúng tôi.
+
+05:28.470 --> 05:34.800
+Giải pháp là etherchannel. Etherchannel nhóm nhiều giao diện vật lý thành một
+
+05:35.010 --> 05:44.100
+giao diện logic duy nhất. Và spanning-tree sau đó coi etherchannel đó là một giao diện duy nhất nên nó không chặn bất
+
+05:44.100 --> 05:46.080
+kỳ cổng nào.
+
+05:46.080 --> 05:51.700
+Bây giờ chúng tôi nhận được đầy đủ giá trị băng thông 20Gbps.
+
+05:51.990 --> 05:55.770
+Vì vậy, nếu bạn nhìn lại trang trình bày trước đó, khi chúng
+
+05:56.190 --> 06:02.340
+tôi không sử dụng etherchannel, spanning-tree sẽ thấy rằng đó là một vòng lặp khả thi vì lưu lượng truy cập có
+
+06:02.340 --> 06:08.870
+thể tăng T0 / 1 và sau đó quay trở lại T0 / 2, và sau đó trở lại T0 / 1 lần nữa.
+
+06:08.910 --> 06:11.460
+Chúng tôi có một vòng lặp tiềm năng ở đó khi chúng tôi không có kênh etherchannel. Nhưng khi chúng ta cấu hình etherchannel, cho cây bao trùm, nó được
+
+06:11.490 --> 06:17.310
+tính là một liên kết đơn, như một giao diện duy nhất ở cả hai phía. Vì vậy, cây bao trùm không
+
+06:17.310 --> 06:24.860
+xem nó như một vòng lặp tiềm năng.
+
+06:24.870 --> 06:27.180
+Và bây giờ chúng tôi nhận được đầy đủ giá trị băng thông 20Gbps.
+
+06:27.400 --> 06:30.990
+Lưu lượng truy cập sẽ được cân bằng tải trên tất cả các liên kết trong etherchannel.
+
+06:32.190 --> 06:37.000
+Vì vậy, lưu lượng truy cập từ PC của tôi đi ngược dòng sẽ được cân bằng tải trên tất cả các liên kết. Tương tự đối với lưu lượng truy cập trở lại theo hướng khác,
+
+06:37.170 --> 06:42.660
+nó không chỉ cung cấp cân
+
+06:42.660 --> 06:45.720
+bằng tải mà còn cung cấp dự phòng. Nếu một giao diện gặp trục trặc, lưu lượng truy
+
+06:45.930 --> 06:52.350
+cập của nó sẽ không chuyển sang các liên kết còn lại.
+
+06:52.350 --> 06:54.420
+Vì vậy, đó là etherchannel trên thiết bị chuyển mạch của chúng tôi.
+
+06:55.590 --> 06:59.190
+Về cơ bản, chúng ta có thể làm điều tương tự trên các máy chủ của mình cũng như với NIC Teaming.
+
+06:59.430 --> 07:05.460
+Vì vậy, quay trở lại một slide, etherchannel là nơi chúng ta có thể gộp nhiều
+
+07:05.460 --> 07:12.900
+cổng vật lý vào một cổng logic duy nhất trên các liên kết giữa các công tắc của chúng ta. Trên các máy chủ của chúng tôi, với NIC Teaming, chúng tôi có thể gộp nhiều card mạng vật lý vào
+
+07:12.900 --> 07:17.550
+một giao diện logic duy nhất. Lợi ích mà chúng tôi nhận được từ việc
+
+07:17.580 --> 07:25.200
+này là chúng tôi có được cân bằng tải và dự phòng một lần nữa.
+
+07:25.200 --> 07:29.820
+Và bởi vì hệ điều hành được coi là một giao diện duy nhất, chúng tôi chỉ có
+
+07:30.030 --> 07:36.000
+một địa chỉ IP trên đó, điều này làm cho mọi thứ trở nên thuận tiện và đơn giản hơn nhiều để cấu hình.
+
+07:36.000 --> 07:39.650
+Tôi cũng đưa thông tin này vào đây vì tôi muốn giải
+
+07:39.960 --> 07:46.620
+thích thuật ngữ cho bạn và cho bạn biết rằng có một số tên khác nhau cho những thứ về cơ bản giống nhau.
+
+07:46.620 --> 07:51.540
+Etherchannel trên thiết bị chuyển mạch của chúng tôi còn được gọi là kênh cổng.
+
+07:52.230 --> 07:56.760
+Trên thực tế, khi bạn nghe tôi nói về nó trong phần này,
+
+07:56.910 --> 08:02.250
+bạn có thể sẽ nghe thấy tôi gọi nó là kênh cổng nhiều hơn là kênh etherchannel.
+
+08:02.250 --> 08:03.930
+Những người trong ngành, chúng tôi có xu hướng gọi nó thường xuyên hơn.
+
+08:04.140 --> 08:06.930
+Nó cũng có thể được gọi là LAG, viết tắt của tập hợp liên kết hoặc một gói liên kết.
+
+08:07.200 --> 08:12.930
+Khi chúng tôi nhóm các giao diện vật lý trên máy chủ của mình, chúng tôi thường gọi nó là NIC Teaming.
+
+08:13.350 --> 08:19.890
+Nó cũng có thể được gọi là liên kết, cân bằng NIC và một lần nữa, tập hợp liên kết.
+
+08:20.040 --> 08:25.440
+OK, đó là lý do tại sao chúng tôi có etherchannel.
+
+08:25.630 --> 08:29.580
+Nó giúp chúng ta vượt qua vấn đề đó với cây bao trùm.
+
+08:29.820 --> 08:32.520
+Và cũng có một cái nhìn tổng quan nhanh về thuật ngữ.
+
+08:32.670 --> 08:35.830
+Hẹn gặp lại các bạn trong bài giảng tiếp theo.

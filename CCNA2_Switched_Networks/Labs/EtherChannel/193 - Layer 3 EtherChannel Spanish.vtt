@@ -1,0 +1,247 @@
+WEBVTT
+
+00:07.260 --> 00:14.070
+En esta conferencia, aprenderá acerca de los canales de ethernet de capa 3. En las conferencias anteriores de esta sección, vio cómo
+
+00:14.230 --> 00:17.400
+configurar los canales de ethernet de capa 2.
+
+00:17.550 --> 00:20.550
+También podemos configurar etherchannels de capa 3.
+
+00:20.670 --> 00:28.050
+Puedes ver eso con el ejemplo de configuración aquí. Y la configuración es exactamente la misma.
+
+00:28.320 --> 00:35.940
+La única diferencia es que hacemos que los puertos sean un puerto de capa 3 con el comando no switchport.
+
+00:36.120 --> 00:42.270
+Entonces, ese es un comando estándar que puede usar en un conmutador de capa 3 siempre que esté usando etherchannel o
+
+00:42.270 --> 00:48.390
+no decir que el puerto es un puerto de capa 3 para que pueda poner una dirección IP allí.
+
+00:48.510 --> 00:54.800
+Así que veamos la configuración. Entonces, en la configuración global, he dicho rango de interfaz gi1 /
+
+00:54.810 --> 00:55.770
+0/1 - 2 Y
+
+00:55.920 --> 01:01.470
+luego digo que no hay switchport para hacer esos puertos de capa 3 y luego los voy a configurar como un
+
+01:01.470 --> 01:02.400
+canal de puerto.
+
+01:02.530 --> 01:07.320
+Entonces digo modo de grupo de canales 1 y luego las mismas opciones que teníamos para la capa 2.
+
+01:07.500 --> 01:14.210
+Puede ser activo, automático, deseable, encendido o pasivo, dependiendo de cuándo quieras convertirlo en un
+
+01:14.250 --> 01:16.860
+etherchannel estático con encendido, o
+
+01:17.100 --> 01:23.610
+podemos usar activo o pasivo para LACP o podemos usar auto o deseable para PaGP.
+
+01:25.140 --> 01:31.500
+Eso agrupará los puertos en un canal de ethernet. Luego podemos poner nuestra otra configuración en
+
+01:31.500 --> 01:32.670
+nuestro etherchannel.
+
+01:32.850 --> 01:36.080
+Ahí es donde vamos a poner nuestra dirección IP.
+
+01:36.330 --> 01:40.560
+Entonces decimos interfaz puerto-canal 1, el que está vinculado con el número de grupo de canales.
+
+01:40.710 --> 01:47.550
+Y luego, en este ejemplo, diríamos la dirección IP 192. 168. 0. 1 255.
+
+01:47.550 --> 01:47.550
+255. 255. 252.
+
+01:47.550 --> 01:51.060
+Y recuerde no apagar la interfaz.
+
+01:51.360 --> 01:55.710
+Bien, eso es un canal de éter de capa 3. Esa es la configuración completa.
+
+01:55.980 --> 02:01.740
+Así que esta podría haber sido una conferencia muy corta, pero hay otra implicación de esto. Otra cosa de la que
+
+02:01.740 --> 02:05.790
+quiero hablarte aquí es el diseño de la red.
+
+02:06.480 --> 02:13.920
+Entonces, mirando nuestro diseño de campus tradicional con la distribución central y la capa de acceso. Y la forma en que esto se haría originalmente
+
+02:13.920 --> 02:20.790
+sería que hubiera enlaces de capa 2 entre los conmutadores de la capa de acceso y
+
+02:20.790 --> 02:24.210
+los conmutadores de la capa de distribución.
+
+02:24.480 --> 02:32.550
+Y la puerta de enlace predeterminada para los hosts finales estaría en los conmutadores de la capa de distribución y tendríamos un árbol
+
+02:32.550 --> 02:39.450
+de expansión ejecutándose entre la capa de acceso y la de distribución porque son enlaces de la capa 2.
+
+02:40.230 --> 02:47.220
+Bueno, una tendencia que puede ver cada vez más ahora es poner enlaces de capa 3 en todas partes.
+
+02:47.640 --> 02:52.230
+Y el beneficio que obtiene al hacerlo es que significa que ya no está utilizando el árbol de expansión.
+
+02:52.440 --> 02:55.800
+Spanning-tree es un mal necesario.
+
+02:55.980 --> 03:02.160
+El lado malo del árbol de expansión es que tiende a cerrar la mitad de sus enlaces y
+
+03:02.160 --> 03:04.920
+también es muy lento para recuperarse de fallas.
+
+03:05.070 --> 03:08.550
+Entonces es malo, pero todavía hace cosas buenas.
+
+03:08.550 --> 03:13.500
+Aún lo necesita porque sería mucho peor si tuviera un bucle de capa 2 en su red,
+
+03:13.500 --> 03:15.830
+porque eso básicamente haría que su red cayera.
+
+03:16.080 --> 03:20.580
+Así que nos aseguramos de que no tengamos bucles de capa 2 habilitando el árbol de expansión.
+
+03:20.700 --> 03:26.490
+Pero el lado malo es que es lento recuperarse de fallas y apaga la mitad de nuestros enlaces.
+
+03:26.580 --> 03:32.910
+Entonces, sería mejor si pudiéramos tener enlaces de capa 3 en todas partes y no usar más el árbol de expansión, ¿verdad?
+
+03:32.910 --> 03:36.660
+Ahora, puede que se pregunte, bueno, bueno, bueno, ¿por qué no siempre hicimos eso?
+
+03:36.690 --> 03:40.890
+¿Por qué solíamos tener enlaces de capa 2 entre la capa de acceso y la capa de distribución?
+
+03:40.890 --> 03:42.840
+Ahora, en muchas redes modernas
+
+03:42.840 --> 03:47.340
+todavía tenemos enlaces de capa 2 desde el acceso a la capa de distribución.
+
+03:47.520 --> 03:51.420
+Pero una tendencia creciente que verá ahora es que la capa 3 está en
+
+03:51.610 --> 03:57.270
+todas partes y la razón por la que es posible es que los interruptores de capa 3 han bajado mucho de precio.
+
+03:57.510 --> 04:03.720
+En el pasado, los conmutadores de capa 3 eran mucho más caros que los de capa 2.
+
+04:03.870 --> 04:09.480
+Y sus conmutadores de capa de acceso donde tenía un número alto de puertos, donde tenía todos sus hosts conectados, por
+
+04:09.480 --> 04:15.270
+lo que tenía muchos conmutadores de capa de acceso y simplemente no era posible desde el punto de vista del costo utilizar
+
+04:15.510 --> 04:18.930
+conmutadores de capa 3 en todos sus conmutadores de capa de acceso.
+
+04:19.170 --> 04:25.680
+Pero debido a que el tiempo ha pasado y los precios de los conmutadores de capa 3 han bajado, es
+
+04:25.680 --> 04:27.260
+más factible hacerlo ahora.
+
+04:27.480 --> 04:33.960
+Entonces, si coloca interruptores de capa 3 en todas partes, incluso en la capa de acceso, ahora tiene los enlaces de capa 3 desde
+
+04:33.960 --> 04:39.240
+la capa de acceso a la capa de distribución. Lo que significa que tiene una dirección IP
+
+04:39.240 --> 04:42.480
+en este puerto aquí y una dirección IP en este puerto aquí.
+
+04:42.570 --> 04:48.780
+Entonces, debido a que todo es de capa 3, ya no tiene el árbol de expansión en ejecución. Spanning-tree solo funciona en enlaces
+
+04:48.780 --> 04:51.450
+de capa 2.
+
+04:51.630 --> 04:57.870
+Entonces, la forma en que se determinan las rutas entre sus conmutadores ya no está determinada por el
+
+04:57.870 --> 04:59.070
+árbol de expansión.
+
+04:59.220 --> 05:01.950
+Lo determina su protocolo de enrutamiento.
+
+05:01.950 --> 05:06.800
+Entonces, cuando use enlaces de capa 3 en todas partes, también configurará un protocolo de enrutamiento aquí, y
+
+05:07.170 --> 05:13.620
+depende del protocolo de enrutamiento manejar la determinación de la ruta. Con sus protocolos de enrutamiento, admiten el equilibrio
+
+05:13.620 --> 05:18.150
+de carga de igual costo, por lo que no se cerrarán los enlaces.
+
+05:18.300 --> 05:22.830
+Todos sus enlaces seguirán estando disponibles y el tráfico se equilibrará en la carga de todos ellos.
+
+05:23.060 --> 05:25.800
+Además, sus protocolos de enrutamiento se recuperan de fallas.
+
+05:25.800 --> 05:28.610
+Convergen mucho más rápido que el árbol de expansión.
+
+05:28.740 --> 05:35.790
+Así que ese es un beneficio que obtienes. Ahora, cuando haga esto, lo último que le diré al respecto es que la puerta
+
+05:35.940 --> 05:40.380
+de enlace predeterminada no estará en los conmutadores de la capa de distribución ahora como lo estaría con la capa 2.
+
+05:40.380 --> 05:46.140
+En la capa de acceso, la puerta de enlace predeterminada para su host final estará en los conmutadores de la capa de acceso.
+
+05:46.260 --> 05:52.710
+Y si lo piensa, tiene que ser porque vamos a tener una subred IP aquí y
+
+05:52.710 --> 05:59.370
+vamos a tener una subred IP diferente aquí. Y la puerta de enlace predeterminada para sus hosts debe estar en la
+
+05:59.370 --> 06:00.270
+misma subred IP.
+
+06:00.450 --> 06:05.280
+Entonces, su puerta de enlace predeterminada ahora se configurará en sus conmutadores de capa de acceso y tendrá enrutamiento en
+
+06:05.280 --> 06:06.480
+todas partes, enlaces de
+
+06:06.480 --> 06:08.500
+capa 3 en todas partes por encima de eso.
+
+06:08.940 --> 06:09.260
+está bien.
+
+06:09.540 --> 06:15.780
+Ah, y puse esto en la conferencia de etherchannel porque muy a menudo cuando estás haciendo eso, vas
+
+06:15.780 --> 06:22.320
+a tener etherchannel subiendo entre tus conmutadores y cuando tienes la capa 3 en todas partes, por supuesto, van a
+
+06:22.320 --> 06:24.900
+ser canales de éter de capa 3.
+
+06:25.050 --> 06:27.450
+Bien, eso es todo lo que necesitaba
+
+06:27.450 --> 06:29.190
+decirte aquí. Nos vemos en la próxima conferencia.

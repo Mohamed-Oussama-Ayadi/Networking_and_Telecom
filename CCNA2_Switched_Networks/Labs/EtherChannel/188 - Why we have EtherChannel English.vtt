@@ -1,0 +1,286 @@
+WEBVTT
+
+00:06.460 --> 00:15.670
+In this lecture, you'll learn about why we have etherchannel and we'll start off by having a very
+
+00:15.670 --> 00:20.140
+quick review of the campus design model again.
+
+00:20.470 --> 00:25.420
+So our end host like our PCs get plugged into our access
+
+00:25.440 --> 00:32.770
+layer switches. Our access layer switches uplink to the distribution layer switches, and then they
+
+00:32.770 --> 00:36.040
+uplink to the core layer switches.
+
+00:36.850 --> 00:42.390
+End hosts do not constantly send traffic onto the network.
+
+00:42.610 --> 00:46.030
+Most of the time their network connection is sitting idle.
+
+00:46.270 --> 00:51.970
+If you think about what you're doing when you're sitting on a PC, if you're working on a wWrd document
+
+00:51.970 --> 00:58.000
+or an Excel spreadsheet or something like that, there's no traffic actually going over the network.
+
+00:58.360 --> 01:05.440
+Because of this, you can connect on less uplinks to each higher layer than the number of hosts you have and
+
+01:05.440 --> 01:11.830
+still maintain acceptable network performance because you don't need to support all of the possible
+
+01:11.830 --> 01:16.660
+bandwidth that your hosts have because we're not all going to be using it at the same time.
+
+01:17.390 --> 01:24.700
+But if I go back a slide, you see here we've got our two buildings, we've got four access layer switches
+
+01:24.700 --> 01:32.590
+in each building for the example, and let's say that they're 48-port switches and I've got 40 end hosts
+
+01:32.590 --> 01:34.060
+plugged into each switch.
+
+01:34.270 --> 01:43.590
+So that would be 4x40. 160 hosts in the Main Building, 160 hosts in Building 1 as well.
+
+01:43.810 --> 01:51.130
+They're uplinking to a pair of distribution switches in both buildings.
+
+01:51.430 --> 01:58.930
+So I've got 160 devices in both buildings, but I don't have 160 uplinks going from the access layer to
+
+01:58.930 --> 02:00.280
+the distribution layer.
+
+02:00.520 --> 02:06.370
+Also, so I don't have that amount of uplinks going from the distribution layer up to the core layer.
+
+02:06.520 --> 02:09.640
+I don't need to put that many in because I know that
+
+02:09.640 --> 02:12.910
+my PCs are not going to be transmitting at the same time.
+
+02:12.910 --> 02:14.860
+They don't actually need that much bandwidth.
+
+02:17.000 --> 02:25.050
+A starting rule of thumb recommendation for how much oversubscription you should have in your campus
+
+02:25.050 --> 02:34.010
+LAN is 20:1 from the access layer to the distribution layer. Meaning, if you had 20 PCs connected
+
+02:34.010 --> 02:41.330
+with 1 Gbps network cards at the access layer, you would require a single 1G uplink
+
+02:41.330 --> 02:45.200
+to the distribution layer to support their traffic.
+
+02:45.680 --> 02:50.840
+The recommendation is 4:1 for the distribution to core layer links.
+
+02:51.140 --> 02:58.790
+And bear in mind that those are general values. You should analyze traffic on your network to verify
+
+02:58.790 --> 03:04.940
+that your links are not congested because it depends on particular traffic patterns in your network,
+
+03:05.120 --> 03:07.700
+what applications you're running, etc.,
+
+03:07.880 --> 03:11.240
+what will be a good oversubscription ratio for you.
+
+03:11.570 --> 03:13.550
+These are good ballpark figures.
+
+03:15.650 --> 03:23.480
+Switches often have dedicated uplink ports which have got higher bandwidth than the bandwidth on their
+
+03:23.480 --> 03:31.760
+access ports. For example, a 48-port 1Gbps switch with a pair of 10Gbps uplinks, and
+
+03:31.760 --> 03:34.210
+that can help with the subscription ratio.
+
+03:34.640 --> 03:40.790
+For example, if you've got 48x1Gbps clients plugged in that switch, then the total bandwidth
+
+03:40.790 --> 03:44.170
+possible would be 48 Gbps.
+
+03:44.570 --> 03:51.770
+You've got your 2x10Gbps uplinks, about 20Gbps on your uplink links, so that gives a subscription
+
+03:51.770 --> 03:54.950
+ratio of 2.4:1.
+
+03:55.370 --> 04:01.370
+If we didn't have those 10Gbps uplinks, if uplinks were also 1Gbps as well, the subscription ratio
+
+04:01.370 --> 04:03.190
+would be 24:1.
+
+04:03.200 --> 04:04.880
+Obviously not as good.
+
+04:05.360 --> 04:11.750
+So normally when you do have switches which have got higher bandwidth uplinks, then oversubscription
+
+04:11.750 --> 04:13.550
+is not going to be a problem.
+
+04:13.940 --> 04:24.530
+However, we do have a problem when we want to connect 2 uplinks and that problem is spanning-tree. Because
+
+04:24.560 --> 04:32.660
+spanning-tree, it provides redundancy, but it does not provide load balancing. Spanning-tree always
+
+04:32.660 --> 04:36.290
+selects the one best path to avoid loops.
+
+04:36.440 --> 04:42.200
+So if a switch has got multiple equal cost paths, they obviously never switch towards the root bridge.
+
+04:42.470 --> 04:46.970
+It will select one of those ports, the one which has got the lowest Port ID.
+
+04:46.970 --> 04:49.610
+It is not going to load balance across all of them.
+
+04:49.950 --> 04:56.480
+So in our example here with the diagram, we've got uplinks from our access layer Access1 switch going
+
+04:56.480 --> 05:03.560
+to the Dist1 switch, and we've got two 10Gbps Ethernet interfaces, 0/1 and 0/2.
+
+05:04.010 --> 05:12.820
+0/1 will be selected as the root port as it got the lowest Port ID and T0/2 is blocking.
+
+05:13.040 --> 05:20.420
+So even though we physically connected two 10Gbps Ethernet uplinks, we only get 10Gbps worth of
+
+05:20.420 --> 05:21.740
+uplink bandwidth.
+
+05:21.980 --> 05:26.480
+Not the 20Gbps, because spanning-tree is going to block one of those links.
+
+05:28.470 --> 05:34.800
+So that's the problem, we don't get all of our available, physically connected uplink bandwidth.
+
+05:35.010 --> 05:44.100
+The solution is etherchannel. Etherchannel groups multiple physical interfaces into a single logical
+
+05:44.100 --> 05:46.080
+interface. And spanning-tree
+
+05:46.080 --> 05:51.700
+then sees that etherchannel as a single interface so it doesn't block any ports.
+
+05:51.990 --> 05:55.770
+We now get the full 20Gbps worth of bandwidth.
+
+05:56.190 --> 06:02.340
+So if you look back on the previous slide, when we weren't using etherchannel, spanning-tree sees that
+
+06:02.340 --> 06:08.870
+as a possible loop because traffic could go up T0/1 and then back down to T0/2,
+
+06:08.910 --> 06:11.460
+and then back up to T0/1 again.
+
+06:11.490 --> 06:17.310
+We've got a potential loop there when we don't have etherchannel. But when we do configure etherchannel,
+
+06:17.310 --> 06:24.860
+for spanning-tree, it counts as a single link, as a single interface on both sides. So spanning-tree
+
+06:24.870 --> 06:27.180
+does not see it as a potential loop.
+
+06:27.400 --> 06:30.990
+And now we get the full 20Gbps worth of bandwidth.
+
+06:32.190 --> 06:37.000
+Traffic will be load balanced across all the links that are in the etherchannel.
+
+06:37.170 --> 06:42.660
+So traffic from my PCs going upstream is going to be load balanced across all the links. The same
+
+06:42.660 --> 06:45.720
+for the traffic coming back down in the other direction,
+
+06:45.930 --> 06:52.350
+it doesn't just provide load balancing, it provides redundancy as well. If an interface goes down, its traffic
+
+06:52.350 --> 06:54.420
+will fail over to the remaining links.
+
+06:55.590 --> 06:59.190
+So that was etherchannel on our switches.
+
+06:59.430 --> 07:05.460
+We can do basically the same thing on our servers as well with NIC Teaming.
+
+07:05.460 --> 07:12.900
+So going back a slide, etherchannel is where we can bundle multiple physical ports into a single logical
+
+07:12.900 --> 07:17.550
+port on our inter-switch links. On our servers,
+
+07:17.580 --> 07:25.200
+with NIC Teaming, we can bundle multiple physical network cards into a single logical interface. Benefit
+
+07:25.200 --> 07:29.820
+we get from this is we get the load balancing and the redundancy again.
+
+07:30.030 --> 07:36.000
+And because the operating system sees as a single interface, we just have one IP address on there which
+
+07:36.000 --> 07:39.650
+makes things much more convenient and simple to configure.
+
+07:39.960 --> 07:46.620
+I'm putting this information in here as well because I wanted to explain the terminology to you and
+
+07:46.620 --> 07:51.540
+let you know that there are several different names for what's basically the same thing.
+
+07:52.230 --> 07:56.760
+Etherchannel on our switches is also known as a port channel.
+
+07:56.910 --> 08:02.250
+In fact, when you hear me talking about it during the section, you'll probably hear me call it port
+
+08:02.250 --> 08:03.930
+channel more of an etherchannel.
+
+08:04.140 --> 08:06.930
+People in the industry, we tend to call it that more often.
+
+08:07.200 --> 08:12.930
+It can also be known as a LAG which stands for link aggregation or a link bundle.
+
+08:13.350 --> 08:19.890
+When we bundle our physical interfaces on our servers, we'll usually call it NIC Teaming.
+
+08:20.040 --> 08:25.440
+It can also be called bonding, NIC balancing and again, link aggregation.
+
+08:25.630 --> 08:29.580
+OK, so that was why we have etherchannel.
+
+08:29.820 --> 08:32.520
+It gets us past that problem with spanning-tree.
+
+08:32.670 --> 08:35.830
+And also a quick overview of the terminology as well.
+
+08:36.000 --> 08:37.500
+See you in the next lecture.

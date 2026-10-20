@@ -1,0 +1,283 @@
+WEBVTT
+
+00:06.460 --> 00:15.670
+Dalam kuliah ini, Anda akan belajar tentang mengapa kami memiliki etherchannel dan kami akan memulai dengan meninjau
+
+00:15.670 --> 00:20.140
+kembali model desain kampus dengan sangat cepat.
+
+00:20.470 --> 00:25.420
+Jadi host akhir kami seperti PC kami dicolokkan
+
+00:25.440 --> 00:32.770
+ke sakelar lapisan akses kami. Lapisan akses kami beralih uplink ke switch lapisan distribusi,
+
+00:32.770 --> 00:36.040
+dan kemudian mereka uplink ke switch lapisan inti.
+
+00:36.850 --> 00:42.390
+Host akhir tidak terus-menerus mengirimkan lalu lintas ke jaringan.
+
+00:42.610 --> 00:46.030
+Sebagian besar waktu koneksi jaringan mereka menganggur.
+
+00:46.270 --> 00:51.970
+Jika Anda berpikir tentang apa yang Anda lakukan saat Anda sedang duduk di PC, jika Anda
+
+00:51.970 --> 00:58.000
+sedang mengerjakan dokumen wWrd atau spreadsheet Excel atau semacamnya, tidak ada lalu lintas yang benar-benar melewati jaringan.
+
+00:58.360 --> 01:05.440
+Karena itu, Anda dapat terhubung dengan lebih sedikit uplink ke setiap lapisan yang lebih tinggi daripada jumlah host yang Anda
+
+01:05.440 --> 01:11.830
+miliki dan tetap mempertahankan kinerja jaringan yang dapat diterima karena Anda tidak perlu mendukung semua kemungkinan bandwidth yang
+
+01:11.830 --> 01:16.660
+dimiliki host Anda karena kami tidak semuanya akan menggunakannya pada saat yang sama.
+
+01:17.390 --> 01:24.700
+Tetapi jika saya kembali ke slide, Anda lihat di sini kami memiliki dua bangunan kami, kami memiliki empat sakelar
+
+01:24.700 --> 01:32.590
+lapisan akses di setiap bangunan sebagai contoh, dan katakanlah itu adalah sakelar 48-port dan saya punya 40 host akhir dicolokkan
+
+01:32.590 --> 01:34.060
+ke setiap sakelar.
+
+01:34.270 --> 01:43.590
+Jadi itu akan menjadi 4x40. 160 tuan rumah di Gedung Utama, 160 tuan rumah di Gedung 1 juga.
+
+01:43.810 --> 01:51.130
+Mereka terhubung ke sepasang sakelar distribusi di kedua gedung.
+
+01:51.430 --> 01:58.930
+Jadi saya punya 160 perangkat di kedua gedung, tapi saya tidak punya 160 uplink dari lapisan akses
+
+01:58.930 --> 02:00.280
+ke lapisan distribusi.
+
+02:00.520 --> 02:06.370
+Juga, jadi saya tidak memiliki jumlah uplink yang naik dari lapisan distribusi ke lapisan inti.
+
+02:06.520 --> 02:09.640
+Saya tidak perlu memasukkan sebanyak itu karena saya tahu
+
+02:09.640 --> 02:12.910
+bahwa PC saya tidak akan melakukan transmisi pada saat yang bersamaan.
+
+02:12.910 --> 02:14.860
+Mereka sebenarnya tidak membutuhkan bandwidth sebanyak itu.
+
+02:17.000 --> 02:25.050
+Rekomendasi aturan praktis awal untuk berapa banyak kelebihan langganan yang harus Anda miliki di LAN kampus Anda
+
+02:25.050 --> 02:34.010
+adalah 20:1 dari lapisan akses ke lapisan distribusi. Artinya, jika Anda memiliki 20 PC yang terhubung dengan
+
+02:34.010 --> 02:41.330
+kartu jaringan 1 Gbps pada lapisan akses, Anda akan memerlukan satu uplink 1G ke lapisan
+
+02:41.330 --> 02:45.200
+distribusi untuk mendukung lalu lintas mereka.
+
+02:45.680 --> 02:50.840
+Rekomendasinya adalah 4:1 untuk distribusi ke tautan lapisan inti.
+
+02:51.140 --> 02:58.790
+Dan ingatlah bahwa itu adalah nilai-nilai umum. Anda harus menganalisis lalu lintas di jaringan Anda untuk
+
+02:58.790 --> 03:04.940
+memverifikasi bahwa tautan Anda tidak macet karena bergantung pada pola lalu lintas tertentu di jaringan Anda,
+
+03:05.120 --> 03:07.700
+aplikasi apa yang Anda jalankan, dll. apa yang akan menjadi rasio kelebihan berlangganan yang baik untuk Anda.
+
+03:07.880 --> 03:11.240
+Ini adalah angka rata-rata yang bagus.
+
+03:11.570 --> 03:13.550
+Switch sering kali
+
+03:15.650 --> 03:23.480
+memiliki port uplink khusus yang memiliki bandwidth lebih tinggi daripada bandwidth pada port aksesnya. Misalnya, sakelar 1Gbps 48-port dengan sepasang uplink 10Gbps, dan itu
+
+03:23.480 --> 03:31.760
+dapat membantu dengan rasio berlangganan.
+
+03:31.760 --> 03:34.210
+Misalnya, jika Anda memiliki klien
+
+03:34.640 --> 03:40.790
+48x1Gbps yang terpasang di sakelar itu, maka total bandwidth yang mungkin adalah 48 Gbps.
+
+03:40.790 --> 03:44.170
+Anda mendapatkan uplink 2x10Gbps,
+
+03:44.570 --> 03:51.770
+sekitar 20Gbps pada tautan uplink Anda, sehingga memberikan rasio berlangganan 2. 4:1.
+
+03:51.770 --> 03:54.950
+Jika kami tidak
+
+03:55.370 --> 04:01.370
+memiliki uplink 10Gbps itu, jika uplink juga 1Gbps, rasio berlangganannya adalah 24:1.
+
+04:01.370 --> 04:03.190
+Jelas tidak sebaik.
+
+04:03.200 --> 04:04.880
+Jadi biasanya ketika Anda
+
+04:05.360 --> 04:11.750
+memiliki switch yang memiliki uplink bandwidth yang lebih tinggi, maka kelebihan langganan tidak akan menjadi masalah.
+
+04:11.750 --> 04:13.550
+Namun, kami memiliki masalah ketika kami ingin menghubungkan 2 uplink dan masalah itu adalah spanning-tree. Karena spanning-tree,
+
+04:13.940 --> 04:24.530
+ia menyediakan redundansi, tetapi tidak menyediakan penyeimbangan beban. Spanning-tree selalu memilih satu jalur terbaik
+
+04:24.560 --> 04:32.660
+untuk menghindari perulangan.
+
+04:32.660 --> 04:36.290
+Jadi, jika sebuah sakelar memiliki beberapa jalur biaya yang sama, mereka jelas tidak pernah beralih ke jembatan akar.
+
+04:36.440 --> 04:42.200
+Ini akan memilih salah satu port tersebut, yang memiliki Port ID terendah.
+
+04:42.470 --> 04:46.970
+Itu tidak akan memuat keseimbangan di semuanya.
+
+04:46.970 --> 04:49.610
+Jadi dalam contoh kami di sini dengan diagram,
+
+04:49.950 --> 04:56.480
+kami mendapatkan uplink dari sakelar Access1 lapisan akses kami ke sakelar Dist1, dan kami memiliki dua antarmuka Ethernet 10Gbps, 0/1 dan 0/2.
+
+04:56.480 --> 05:03.560
+0/1 akan dipilih sebagai port root karena memiliki Port ID terendah dan T0/2 memblokir.
+
+05:04.010 --> 05:12.820
+Jadi, meskipun kami secara fisik menghubungkan dua uplink Ethernet 10Gbps,
+
+05:13.040 --> 05:20.420
+kami hanya mendapatkan bandwidth uplink senilai 10Gbps.
+
+05:20.420 --> 05:21.740
+Bukan 20Gbps, karena spanning-tree akan memblokir salah satu tautan itu.
+
+05:21.980 --> 05:26.480
+Jadi itulah masalahnya, kami tidak mendapatkan semua bandwidth uplink yang tersedia dan terhubung secara fisik.
+
+05:28.470 --> 05:34.800
+Solusinya adalah etherchannel. Etherchannel mengelompokkan beberapa antarmuka fisik ke
+
+05:35.010 --> 05:44.100
+dalam satu antarmuka logis. Dan spanning-tree kemudian melihat etherchannel itu sebagai antarmuka tunggal sehingga tidak memblokir port
+
+05:44.100 --> 05:46.080
+apa pun.
+
+05:46.080 --> 05:51.700
+Kami sekarang mendapatkan bandwidth penuh senilai 20Gbps.
+
+05:51.990 --> 05:55.770
+Jadi jika Anda melihat kembali slide sebelumnya, saat
+
+05:56.190 --> 06:02.340
+kita tidak menggunakan etherchannel, spanning-tree melihat itu sebagai kemungkinan loop karena lalu lintas bisa
+
+06:02.340 --> 06:08.870
+naik T0/1 dan kemudian kembali turun ke T0/2, dan kemudian kembali ke T0 /1 lagi.
+
+06:08.910 --> 06:11.460
+Kami memiliki loop potensial di sana ketika kami tidak memiliki etherchannel. Tetapi ketika kita mengkonfigurasi etherchannel, untuk spanning-tree, itu
+
+06:11.490 --> 06:17.310
+dihitung sebagai satu tautan, sebagai antarmuka tunggal di kedua sisi. Jadi spanning-tree tidak
+
+06:17.310 --> 06:24.860
+melihatnya sebagai loop potensial.
+
+06:24.870 --> 06:27.180
+Dan sekarang kami mendapatkan bandwidth penuh sebesar 20Gbps.
+
+06:27.400 --> 06:30.990
+Lalu lintas akan dimuat seimbang di semua tautan yang ada di etherchannel.
+
+06:32.190 --> 06:37.000
+Jadi lalu lintas dari PC saya ke hulu akan menjadi beban seimbang di semua tautan. Hal yang sama untuk lalu lintas yang kembali ke arah
+
+06:37.170 --> 06:42.660
+lain, tidak hanya menyediakan
+
+06:42.660 --> 06:45.720
+penyeimbangan beban, tetapi juga menyediakan redundansi. Jika antarmuka turun, lalu lintasnya
+
+06:45.930 --> 06:52.350
+akan gagal ke tautan yang tersisa.
+
+06:52.350 --> 06:54.420
+Jadi itu etherchannel di switch kami.
+
+06:55.590 --> 06:59.190
+Kami pada dasarnya dapat melakukan hal yang sama di server kami juga dengan NIC Teaming.
+
+06:59.430 --> 07:05.460
+Jadi kembali ke slide, etherchannel adalah tempat kita dapat
+
+07:05.460 --> 07:12.900
+menggabungkan beberapa port fisik ke dalam satu port logis pada tautan antar-switch kita. Di server kami, dengan NIC Teaming, kami dapat menggabungkan beberapa kartu jaringan fisik ke
+
+07:12.900 --> 07:17.550
+dalam satu antarmuka logis. Manfaat yang kami dapatkan dari
+
+07:17.580 --> 07:25.200
+ini adalah kami mendapatkan penyeimbangan beban dan redundansi lagi.
+
+07:25.200 --> 07:29.820
+Dan karena sistem operasi melihat sebagai satu antarmuka, kami hanya
+
+07:30.030 --> 07:36.000
+memiliki satu alamat IP di sana yang membuat segalanya jauh lebih nyaman dan mudah dikonfigurasi.
+
+07:36.000 --> 07:39.650
+Saya menempatkan informasi ini di sini juga karena saya ingin
+
+07:39.960 --> 07:46.620
+menjelaskan terminologi kepada Anda dan memberi tahu Anda bahwa ada beberapa nama berbeda untuk hal yang pada dasarnya sama.
+
+07:46.620 --> 07:51.540
+Etherchannel pada switch kami juga dikenal sebagai saluran port.
+
+07:52.230 --> 07:56.760
+Bahkan, ketika Anda mendengar saya membicarakannya selama bagian ini,
+
+07:56.910 --> 08:02.250
+Anda mungkin akan mendengar saya menyebutnya saluran port lebih dari saluran ether.
+
+08:02.250 --> 08:03.930
+Orang-orang di industri ini, kami cenderung lebih sering menyebutnya begitu.
+
+08:04.140 --> 08:06.930
+Itu juga dapat dikenal sebagai LAG yang merupakan singkatan dari agregasi tautan atau bundel tautan.
+
+08:07.200 --> 08:12.930
+Ketika kami menggabungkan antarmuka fisik kami di server kami, kami biasanya menyebutnya NIC Teaming.
+
+08:13.350 --> 08:19.890
+Itu juga bisa disebut ikatan, penyeimbangan NIC dan lagi, agregasi tautan.
+
+08:20.040 --> 08:25.440
+OK, jadi itu sebabnya kami memiliki etherchannel.
+
+08:25.630 --> 08:29.580
+Itu membuat kita melewati masalah dengan spanning-tree.
+
+08:29.820 --> 08:32.520
+Dan juga gambaran singkat tentang terminologi juga.
+
+08:32.670 --> 08:35.830
+Sampai jumpa di kuliah berikutnya.

@@ -1,0 +1,37 @@
+WEBVTT
+
+00:06.260 --> 00:15.320
+En esta sección, aprenderá sobre etherchannel, que se puede usar para agrupar múltiples interfaces físicas
+
+00:15.560 --> 00:18.960
+en una sola interfaz lógica.
+
+00:19.310 --> 00:24.460
+Cubriré por qué necesitamos etherchannel y spoiler alert,
+
+00:24.470 --> 00:27.170
+es por spanning-tree.
+
+00:27.660 --> 00:34.990
+También cubriré cómo funcionan el equilibrio de carga y la redundancia de etherchannel.
+
+00:35.390 --> 00:43.310
+Aprenderá todos los diferentes protocolos que están disponibles para etherchannel, cómo configurarlos y
+
+00:43.310 --> 00:45.200
+cómo verificarlos.
+
+00:45.860 --> 00:53.510
+Y finalmente, hablaremos sobre otro problema en el que si sus conmutadores se enlazan a dos
+
+00:53.510 --> 01:03.170
+conmutadores diferentes para la redundancia, incluso si está utilizando etherchannel, el árbol de expansión reducirá su ancho de banda disponible a
+
+01:03.170 --> 01:04.310
+la mitad.
+
+01:04.690 --> 01:13.880
+Sin embargo, Cisco tiene algunas tecnologías que evitarán eso: StackWise, VSS y vPC.
+
+01:13.880 --> 01:21.440
+Cubriremos una descripción general de esas opciones de etherchannel multi-chasis en la última conferencia.

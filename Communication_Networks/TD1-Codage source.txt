@@ -1,0 +1,7 @@
+1) 011 1 010 001 1 011 1 000
+         b  a   r      t     a   b  a   c
+m= bartabac
+2)taux=nb bits à la sortie du codeur / nb bits à l'entrée du codeur    
+              =18/(8*8)=0.28
+G=1-taux =1-0.28=0.72=72%
+3)a- L’émetteur doit communiquer le dictionnaire qu’il a défini au récepteur afin que ce dernier puisse faire le décodage.                               b- comme le gain est élevé donc le débit diminue

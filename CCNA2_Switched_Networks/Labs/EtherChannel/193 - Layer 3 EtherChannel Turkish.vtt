@@ -1,0 +1,247 @@
+WEBVTT
+
+00:07.260 --> 00:14.070
+Bu derste, katman 3 etherchannel'lar hakkında bilgi edineceksiniz. Bu bölümdeki önceki derslerde, katman 2 ether kanallarının
+
+00:14.230 --> 00:17.400
+nasıl yapılandırılacağını gördünüz.
+
+00:17.550 --> 00:20.550
+Katman 3 etherchannel'ları da yapılandırabiliriz.
+
+00:20.670 --> 00:28.050
+Bunu buradaki yapılandırma örneği ile görebilirsiniz. Ve yapılandırma aslında tamamen aynıdır.
+
+00:28.320 --> 00:35.940
+Tek fark, no switchport komutu ile bağlantı noktalarını katman 3 bağlantı noktası haline getirmemizdir.
+
+00:36.120 --> 00:42.270
+Yani bu, etherchannel kullanırken ya da kullanmazken bağlantı noktasının bir katman 3 bağlantı noktası olduğunu söylemek
+
+00:42.270 --> 00:48.390
+için katman 3 anahtarında kullanabileceğiniz standart bir komuttur, böylece oraya bir IP adresi koyabilirsiniz.
+
+00:48.510 --> 00:54.800
+Şimdi yapılandırmaya bakalım. Global yapılandırmada, arayüz aralığı gi1/0/1 - 2 dedim ve ardından
+
+00:54.810 --> 00:55.770
+bu katman 3 bağlantı
+
+00:55.920 --> 01:02.400
+noktalarını yapmak için switchport yok diyorum ve ardından bunları bir bağlantı noktası kanalı olarak yapılandıracağım.
+
+01:02.530 --> 01:07.320
+Bu yüzden kanal grubu 1 modu ve ardından katman 2 için sahip olduğumuz seçeneklerin aynısı diyorum.
+
+01:07.500 --> 01:14.210
+Ne zaman on ile statik bir etherchannel yapmak istediğinize bağlı olarak aktif, otomatik, arzu edilen,
+
+01:14.250 --> 01:16.860
+açık veya pasif olabilir veya LACP için
+
+01:17.100 --> 01:23.610
+aktif veya pasif kullanabiliriz veya PaGP için otomatik veya arzu edilen kullanabiliriz.
+
+01:25.140 --> 01:31.500
+Böylece bağlantı noktalarını bir etherchannel'da gruplayacaktır. Daha sonra diğer yapılandırmamızı etherchannel'ımıza
+
+01:31.500 --> 01:32.670
+koyabiliriz.
+
+01:32.850 --> 01:36.080
+IP adresimizi buraya koyacağız.
+
+01:36.330 --> 01:40.560
+Yani arayüz bağlantı noktası-kanal 1 diyoruz, kanal grubu numarasıyla bağlantılı olan.
+
+01:40.710 --> 01:47.550
+Ve sonra bu örnekte, ip adresi 192 diyeceğiz. 168. 0. 1 255.
+
+01:47.550 --> 01:47.550
+255. 255. 252.
+
+01:47.550 --> 01:51.060
+Ve arayüzde kapatma işlemi yapmamayı unutmayın.
+
+01:51.360 --> 01:55.710
+Tamam, bu bir katman 3 etherchannel. Bu tam yapılandırma.
+
+01:55.980 --> 02:01.740
+Yani bu gerçekten kısa bir ders olabilirdi, ancak bunun başka bir anlamı daha var. Burada sizinle konuşmak istediğim
+
+02:01.740 --> 02:05.790
+başka bir konu daha var, o da ağ tasarımı.
+
+02:06.480 --> 02:13.920
+Dolayısıyla, geleneksel kampüs tasarımımıza çekirdek dağıtım ve erişim katmanı ile bakıyoruz. Ve bunun başlangıçta yapılma şekli, erişim
+
+02:13.920 --> 02:20.790
+katmanı anahtarları ile dağıtım katmanı anahtarları arasında katman
+
+02:20.790 --> 02:24.210
+2 bağlantıları olurdu.
+
+02:24.480 --> 02:32.550
+Ve son ana bilgisayarlar için varsayılan ağ geçidi dağıtım katmanı anahtarlarında olacaktır ve erişim ile dağıtım katmanı
+
+02:32.550 --> 02:39.450
+arasında çalışan spanning-tree'ye sahip olacağız çünkü bunlar katman 2 bağlantılarıdır.
+
+02:40.230 --> 02:47.220
+Şu anda giderek artan bir şekilde görebileceğiniz bir eğilim, aslında her yere katman 3 bağlantıları koymaktır.
+
+02:47.640 --> 02:52.230
+Bunu yapmaktan elde edeceğiniz fayda, artık spanning-tree kullanmadığınız anlamına gelir.
+
+02:52.440 --> 02:55.800
+Spanning-tree gerekli bir kötülüktür.
+
+02:55.980 --> 03:02.160
+Spanning-tree'nin kötü tarafı, bağlantılarınızın yarısını kapatma eğiliminde olması ve aynı zamanda
+
+03:02.160 --> 03:04.920
+arızadan kurtulmanın da çok yavaş olmasıdır.
+
+03:05.070 --> 03:08.550
+Yani kötü ama yine de iyi şeyler yapıyor.
+
+03:08.550 --> 03:13.500
+Yine de buna ihtiyacınız var çünkü ağınızda katman 2 döngüsü olsaydı çok daha kötü olurdu,
+
+03:13.500 --> 03:15.830
+çünkü bu temelde ağınızı çökertecektir.
+
+03:16.080 --> 03:20.580
+Bu nedenle, spanning-tree'yi etkinleştirerek katman 2 döngülerine sahip olmadığımızdan emin oluruz.
+
+03:20.700 --> 03:26.490
+Ancak kötü tarafı, arızalardan kurtulmanın yavaş olması ve bağlantılarımızın yarısını kapatması.
+
+03:26.580 --> 03:32.910
+Yani her yerde katman 3 bağlantılarımız olsa ve artık spanning-tree kullanmasak daha iyi olurdu, değil mi?
+
+03:32.910 --> 03:36.660
+Şimdi merak ediyor olabilirsiniz, peki, tamam, peki, neden bunu her zaman yapmadık?
+
+03:36.690 --> 03:40.890
+Erişim katmanı ile dağıtım katmanı arasında neden eskiden katman 2 bağlantıları vardı?
+
+03:40.890 --> 03:42.840
+Şimdi, birçok modern ağda hala
+
+03:42.840 --> 03:47.340
+erişimden dağıtım katmanına kadar katman 2 bağlantılarımız var.
+
+03:47.520 --> 03:51.420
+Ancak şu anda göreceğiniz artan bir eğilim, katman 3'ün her yerde olması
+
+03:51.610 --> 03:57.270
+ve bunun mümkün olmasının nedeni, katman 3 anahtarlarının fiyatlarının çok düşmüş olmasıdır.
+
+03:57.510 --> 04:03.720
+Eskiden, katman 3 anahtarları katman 2 anahtarlarından çok daha pahalıydı.
+
+04:03.870 --> 04:09.480
+Ve yüksek bağlantı noktası sayısına sahip olduğunuz, tüm ana bilgisayarlarınızın takılı olduğu erişim katmanı
+
+04:09.480 --> 04:09.690
+anahtarlarınız,
+
+04:09.870 --> 04:15.270
+yani çok sayıda erişim katmanı anahtarınız vardı ve tüm erişim katmanı anahtarlarınızda katman 3 anahtarları
+
+04:15.510 --> 04:18.930
+kullanmak maliyet açısından mümkün değildi.
+
+04:19.170 --> 04:25.680
+Ancak zaman ilerlediği ve katman 3 anahtarların fiyatları düştüğü için bunu yapmak
+
+04:25.680 --> 04:27.260
+artık daha mümkün.
+
+04:27.480 --> 04:33.960
+Dolayısıyla, erişim katmanı da dahil olmak üzere her yere katman 3 anahtarları koyarsanız, artık erişim katmanından dağıtım katmanına
+
+04:33.960 --> 04:39.240
+katman 3 bağlantılarına sahip olursunuz. Yani burada bu bağlantı noktasında bir IP adresiniz
+
+04:39.240 --> 04:42.480
+ve burada bu bağlantı noktasında bir IP adresiniz var.
+
+04:42.570 --> 04:48.780
+Yani her şey 3. katman olduğu için artık spanning-tree çalışmıyor. Spanning-tree yalnızca katman 2
+
+04:48.780 --> 04:51.450
+bağlantılarında çalışır.
+
+04:51.630 --> 04:57.870
+Yani anahtarlarınız arasındaki yolların belirlenme şekli artık spanning-tree tarafından
+
+04:57.870 --> 04:59.070
+belirlenmiyor.
+
+04:59.220 --> 05:01.950
+Yönlendirme protokolünüz tarafından belirleniyor.
+
+05:01.950 --> 05:06.800
+Dolayısıyla, her yerde katman 3 bağlantılarını kullandığınızda, burada da bir yönlendirme protokolü yapılandıracaksınız
+
+05:07.170 --> 05:13.620
+ve yol belirleme işlemini yapmak yönlendirme protokolüne kalmıştır. Yönlendirme protokolleriniz eşit maliyetli yük dengelemeyi
+
+05:13.620 --> 05:18.150
+destekler, bu nedenle bağlantıların kapatılmasını istemezsiniz.
+
+05:18.300 --> 05:22.830
+Tüm bağlantılarınız hala kullanılabilir olacak ve trafik hepsi arasında yük dengelenecektir.
+
+05:23.060 --> 05:25.800
+Ayrıca, yönlendirme protokolleriniz arızalardan kurtulur.
+
+05:25.800 --> 05:28.610
+Spanning-tree'ye göre çok daha hızlı yakınsarlar.
+
+05:28.740 --> 05:35.790
+Bu da sizin için bir avantaj. Şimdi, bunu yaptığınızda, bu konuda size söyleyeceğim son şey, varsayılan
+
+05:35.940 --> 05:40.380
+ağ geçidinin artık katman 2'de olduğu gibi dağıtım katmanı anahtarlarında olmayacağıdır.
+
+05:40.380 --> 05:46.140
+Erişim katmanında, son ana bilgisayarınız için varsayılan ağ geçidi erişim katmanı anahtarlarında olacaktır.
+
+05:46.260 --> 05:52.710
+Ve eğer düşünürseniz, öyle olmak zorunda çünkü burada bir IP alt ağımız olacak ve
+
+05:52.710 --> 05:59.370
+burada farklı bir IP alt ağımız olacak. Ve ana bilgisayarlarınız için varsayılan ağ geçidi aynı IP alt ağında
+
+05:59.370 --> 06:00.270
+olmalıdır.
+
+06:00.450 --> 06:05.280
+Dolayısıyla, varsayılan ağ geçidiniz artık erişim katmanı anahtarlarınızda yapılandırılacak ve her yerde yönlendirmeye
+
+06:05.280 --> 06:06.480
+sahip olacaksınız, bunun üzerindeki
+
+06:06.480 --> 06:08.500
+her yerde katman 3 bağlantıları olacak.
+
+06:08.940 --> 06:09.260
+TAMAM.
+
+06:09.540 --> 06:15.780
+Bunu etherchannel dersine koydum çünkü bunu yaparken sıklıkla anahtarlarınız
+
+06:15.780 --> 06:22.320
+arasında etherchannel'lar olacak ve her yerde katman 3 olduğunda, elbette katman
+
+06:22.320 --> 06:24.900
+3 etherchannel'lar olacak.
+
+06:25.050 --> 06:27.450
+Tamam, burada size söylemem gereken her
+
+06:27.450 --> 06:29.190
+şey bu kadar. Bir sonraki derste görüşmek üzere.

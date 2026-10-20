@@ -1,0 +1,157 @@
+WEBVTT
+
+00:06.360 --> 00:14.130
+Nesta palestra, você aprenderá como funciona o balanceamento de carga etherchannel e usarei o diagrama que você
+
+00:14.130 --> 00:17.970
+vê no slide ao longo desta palestra.
+
+00:18.390 --> 00:24.990
+Portanto, tenho dois switches com quatro links entre eles que foram agrupados em um etherchannel, e cada um desses
+
+00:25.170 --> 00:31.140
+quatro links são interfaces Ethernet de 1 Gbps. Começando com gi0 / 1 à
+
+00:31.140 --> 00:38.920
+esquerda e indo para gi0 / 4 à direita. No botão inferior, tenho alguns
+
+00:38.940 --> 00:41.700
+PCs conectados lá.
+
+00:41.700 --> 00:43.530
+Eu tenho o PC-1 e o PC-2.
+
+00:43.770 --> 00:45.000
+E então a
+
+00:45.000 --> 00:49.110
+mudança superior, eu tenho alguns servidores. Existe o Server-1 e o Server-2.
+
+00:49.440 --> 00:57.780
+Portanto, nesta aula, vamos cobrir como a carga do etherchannel equilibra os diferentes fluxos que estão passando pelos links
+
+00:57.780 --> 00:59.520
+entre os switches.
+
+00:59.730 --> 01:08.250
+Um fluxo é uma comunicação de um cliente para um servidor usando um aplicativo específico. Se o PC-1, em nosso exemplo de exemplo, abrir uma
+
+01:08.250 --> 01:15.780
+sessão da web para o Servidor-1 e o PC-2 abrir uma sessão FTP para o Servidor-2, teremos dois
+
+01:15.780 --> 01:18.270
+fluxos passando por nossos switches.
+
+01:18.690 --> 01:26.220
+E com etherchannel, um único fluxo é balanceado por carga em uma interface de canal de porta única.
+
+01:26.580 --> 01:33.600
+Por exemplo, todos os pacotes no fluxo do PC-1 para o Servidor-1, sempre passam pela interface gi0 / 1.
+
+01:33.600 --> 01:41.340
+Todos os pacotes e fluxos do PC-2 para o Servidor-2 sempre passam pela interface gi0 / 2.
+
+01:42.390 --> 01:48.600
+Então, olhando para isso com uma animação, o primeiro pacote e fluxo do PC-1 para o Servidor-1,
+
+01:49.020 --> 01:50.970
+ele atinge o primeiro switch.
+
+01:51.150 --> 01:56.640
+O switch decide em qual interface fará o balanceamento de carga.
+
+01:56.820 --> 02:01.740
+Ele escolhe gi0 / 1 em nosso exemplo e vai para o servidor.
+
+02:02.040 --> 02:06.690
+O próximo pacote no fluxo também irá para a mesma interface.
+
+02:06.690 --> 02:12.780
+Então, ele vem no switch, faz o balanceamento de carga para a mesma interface novamente e depois sobe para o servidor.
+
+02:13.730 --> 02:21.830
+No segundo fluxo, do PC-2 para o Server-2 que vem para o switch, o switch usará esse algoritmo para
+
+02:21.830 --> 02:27.520
+decidir em qual interface balancear a carga - gi0 / 2 em nosso
+
+02:27.650 --> 02:33.020
+exemplo, e vai para o servidor. Quando o segundo, o terceiro, o quarto e assim
+
+02:33.020 --> 02:37.130
+por diante pacotes vierem desse fluxo, todos terão a carga balanceada na mesma interface.
+
+02:38.360 --> 02:44.570
+Os pacotes do mesmo fluxo têm sempre a carga balanceada na mesma interface. Eles não são round-robin com balanceamento de
+
+02:44.570 --> 02:51.230
+carga em todas as interfaces no canal de portas. Por exemplo, não balanceamos a carga do primeiro pacote
+
+02:51.230 --> 02:57.410
+do PC-1 para o Servidor-1 na interface gi0 / 1 e, em seguida, o segundo pacote
+
+02:57.410 --> 03:00.620
+nesse mesmo fluxo para gi0 / 2.
+
+03:01.010 --> 03:07.990
+A razão para isso é que o balanceamento de carga round-robin pode fazer com que os pacotes cheguem fora de
+
+03:08.000 --> 03:11.390
+ordem no destino, o que pode interromper alguns aplicativos.
+
+03:11.390 --> 03:13.340
+Portanto, garante que isso não aconteça.
+
+03:13.520 --> 03:19.220
+Sempre carregamos pacotes de equilíbrio do mesmo fluxo para a mesma interface, então eles sempre chegarão em
+
+03:19.220 --> 03:19.700
+ordem.
+
+03:21.030 --> 03:26.670
+Então isso não acontece, você vê o primeiro pacote do fluxo passando para a interface gi0 / 1,
+
+03:26.940 --> 03:31.190
+o segundo pacote do mesmo fluxo para gi0 / 2, não fazemos isso.
+
+03:32.850 --> 03:39.240
+Portanto, da maneira como isso funciona, porque um único fluxo sempre obtém balanceamento de carga na mesma interface,
+
+03:39.690 --> 03:46.320
+qualquer fluxo único recebe uma largura de banda de um único link no canal de porta como seu máximo.
+
+03:46.770 --> 03:52.980
+Isso é um máximo de largura de banda de 1 Gbps por fluxo em nosso exemplo, onde estávamos usando links de 1 Gbps
+
+03:52.980 --> 03:54.090
+entre nossos switches.
+
+03:54.450 --> 03:59.610
+Mas há uma largura de banda agregada de 4 Gbps em todos os fluxos disponíveis.
+
+04:00.540 --> 04:04.910
+Portanto, você pode pensar em um canal portuário como uma rodovia com várias faixas.
+
+04:05.250 --> 04:11.700
+Os carros sempre ficam em sua própria faixa e em uma única faixa, mas como há várias faixas, o
+
+04:11.700 --> 04:14.130
+tráfego geral chega lá mais rápido.
+
+04:14.310 --> 04:20.220
+Obviamente, um exemplo estranho, se tivéssemos apenas um uplink em vez de quatro, não teríamos tanta largura de banda geral
+
+04:20.220 --> 04:23.190
+disponível entre os switches. Etherchannel fornece
+
+04:23.190 --> 04:29.620
+redundância, bem como balanceamento de carga. Se um link falhar, os fluxos terão a carga
+
+04:29.630 --> 04:31.700
+balanceada para os links restantes.
+
+04:31.920 --> 04:35.310
+OK, é assim que funciona o balanceamento de carga e a redundância.
+
+04:35.660 --> 04:39.150
+Até a próxima aula para mais etherchannel.

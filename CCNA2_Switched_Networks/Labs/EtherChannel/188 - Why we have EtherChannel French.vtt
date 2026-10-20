@@ -1,0 +1,283 @@
+WEBVTT
+
+00:06.460 --> 00:15.670
+Dans cette conférence, vous découvrirez pourquoi nous avons etherchannel et nous commencerons par revoir très
+
+00:15.670 --> 00:20.140
+rapidement le modèle de conception du campus.
+
+00:20.470 --> 00:25.420
+Ainsi, notre hôte final, comme nos PC, est connecté
+
+00:25.440 --> 00:32.770
+à nos commutateurs de couche d'accès. Nos commutateurs de couche d'accès se connectent aux commutateurs de la couche de
+
+00:32.770 --> 00:36.040
+distribution, puis ils se connectent aux commutateurs de la couche principale.
+
+00:36.850 --> 00:42.390
+Les hôtes finaux n'envoient pas constamment du trafic sur le réseau.
+
+00:42.610 --> 00:46.030
+La plupart du temps, leur connexion réseau est inactive.
+
+00:46.270 --> 00:51.970
+Si vous pensez à ce que vous faites lorsque vous êtes assis sur un PC, si vous travaillez sur un document
+
+00:51.970 --> 00:58.000
+wWrd ou une feuille de calcul Excel ou quelque chose comme ça, il n'y a pas de trafic qui passe réellement sur le réseau.
+
+00:58.360 --> 01:05.440
+Pour cette raison, vous pouvez vous connecter sur moins de liaisons montantes à chaque couche supérieure que le nombre d'hôtes que vous avez
+
+01:05.440 --> 01:11.830
+et toujours maintenir des performances réseau acceptables car vous n'avez pas besoin de prendre en charge toute la bande passante
+
+01:11.830 --> 01:16.660
+possible de vos hôtes car nous ne sommes pas tous va l'utiliser en même temps.
+
+01:17.390 --> 01:24.700
+Mais si je reviens sur une diapositive, vous voyez ici que nous avons nos deux bâtiments, nous avons quatre commutateurs
+
+01:24.700 --> 01:32.590
+de couche d'accès dans chaque bâtiment pour l'exemple, et disons que ce sont des commutateurs à 48 ports et j'ai 40 hôtes finaux
+
+01:32.590 --> 01:34.060
+branchés sur chaque commutateur.
+
+01:34.270 --> 01:43.590
+Ce serait donc 4x40. 160 hôtes dans le bâtiment principal, 160 hôtes dans le bâtiment 1 également.
+
+01:43.810 --> 01:51.130
+Ils se connectent à une paire de commutateurs de distribution dans les deux bâtiments.
+
+01:51.430 --> 01:58.930
+J'ai donc 160 appareils dans les deux bâtiments, mais je n'ai pas 160 liaisons montantes allant de la couche d'accès à la
+
+01:58.930 --> 02:00.280
+couche de distribution.
+
+02:00.520 --> 02:06.370
+De plus, je n'ai donc pas cette quantité de liaisons montantes allant de la couche de distribution à la couche principale.
+
+02:06.520 --> 02:09.640
+Je n'ai pas besoin d'en mettre autant car je
+
+02:09.640 --> 02:12.910
+sais que mes PC ne vont pas transmettre en même temps.
+
+02:12.910 --> 02:14.860
+En fait, ils n'ont pas besoin d'autant de bande passante.
+
+02:17.000 --> 02:25.050
+Une recommandation de règle empirique de départ pour la quantité de surabonnement que vous devriez avoir dans votre réseau local de campus
+
+02:25.050 --> 02:34.010
+est de 20:1 de la couche d'accès à la couche de distribution. Cela signifie que si vous aviez 20 PC connectés avec des cartes
+
+02:34.010 --> 02:41.330
+réseau 1 Gbit/s au niveau de la couche d'accès, vous auriez besoin d'une seule liaison montante 1G vers la
+
+02:41.330 --> 02:45.200
+couche de distribution pour prendre en charge leur trafic.
+
+02:45.680 --> 02:50.840
+La recommandation est de 4:1 pour la distribution aux liaisons de la couche centrale.
+
+02:51.140 --> 02:58.790
+Et gardez à l'esprit que ce sont des valeurs générales. Vous devez analyser le trafic sur votre réseau pour vérifier que
+
+02:58.790 --> 03:04.940
+vos liens ne sont pas encombrés car cela dépend des modèles de trafic particuliers de votre réseau,
+
+03:05.120 --> 03:07.700
+des applications que vous exécutez, etc. ce qui sera un bon ratio de surabonnement pour vous.
+
+03:07.880 --> 03:11.240
+Ce sont de bons chiffres approximatifs.
+
+03:11.570 --> 03:13.550
+Les commutateurs ont souvent des
+
+03:15.650 --> 03:23.480
+ports de liaison montante dédiés qui ont une bande passante plus élevée que la bande passante de leurs ports d'accès. Par exemple, un commutateur 1 Gbit/s 48 ports avec une paire de liaisons montantes 10 Gbit/s,
+
+03:23.480 --> 03:31.760
+et cela peut aider avec le taux d'abonnement.
+
+03:31.760 --> 03:34.210
+Par exemple, si vous avez
+
+03:34.640 --> 03:40.790
+des clients 48x1Gbps branchés sur ce commutateur, la bande passante totale possible serait de 48 Gbps.
+
+03:40.790 --> 03:44.170
+Vous avez vos liaisons montantes 2x10Gbps,
+
+03:44.570 --> 03:51.770
+environ 20Gbps sur vos liaisons montantes, ce qui donne un ratio d'abonnement de 2. 4:1.
+
+03:51.770 --> 03:54.950
+Si nous n'avions pas ces
+
+03:55.370 --> 04:01.370
+liaisons montantes de 10 Gbit/s, si les liaisons montantes étaient également de 1 Gbit/s, le ratio d'abonnement serait de 24 :1.
+
+04:01.370 --> 04:03.190
+Evidemment pas aussi bien.
+
+04:03.200 --> 04:04.880
+Donc, normalement, lorsque vous
+
+04:05.360 --> 04:11.750
+avez des commutateurs dotés de liaisons montantes à bande passante plus élevée, le surabonnement ne posera pas de problème.
+
+04:11.750 --> 04:13.550
+Cependant, nous avons un problème lorsque nous voulons connecter 2 liaisons montantes et ce problème est spanning-tree. Parce que spanning-tree,
+
+04:13.940 --> 04:24.530
+il fournit la redondance, mais il ne fournit pas d'équilibrage de charge. Spanning-tree sélectionne toujours le meilleur chemin
+
+04:24.560 --> 04:32.660
+pour éviter les boucles.
+
+04:32.660 --> 04:36.290
+Ainsi, si un commutateur a plusieurs chemins de coût égal, ils ne basculent évidemment jamais vers le pont racine.
+
+04:36.440 --> 04:42.200
+Il sélectionnera l'un de ces ports, celui qui a le plus petit ID de port.
+
+04:42.470 --> 04:46.970
+Cela ne va pas équilibrer la charge entre tous.
+
+04:46.970 --> 04:49.610
+Ainsi, dans notre exemple ici avec le diagramme, nous avons
+
+04:49.950 --> 04:56.480
+des liaisons montantes de notre commutateur de couche d'accès Access1 vers le commutateur Dist1, et nous avons deux interfaces Ethernet 10 Gbit/s, 0/1 et 0/2.
+
+04:56.480 --> 05:03.560
+0/1 sera sélectionné comme port racine car il a l'ID de port le plus bas et T0/2 bloque.
+
+05:04.010 --> 05:12.820
+Ainsi, même si nous avons physiquement connecté deux liaisons montantes Ethernet 10
+
+05:13.040 --> 05:20.420
+Gbit/s, nous n'obtenons que 10 Gbit/s de bande passante montante.
+
+05:20.420 --> 05:21.740
+Pas les 20 Gbps, car spanning-tree va bloquer l'un de ces liens.
+
+05:21.980 --> 05:26.480
+C'est donc le problème, nous n'obtenons pas toute notre bande passante de liaison montante disponible et physiquement connectée.
+
+05:28.470 --> 05:34.800
+La solution est l'etherchannel. Etherchannel regroupe plusieurs interfaces physiques en
+
+05:35.010 --> 05:44.100
+une seule interface logique. Et spanning-tree voit alors cet etherchannel comme une interface unique afin qu'il ne bloque
+
+05:44.100 --> 05:46.080
+aucun port.
+
+05:46.080 --> 05:51.700
+Nous obtenons maintenant la totalité de la bande passante de 20 Gbit/s.
+
+05:51.990 --> 05:55.770
+Donc, si vous revenez sur la diapositive précédente,
+
+05:56.190 --> 06:02.340
+lorsque nous n'utilisions pas etherchannel, spanning-tree voit cela comme une boucle possible car le
+
+06:02.340 --> 06:08.870
+trafic pourrait remonter jusqu'à T0/1 puis redescendre jusqu'à T0/2, puis remonter jusqu'à T0 /1 à nouveau.
+
+06:08.910 --> 06:11.460
+Nous avons une boucle potentielle là-bas lorsque nous n'avons pas de canal Ethernet. Mais lorsque nous configurons etherchannel, pour spanning-tree, cela compte
+
+06:11.490 --> 06:17.310
+comme un seul lien, comme une seule interface des deux côtés. Donc, spanning-tree ne le
+
+06:17.310 --> 06:24.860
+voit pas comme une boucle potentielle.
+
+06:24.870 --> 06:27.180
+Et maintenant, nous obtenons la totalité de la bande passante de 20 Gbit/s.
+
+06:27.400 --> 06:30.990
+Le trafic sera équilibré en charge sur tous les liens qui se trouvent dans l'etherchannel.
+
+06:32.190 --> 06:37.000
+Ainsi, le trafic de mes PC en amont sera équilibré en charge sur tous les liens. De même pour le trafic redescendant dans l'autre sens, il
+
+06:37.170 --> 06:42.660
+ne se contente pas d'équilibrer
+
+06:42.660 --> 06:45.720
+la charge, il assure également la redondance. Si une interface tombe en panne,
+
+06:45.930 --> 06:52.350
+son trafic basculera vers les liens restants.
+
+06:52.350 --> 06:54.420
+C'était donc l'etherchannel sur nos commutateurs.
+
+06:55.590 --> 06:59.190
+Nous pouvons faire fondamentalement la même chose sur nos serveurs avec NIC Teaming.
+
+06:59.430 --> 07:05.460
+Donc, pour revenir en arrière, etherchannel est l'endroit où nous
+
+07:05.460 --> 07:12.900
+pouvons regrouper plusieurs ports physiques en un seul port logique sur nos liaisons inter-commutateurs. Sur nos serveurs, avec NIC Teaming, nous pouvons regrouper plusieurs cartes réseau physiques dans
+
+07:12.900 --> 07:17.550
+une seule interface logique. L'avantage que nous en tirons est
+
+07:17.580 --> 07:25.200
+que nous obtenons à nouveau l'équilibrage de charge et la redondance.
+
+07:25.200 --> 07:29.820
+Et parce que le système d'exploitation considère une interface unique, nous n'avons
+
+07:30.030 --> 07:36.000
+qu'une seule adresse IP, ce qui rend les choses beaucoup plus pratiques et simples à configurer.
+
+07:36.000 --> 07:39.650
+Je mets également cette information ici parce que je voulais
+
+07:39.960 --> 07:46.620
+vous expliquer la terminologie et vous faire savoir qu'il existe plusieurs noms différents pour ce qui est fondamentalement la même chose.
+
+07:46.620 --> 07:51.540
+Etherchannel sur nos commutateurs est également connu sous le nom de canal de port.
+
+07:52.230 --> 07:56.760
+En fait, lorsque vous m'entendrez en parler pendant
+
+07:56.910 --> 08:02.250
+la section, vous m'entendrez probablement l'appeler port channel plus un etherchannel.
+
+08:02.250 --> 08:03.930
+Les gens de l'industrie, nous avons tendance à l'appeler ainsi plus souvent.
+
+08:04.140 --> 08:06.930
+Il peut également être connu sous le nom de LAG qui signifie agrégation de liens ou faisceau de liens.
+
+08:07.200 --> 08:12.930
+Lorsque nous regroupons nos interfaces physiques sur nos serveurs, nous l'appelons généralement NIC Teaming.
+
+08:13.350 --> 08:19.890
+Cela peut également être appelé liaison, équilibrage de carte réseau et encore une fois, agrégation de liens.
+
+08:20.040 --> 08:25.440
+OK, c'est pourquoi nous avons etherchannel.
+
+08:25.630 --> 08:29.580
+Cela nous permet de surmonter ce problème avec spanning-tree.
+
+08:29.820 --> 08:32.520
+Et aussi un aperçu rapide de la terminologie.
+
+08:32.670 --> 08:35.830
+Rendez-vous dans la prochaine conférence.

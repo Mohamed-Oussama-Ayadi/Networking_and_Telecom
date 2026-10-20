@@ -1,0 +1,277 @@
+WEBVTT
+
+00:06.370 --> 00:16.510
+Nesta palestra, você aprenderá sobre as opções de etherchannel de vários chassis da Cisco de StackWise, vPC e
+
+00:16.510 --> 00:17.370
+VSS.
+
+00:17.650 --> 00:25.400
+As configurações de etherchannel correspondentes devem ser definidas nos interruptores em ambos os lados do link.
+
+00:25.420 --> 00:26.800
+Você já sabe disso.
+
+00:27.220 --> 00:34.360
+Você pode configurar canais de porta separados de um switch para switches redundantes upstream como você vê no
+
+00:34.360 --> 00:35.710
+diagrama aqui,
+
+00:35.900 --> 00:44.050
+eu tenho meu switch Access3 de camada de acesso e tem um canal de porta com links agrupados indo para
+
+00:44.410 --> 00:51.400
+CD1 e tem outra porta separada canal com outras interfaces físicas que são agrupadas em um canal
+
+00:51.400 --> 00:56.500
+de porta que vai até CD2. O problema com isso
+
+00:56.560 --> 01:04.960
+é que o spanning-tree veria esses canais de porta separados como duas interfaces separadas e bloquearia um caminho
+
+01:04.960 --> 01:08.670
+se um loop for formado como está aqui.
+
+01:08.890 --> 01:10.450
+Portanto, em nosso
+
+01:10.450 --> 01:12.640
+exemplo, CD1 é a ponte raiz.
+
+01:13.000 --> 01:18.430
+Portanto, o canal de porta do Access3 para esse será o Encaminhamento.
+
+01:18.790 --> 01:26.950
+Mas o canal de porta subindo para CD2, formaria um loop potencial. Portanto, o spanning-tree irá bloquear esse
+
+01:26.950 --> 01:29.040
+canal de porta.
+
+01:29.770 --> 01:37.090
+Portanto, tenho quatro interfaces físicas configuradas como uplinks aqui, mas apenas duas delas são de encaminhamento, portanto, estou
+
+01:37.090 --> 01:40.890
+obtendo apenas metade da minha largura de banda possível.
+
+01:41.200 --> 01:46.750
+Isso nos traz de volta ao mesmo problema de usar apenas metade de
+
+01:46.750 --> 01:53.290
+nossa largura de banda física disponível novamente. Configuramos essa mesma topologia no laboratório na última aula.
+
+01:53.440 --> 01:57.310
+Então as coisas ficaram melhores depois que configuramos o etherchannel.
+
+01:57.580 --> 02:00.060
+Era assim antes de nós fazermos.
+
+02:00.520 --> 02:08.260
+Então, novamente, CD1 é a ponte raiz e você vê no Access3, ele tem esses quatro uplinks físicos, mas
+
+02:08.410 --> 02:14.770
+apenas um deles estava encaminhando o tráfego, que era a interface conectada ao CD1 e
+
+02:14.770 --> 02:17.850
+exatamente a mesma no Access4 também.
+
+02:17.860 --> 02:24.940
+Portanto, quatro portas físicas, apenas uma delas encaminhando o tráfego. Depois de configurar o etherchannel, temos
+
+02:25.210 --> 02:30.520
+dois dos quatro encaminhando tráfego agora, em vez de um.
+
+02:30.700 --> 02:31.810
+Então é melhor.
+
+02:31.990 --> 02:36.670
+E, na verdade, ainda estou com o laboratório funcionando, então vamos prosseguir e verificar isso.
+
+02:36.790 --> 02:42.040
+Então, irei para o Access3 e mostrarei um resumo do etherchannel.
+
+02:42.950 --> 02:52.730
+E você pode ver que tenho meus dois canais de porta, um vai para o primeiro switch da camada de distribuição
+
+02:52.730 --> 02:56.690
+do núcleo. O segundo está subindo para o segundo. Ambos estão acordados.
+
+02:57.080 --> 03:03.910
+Em seguida, faço um show spanning-tree vlan 10, que é uma VLAN em que meus PCs estão.
+
+03:04.430 --> 03:07.100
+Eu posso ver que desses 2 canais de portas,
+
+03:07.100 --> 03:09.070
+um deles está encaminhando o tráfego.
+
+03:09.290 --> 03:17.660
+Este é o canal de porta conectado à bridge raiz e o outro está bloqueando porque está formando
+
+03:17.660 --> 03:19.180
+um loop potencial.
+
+03:19.790 --> 03:22.720
+Portanto, ainda não é perfeito.
+
+03:23.240 --> 03:32.420
+Se voltarmos aos slides, há uma maneira de configurarmos isso para que estejamos realmente encaminhando
+
+03:32.420 --> 03:37.190
+em todos os nossos uplinks conectados fisicamente.
+
+03:37.370 --> 03:41.630
+E a maneira como fazemos isso é com Multi-chassis EtherChannel.
+
+03:41.900 --> 03:49.520
+Portanto, alguns switches suportam isso. Quando o configuramos, o switch suporta um etherchannel
+
+03:49.700 --> 03:51.770
+compartilhado de diferentes switches.
+
+03:51.980 --> 03:59.270
+Então você vê o diagrama que tenho aqui agora. Se eu voltar um slide,
+
+04:00.280 --> 04:06.810
+alguns slides, normalmente teríamos 2 canais de portas separados, um indo
+
+04:07.600 --> 04:16.330
+para CD1 e outro indo para CD2. Porém, quando esses switches da camada de distribuição do núcleo suportam etherchannel de vários chassis, posso fazer
+
+04:16.480 --> 04:18.950
+um canal de porta única que vai para ambos.
+
+04:19.500 --> 04:23.740
+Agora, novamente, as opções devem ser configuradas com configurações correspondentes.
+
+04:23.890 --> 04:31.030
+Ao configurar o etherchannel, você precisa de configurações correspondentes em ambos os lados dos links. Então aqui, Access3 tem um canal de
+
+04:31.030 --> 04:36.010
+porta indo para cima e os switches CD1 e CD2 têm
+
+04:36.010 --> 04:43.420
+um canal de porta compartilhada indo para baixo. Portanto, o CD1 e o CD2 precisam ser
+
+04:43.420 --> 04:51.290
+switches de nível avançado que suportem a comunicação entre si e tenham um canal de porta compartilhada descendo o fluxo.
+
+04:51.400 --> 04:56.200
+Portanto, isso é compatível com alguns modelos de switch Cisco.
+
+04:57.350 --> 05:04.310
+Quando você configura isso, o spanning-tree ainda está habilitado, mas vê apenas uma única
+
+05:04.310 --> 05:11.570
+interface lógica em ambos os lados. Ele vê um canal de porta indo para cima do Access3 e um
+
+05:11.570 --> 05:15.380
+único canal de porta indo para baixo do CD1 e compartilhado com o CD2.
+
+05:15.530 --> 05:17.870
+Portanto, ele vê isso como apenas um único link.
+
+05:18.020 --> 05:19.520
+Portanto, não há loop aqui.
+
+05:19.740 --> 05:22.600
+Spanning-tree não bloqueia nenhuma das portas.
+
+05:22.760 --> 05:24.470
+Temos todos eles encaminhando.
+
+05:24.650 --> 05:31.190
+Obtemos o uso completo de toda a nossa largura de banda física, oferece suporte a balanceamento de carga total e redundância em
+
+05:31.190 --> 05:32.270
+todas as interfaces.
+
+05:32.390 --> 05:37.760
+Se alguma das interfaces ficar inativa, ocorrerá failover para outra interface disponível.
+
+05:38.960 --> 05:50.630
+Portanto, as tecnologias disponíveis da Cisco que suportam isso são StackWise, VSS e vPC.
+
+05:51.500 --> 05:58.250
+Agora, um único switch não vai suportar tudo isso. Diferentes plataformas de interruptores oferecem suporte a
+
+05:58.250 --> 05:59.390
+diferentes opções.
+
+05:59.570 --> 06:05.660
+E se um switch suportar um, será apenas um. Portanto, o switch terá suporte para
+
+06:05.660 --> 06:11.650
+StackWise ou para VSS ou para vPC, não dois ou três ao mesmo tempo.
+
+06:11.930 --> 06:14.270
+E isso é apenas nos switches de ponta.
+
+06:14.270 --> 06:19.390
+Se você tem um dos switches de extremidade inferior da Cisco, isso não terá suporte.
+
+06:19.700 --> 06:28.940
+Então, qual opção é compatível com qual família de switches? Bem, StackWise está nas plataformas de switch
+
+06:28.940 --> 06:30.770
+Catalyst, incluindo o
+
+06:30.770 --> 06:32.360
+Catalyst
+
+06:32.360 --> 06:34.500
+3750, 3850 e 9000.
+
+06:34.820 --> 06:41.870
+Como a Cisco lança novos modelos de switch regularmente e quando lançamos um novo modelo de switch,
+
+06:42.020 --> 06:47.080
+é provável que ele ofereça suporte a uma dessas três opções.
+
+06:47.090 --> 06:49.190
+Portanto, isso será atualizado com o tempo.
+
+06:50.000 --> 06:56.630
+Se você der uma olhada na imagem aqui, esta é uma pilha de opções que estão sendo configuradas com StackWise.
+
+06:56.780 --> 07:01.970
+StackWise usa cabos proprietários especiais na parte posterior dessas chaves.
+
+07:02.270 --> 07:10.070
+Quando você configura uma pilha StackWise, os switches físicos separados operam todos como se fossem um switch
+
+07:10.070 --> 07:14.330
+e são configurados como se fossem um switch também.
+
+07:14.690 --> 07:21.890
+Isso é semelhante à próxima opção, que é VSS, o Virtual Switching System. Isso é compatível com
+
+07:21.890 --> 07:25.910
+as famílias Catalyst 4500 e 6500.
+
+07:26.240 --> 07:28.580
+E a última opção é própria,
+
+07:28.880 --> 07:35.150
+um pouco diferente é o vPC, Virtual Port Channel. Isso é compatível com os interruptores Nexus.
+
+07:35.420 --> 07:42.170
+E ao invés de empilhar os interruptores juntos e então serem gerenciados como se fosse um único interruptor, quando
+
+07:42.170 --> 07:48.950
+você usa isso no Nexus, eles ainda estão configurados como dois interruptores separados, mas você faz uma configuração correspondente
+
+07:48.950 --> 07:53.390
+neles e isso permite um compartilhamento canal de porta desses switches.
+
+07:53.820 --> 08:00.080
+OK, então essas são as opções do MCE. No nível de exame CCNA,
+
+08:00.470 --> 08:05.990
+a Cisco espera que você tenha uma visão geral ampla deles,
+
+08:05.990 --> 08:13.610
+mas não espera que você saiba como configurá-los. Se você passar para o nível CCNP ou para uma das
+
+08:13.610 --> 08:17.660
+outras trilhas CCNA, como Data Center, aprenderá a configurar e monitorar essas tecnologias.

@@ -1,0 +1,433 @@
+WEBVTT
+
+00:06.230 --> 00:15.470
+Trong phần này, bạn sẽ thấy cách định cấu hình các kênh portchannel, etherchannel bằng bản demo lab, vì vậy tôi đang sử
+
+00:15.470 --> 00:20.830
+dụng cùng một topo lab mà tôi đã sử dụng trong phần spanning-tree.
+
+00:21.110 --> 00:28.070
+Vì vậy, chúng tôi đã có hai công tắc lớp phân phối cốt lõi, CD1 và CD2, và chúng tôi
+
+00:28.070 --> 00:32.210
+có một vài công tắc lớp truy cập, Access3 và Access4.
+
+00:32.510 --> 00:37.250
+Tôi đã thiết lập các VLAN và các trung kế.
+
+00:37.520 --> 00:47.480
+Tôi đã định cấu hình CD1 làm cây cầu gốc cây khung chính và CD2 làm cây cầu gốc cây bao trùm thứ
+
+00:47.480 --> 00:48.380
+cấp.
+
+00:48.740 --> 00:57.590
+Vì vậy, nếu bạn nhìn vào sơ đồ ở đây, bạn có thể thấy từ cả Acc3 và công tắc lớp truy cập 4 rằng
+
+00:57.590 --> 01:05.600
+chúng có bốn liên kết lên, nhưng thực tế chỉ có một trong số chúng đang hoạt động và chuyển tiếp lưu lượng
+
+01:05.600 --> 01:07.370
+truy cập. Trên cả
+
+01:07.400 --> 01:14.210
+hai, đó là một giao diện đối mặt với CD1 vì CD1 là cầu nối gốc.
+
+01:14.390 --> 01:21.050
+Vì vậy, tôi có bốn liên kết lên ở đó, nhưng tôi chỉ có thể sử dụng băng thông từ một liên kết, vì vậy tôi muốn cải thiện
+
+01:21.050 --> 01:21.710
+điều đó.
+
+01:22.340 --> 01:27.110
+Vì vậy, tôi sẽ tạo một portchannel từ Access3 đến CD1.
+
+01:27.380 --> 01:34.460
+Tôi cũng sẽ tạo một portchannel khác từ Access3, lên đến CD2.
+
+01:34.460 --> 01:37.700
+Nó sẽ chuyển sang một công tắc khác, vì vậy nó sẽ là một portchannel khác.
+
+01:37.940 --> 01:45.890
+Và sau đó từ Access4, tôi sẽ định cấu hình các kênh cổng của nó - một kênh chuyển tới CD1, một kênh chuyển đến CD2.
+
+01:46.280 --> 01:55.120
+Portchannel đầu tiên, tôi sẽ làm từ Access3 đến CD1 và tôi sẽ sử dụng LACP cho điều đó.
+
+01:55.370 --> 02:01.520
+Vì vậy, nó sẽ có trên các giao diện trên Access3 fa0 / 23 và 24.
+
+02:01.670 --> 02:05.350
+Và nó cũng tương tự ở phía CD1.
+
+02:05.360 --> 02:09.560
+Vì vậy, tôi sẽ định cấu hình chúng với cùng một cấu hình phù hợp.
+
+02:09.860 --> 02:17.270
+Sau đó, tôi sẽ thực hiện chuyển kênh từ Access3 sang CD2 và tôi sẽ sử dụng PAgP cho cái này.
+
+02:17.510 --> 02:19.300
+Bây giờ, trong thế giới thực, hy
+
+02:19.310 --> 02:22.370
+vọng rõ ràng đó sẽ là một điều điên rồ để làm.
+
+02:22.550 --> 02:29.540
+Bạn sẽ luôn chuẩn hóa trên một giao thức cho các kênh cổng của mình và bạn nên sử dụng LACP.
+
+02:29.810 --> 02:33.440
+Bạn có thể sử dụng static nếu một bên không hỗ trợ LACP.
+
+02:33.740 --> 02:34.880
+Nhưng đối với bản demo trong
+
+02:34.900 --> 02:39.380
+phòng thí nghiệm, tôi muốn cho bạn thấy tất cả các giao thức khác nhau, vì vậy tôi sẽ làm điều đầu tiên với LACP.
+
+02:39.530 --> 02:44.030
+Tôi sẽ làm cái thứ hai với PAgP.
+
+02:44.030 --> 02:49.340
+Thứ ba, portchannel sẽ đi từ Access4 lên đến CD2 trên cùng một phía.
+
+02:49.340 --> 02:55.730
+Ở phía bên phải của cấu trúc liên kết, tôi sẽ sử dụng static cho điều đó, vì vậy bạn sẽ thấy cả ba và chúng tôi còn
+
+02:55.730 --> 02:59.660
+thừa một phần, vì vậy tôi sẽ sử dụng LACP cho điều đó một lần nữa.
+
+03:00.020 --> 03:02.570
+OK, vì vậy đó là những gì tôi sẽ cấu hình.
+
+03:02.600 --> 03:07.070
+Vì vậy, hãy bắt đầu trên công tắc Access3 của chúng tôi.
+
+03:07.430 --> 03:10.100
+Tôi sẽ làm portchannel đầu tiên.
+
+03:10.100 --> 03:18.470
+Vì vậy, đó sẽ là LACP lên đến CD1 trên giao diện fa0 / 23 và 24.
+
+03:18.830 --> 03:26.240
+Vì vậy, tôi sẽ chuyển sang công tắc Access3 nếu tôi có thể tìm thấy nó ở đây. Nó đây.
+
+03:27.180 --> 03:33.620
+Và thực ra, tôi cũng muốn cho bạn thấy cây bao trùm trước. Vì vậy, chúng tôi có thể kiểm tra điều này - hiển thị cây bao trùm.
+
+03:33.620 --> 03:46.490
+Và các PC của tôi đang ở trong VLAN 10. hiển thị cây mở rộng VLAN10 và tôi có thể thấy rằng tôi đang chuyển tiếp trên fa0
+
+03:46.490 --> 03:47.450
+/ 1.
+
+03:47.810 --> 03:56.630
+Nó thực sự hướng xuống phía PC vì vậy tôi hiển thị chạy và kiểm tra cấu hình và giao diện fa0 / 1 Tất
+
+03:56.990 --> 03:58.390
+cả đều ổn.
+
+03:58.640 --> 04:01.000
+Vì vậy, nó nằm trong VLAN 10.
+
+04:01.010 --> 04:08.840
+chuyển đổi chế độ truy cập hướng xuống PC. Vì vậy, trước đây các liên kết lên là fa0 / 21 đến 24 và bây giờ chỉ có
+
+04:08.840 --> 04:10.490
+một trong số chúng được chuyển tiếp.
+
+04:10.490 --> 04:16.850
+Đó là một cổng được kết nối với CD1, là cầu nối gốc của tôi.
+
+04:17.240 --> 04:19.640
+Vì vậy, hãy đặt nó vào một kênh etherchannel.
+
+04:19.640 --> 04:26.360
+Vì vậy, tôi sẽ đi đến cấu hình toàn cầu, phạm vi giao diện fa0 / 23-24.
+
+04:26.540 --> 04:33.890
+là những gì được kết nối với CD1 và để cung cấp một kênh truyền, đó là chế độ
+
+04:33.920 --> 04:43.430
+nhóm kênh 1, sau đó tôi muốn nó là LACP, vì vậy tôi sẽ đặt chế độ hoạt động và ngay sau khi tôi
+
+04:43.430 --> 04:48.050
+làm điều đó, nó sẽ tạo giao diện kênh cho tôi.
+
+04:48.050 --> 04:52.400
+Vì vậy, nếu tôi thực hiện tóm tắt giao diện ip hiển thị, tôi có thể
+
+04:53.910 --> 04:59.400
+nhìn thấy ở trên cùng ở đó, bây giờ tôi đã có giao diện portchannel mới này và tôi cần
+
+04:59.400 --> 05:03.030
+định cấu hình cài đặt cấp giao diện của mình trên portchannel.
+
+05:03.030 --> 05:12.120
+Để làm điều đó, tôi đi đến các cổng giao diện. Tôi chỉ có thể làm po như tốc ký. giao diện po1 cho portchannel 1.
+
+05:12.540 --> 05:21.690
+Và sau đó ở đây tôi muốn nói chế độ chuyển đổi trung kế vì nó đang kết nối với một công tắc khác.
+
+05:21.690 --> 05:28.590
+Và switchport trunk vlan 199 là VLAN gốc mà chúng tôi đang sử dụng.
+
+05:28.600 --> 05:34.540
+Tôi cũng sẽ đặt các VLAN được phép ở đây bình thường và trong môi trường sản xuất.
+
+05:34.590 --> 05:41.670
+OK, vậy là xong. Thực hiện ở phía Access3. Hãy làm điều đó ở phía bên kia
+
+05:41.670 --> 05:46.110
+của các liên kết, trên CD1. Tôi sẽ đặt cùng một cấu hình ở đây.
+
+05:46.410 --> 05:53.070
+Vì vậy, cấu hình t và phạm vi giao diện của nó là fa0 / 23-24.
+
+05:53.410 --> 05:57.090
+Bây giờ giao diện của cả hai
+
+05:57.090 --> 06:04.620
+bên không phải là giao diện số giống nhau. Nó có thể là một giao diện fa0 / 9 và 10 ở bên này, và 23 và 24 ở bên
+
+06:04.620 --> 06:04.980
+kia.
+
+06:04.980 --> 06:06.600
+Và điều đó sẽ hoạt động tốt.
+
+06:06.930 --> 06:10.350
+Nhưng tốt nhất và dễ nhất nếu có thể, bạn có thể sử
+
+06:10.650 --> 06:13.740
+dụng cùng một số giao diện ở cả hai bên.
+
+06:13.830 --> 06:18.180
+Nó chỉ giúp chúng tôi với tư cách là quản trị viên con người dễ dàng hiểu được những gì đang xảy ra.
+
+06:18.660 --> 06:25.740
+OK, vậy là tôi đã chỉ định các giao diện và sau đó chế độ nhóm kênh 1 đang hoạt động.
+
+06:25.740 --> 06:31.020
+Tôi có thể nói bị động ở đây, nhưng cách tốt nhất là thực hiện chủ động ở cả hai bên và sau đó bạn không thể làm
+
+06:31.020 --> 06:31.880
+cho chúng lẫn lộn.
+
+06:32.250 --> 06:34.860
+Tôi thấy portchannel xuất hiện.
+
+06:34.860 --> 06:38.640
+Tôi nhận được một vlan gốc không khớp vì tôi chưa định cấu hình nó.
+
+06:38.910 --> 06:40.240
+Vì vậy, chúng ta hãy làm điều đó ngay bây giờ.
+
+06:40.260 --> 06:51.030
+Vì vậy, tôi sẽ đi đến giao diện portchannel 1, trung kế chế độ chuyển đổi và trung kế chuyển đổi trung kế bản địa vlan 199 Và tôi thấy nó bỏ
+
+06:51.030 --> 06:52.290
+chặn nó vì
+
+06:52.710 --> 06:58.380
+tôi đã có cùng một VLAN gốc ở cả hai bên, vì vậy có vẻ tốt.
+
+06:58.800 --> 07:04.320
+Vì vậy, bây giờ điều tiếp theo cần làm là kiểm tra xem portchannel đã xuất hiện OK chưa,
+
+07:04.710 --> 07:06.930
+vì vậy tôi sẽ thực hiện một
+
+07:08.280 --> 07:14.880
+bản tóm tắt về etherchannel Và tất cả điều này có vẻ tốt, đó là những gì tôi muốn thấy, đối với portchannel
+
+07:14.880 --> 07:17.970
+1, SU có nghĩa là nó là giao diện lớp
+
+07:17.970 --> 07:25.560
+2 và chữ U là để sử dụng, về cơ bản có nghĩa là nó đã lên và đó là các cổng fa0 / 23 và 24.
+
+07:25.950 --> 07:28.920
+Và chúng đều nằm trong portchannel. Vì vậy, tất cả đều có vẻ tốt.
+
+07:29.160 --> 07:35.310
+Vì vậy, đó là cấu hình LACP của tôi.
+
+07:35.910 --> 07:44.040
+Tiếp theo, hãy thực hiện PAgP từ Access3 đi lên để chuyển sang CD2.
+
+07:46.520 --> 07:52.880
+Vì vậy, hãy vào dòng lệnh của tôi ở đây và đây sẽ là phạm vi giao diện fa0 / 21
+
+07:52.880 --> 07:59.870
+- 22 là các giao diện được kết nối qua công tắc CD2 ở phía bên phải và tôi sẽ nói nhóm kênh
+
+07:59.870 --> 08:01.000
+Bây giờ tôi
+
+08:01.490 --> 08:10.460
+đã sử dụng 1 , vì vậy tôi sẽ sử dụng 2 cho chế độ tiếp theo và tôi sẽ nói 'chế độ mong muốn' để làm cho nó PAgP.
+
+08:11.720 --> 08:19.730
+Tôi thấy portchannel đã được tạo và sau đó tôi chuyển sang giao diện portchannel 2. Bây giờ, trung kế chế độ cổng chuyển đổi và trung
+
+08:19.780 --> 08:23.650
+kế chuyển đổi trung kế bản địa vlan 199 Tôi cần
+
+08:25.030 --> 08:28.390
+đảm bảo rằng tôi đã định cấu hình cài
+
+08:29.250 --> 08:35.940
+đặt diễu hành ở phía bên kia, đã kết thúc trên CD2 Vì vậy, một cấu hình t và
+
+08:36.780 --> 08:43.200
+giao diện fa0 / 21 - 22, bạn có thể hy vọng thấy lợi ích của sử dụng
+
+08:43.200 --> 08:46.390
+các giao diện giống nhau ở cả hai bên
+
+08:46.410 --> 08:48.420
+bây giờ. Tôi không thực sự nghĩ về nó.
+
+08:48.690 --> 08:54.780
+Tôi biết rằng nó giống nhau ở cả hai bên và tôi chỉ quên đặt từ khóa phạm vi ở đó.
+
+08:54.780 --> 08:58.680
+Vì vậy, tôi chỉ định một phạm vi và tôi đang sử dụng như nhau ở cả hai phía.
+
+08:58.680 --> 08:59.760
+Vì vậy, nó tốt đẹp và hợp lý.
+
+08:59.760 --> 09:04.380
+Nó giúp tôi không bị nhầm lẫn và trộn lẫn mọi thứ. Và nhóm kênh, tôi chưa tạo
+
+09:04.900 --> 09:10.980
+kênh ở đây, nhưng vì tôi đã sử dụng 2 kênh ở bên kia, nên tôi cũng sẽ sử
+
+09:10.980 --> 09:18.760
+dụng 2 kênh ở bên này, một lần nữa, để giữ mọi thứ hợp lý, vì vậy chế độ nhóm kênh 2 mong muốn .
+
+09:19.290 --> 09:28.440
+Đây cũng là một PAgP, sau đó tôi cần phải đi đến giao diện portchannel 2 lần này và chuyển đổi chế độ trung
+
+09:28.440 --> 09:34.110
+kế, trung kế chuyển đổi trung kế bản địa vlan 199 OK, vì vậy
+
+09:35.360 --> 09:36.500
+đó là
+
+09:37.470 --> 09:41.630
+đầu tiên của tôi. Bạn đã hoàn tất. Hãy kiểm tra xem nó có ổn không.
+
+09:42.450 --> 09:43.370
+Vì vậy,
+
+09:43.410 --> 09:45.750
+hãy hiển thị tóm tắt kênh etherchannel
+
+09:46.680 --> 09:48.220
+Và điều này cũng lên.
+
+09:48.240 --> 09:51.240
+Tất cả đều tốt, quá. Vì vậy, hai đầu tiên đã được thực hiện.
+
+09:51.690 --> 09:55.980
+Tiếp theo, tôi sẽ chuyển sang Access4.
+
+09:56.950 --> 10:01.930
+Và tôi sẽ định cấu hình các kênh cổng đi lên cùng phía bên phải của cấu trúc liên kết.
+
+10:01.960 --> 10:10.390
+Vì vậy, tôi đi đến cấu hình toàn cầu và phạm vi giao diện fa0 / 23 -
+
+10:10.390 --> 10:17.420
+24 ở phía bên phải và chế độ nhóm kênh 1, tôi sẽ làm điều
+
+10:17.440 --> 10:19.330
+này tĩnh lần này.
+
+10:19.330 --> 10:20.620
+Vì vậy, nó sẽ được tiếp tục.
+
+10:21.650 --> 10:29.690
+Và đó là cấu hình tĩnh của tôi, bây giờ tôi có thể truy cập giao diện portchannel 1, trung kế chế độ cổng
+
+10:29.690 --> 10:34.100
+chuyển đổi và trung kế chuyển đổi trung kế bản địa vlan 199.
+
+10:34.460 --> 10:44.510
+Tôi cần cấu hình phía bên kia với liên kết và liên kết này, nằm trên CD2, vì vậy tôi sẽ chuyển đến cấu hình chung.
+
+10:44.910 --> 10:57.440
+Đó là phạm vi giao diện fa0 / 23-24 và sau đó bật chế độ nhóm kênh 1.
+
+10:58.870 --> 11:07.900
+Và tôi thấy rằng tôi đang nhận được thông báo lỗi ở đây rằng fa0 / 23 không tương thích do chế độ DTP.
+
+11:08.350 --> 11:13.660
+Vâng, nếu tôi đã xem qua giao diện của mình, vì vậy tôi sẽ chạy trình diễn và tôi có
+
+11:14.230 --> 11:16.410
+thể thấy trên giao diện fa0 / 23
+
+11:16.420 --> 11:18.430
+và fa0 / 24 rằng các
+
+11:18.780 --> 11:22.670
+cài đặt ở đó giống nhau và ở phía bên kia cũng giống nhau.
+
+11:22.960 --> 11:28.210
+Vì vậy, đây chỉ là trục trặc với trình theo dõi gói.
+
+11:28.450 --> 11:32.410
+Dù sao thì kênh etherchannel sẽ xuất hiện sau một giây.
+
+11:33.010 --> 11:42.280
+Vì vậy, chúng ta hãy hoàn thành các cấu hình. Tôi sẽ đi cấu hình t và sau đó
+
+11:42.280 --> 11:51.570
+giao diện portchannel 1, trung kế chế độ chuyển đổi và trung kế chuyển đổi trung kế bản địa vlan 199.
+
+11:51.580 --> 11:53.630
+Và điều đó sẽ loại bỏ thông báo lỗi đó.
+
+11:53.680 --> 11:54.480
+Trông tôt đây.
+
+11:55.360 --> 12:02.650
+Và sau đó nếu tôi thực hiện một bản tóm tắt kênh etherchannel và vâng, tôi có thể thấy rằng nó đã xuất hiện ở đó.
+
+12:02.830 --> 12:09.280
+Đôi khi, lần đầu tiên bạn định cấu hình điều này trong trình theo dõi gói, khi bạn thực hiện tĩnh, nó có thể ném thông báo lỗi đó về
+
+12:09.280 --> 12:12.390
+phía bạn, nhưng dù sao thì bạn cũng chỉ cần hoàn thành cấu hình.
+
+12:12.610 --> 12:16.540
+Bạn có thể phải cho nó một phút và sau đó portchannel sẽ xuất hiện.
+
+12:16.810 --> 12:26.020
+Vì vậy, có một kênh cổng mà tôi đã tạo trước đó, kênh PAgP, sẽ đến Access3 và đây là kênh tĩnh mà
+
+12:26.140 --> 12:31.990
+tôi vừa định cấu hình xuống Access4. Bạn có thể thấy nơi nó hiển thị một dấu gạch ngang trên giao thức.
+
+12:31.990 --> 12:34.180
+Điều đó có nghĩa là tĩnh.
+
+12:34.630 --> 12:38.440
+OK, vậy là ba cổng đầu tiên của tôi đã được định cấu hình.
+
+12:38.530 --> 12:41.650
+Tôi đã xác minh rằng chúng đang hoạt động.
+
+12:41.830 --> 12:46.620
+Tôi sẽ làm điều thứ tư, đây cũng sẽ là một LACP khác.
+
+12:46.660 --> 12:50.080
+Bạn không cần thấy tôi làm điều đó vì bạn đã thấy tôi định cấu hình nó.
+
+12:50.440 --> 12:57.940
+Vì vậy, tôi sẽ gặp lại bạn ở đây cho bài giảng tiếp theo, nơi chúng ta sẽ xem xét điều này sẽ ảnh hưởng như thế nào đến
+
+12:57.940 --> 12:58.750
+cây bao trùm.

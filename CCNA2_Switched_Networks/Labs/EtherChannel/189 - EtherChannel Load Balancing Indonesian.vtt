@@ -1,0 +1,157 @@
+WEBVTT
+
+00:06.360 --> 00:14.130
+Dalam kuliah ini, Anda akan belajar tentang bagaimana etherchannel load balancing bekerja, dan saya akan menggunakan diagram yang Anda
+
+00:14.130 --> 00:17.970
+lihat pada slide di sini selama kuliah ini.
+
+00:18.390 --> 00:24.990
+Jadi saya punya dua sakelar yang memiliki empat tautan di antara mereka yang telah dikelompokkan ke dalam saluran ether, dan
+
+00:25.170 --> 00:31.140
+masing-masing dari empat tautan itu adalah antarmuka Ethernet 1Gbps. Baru mulai dengan gi0/1 di
+
+00:31.140 --> 00:38.920
+sebelah kiri menuju gi0/4 di sebelah kanan. Di sakelar bawah, saya memiliki beberapa PC
+
+00:38.940 --> 00:41.700
+yang terpasang di sana.
+
+00:41.700 --> 00:43.530
+Saya punya PC-1 dan PC-2.
+
+00:43.770 --> 00:45.000
+Dan kemudian
+
+00:45.000 --> 00:49.110
+tombol atas, saya punya beberapa server. Ada Server-1 dan Server-2.
+
+00:49.440 --> 00:57.780
+Jadi dalam kuliah ini, kita akan membahas bagaimana beban etherchannel menyeimbangkan aliran berbeda yang melintasi
+
+00:57.780 --> 00:59.520
+link antar switch.
+
+00:59.730 --> 01:08.250
+Alur adalah komunikasi dari klien ke server menggunakan aplikasi tertentu. Jika PC-1, dalam contoh contoh kami, membuka sesi
+
+01:08.250 --> 01:15.780
+web ke Server-1 dan PC-2 membuka sesi FTP ke Server-2, kami akan memiliki dua
+
+01:15.780 --> 01:18.270
+aliran melalui sakelar kami.
+
+01:18.690 --> 01:26.220
+Dan dengan etherchannel, aliran tunggal adalah beban seimbang ke antarmuka saluran port tunggal.
+
+01:26.580 --> 01:33.600
+Misalnya, semua paket dalam aliran dari PC-1 ke Server-1, selalu melewati antarmuka gi/1.
+
+01:33.600 --> 01:41.340
+Semua paket dan aliran dari PC-2 ke Server-2 selalu melewati antarmuka gi0/2.
+
+01:42.390 --> 01:48.600
+Jadi, melihat itu dengan animasi, paket pertama dan mengalir dari PC-1 ke Server-1,
+
+01:49.020 --> 01:50.970
+itu menyentuh saklar pertama.
+
+01:51.150 --> 01:56.640
+Sakelar memutuskan antarmuka mana yang akan memuat keseimbangannya.
+
+01:56.820 --> 02:01.740
+Ia memilih gi0/1 dalam contoh kita dan itu pergi ke server.
+
+02:02.040 --> 02:06.690
+Paket berikutnya dalam aliran juga akan pergi ke antarmuka yang sama.
+
+02:06.690 --> 02:12.780
+Jadi itu datang di sakelar, itu memuat menyeimbangkannya ke antarmuka yang sama lagi dan kemudian naik ke server.
+
+02:13.730 --> 02:21.830
+Pada aliran kedua, dari PC-2 ke Server-2 yang masuk ke sakelar, sakelar akan menggunakan algoritme ini untuk
+
+02:21.830 --> 02:27.520
+memutuskan antarmuka mana yang akan memuat keseimbangan - gi0/2 dalam contoh
+
+02:27.650 --> 02:33.020
+kita, dan beralih ke server. Ketika paket kedua dan ketiga dan keempat dan
+
+02:33.020 --> 02:37.130
+seterusnya datang dari aliran itu, mereka semua akan dimuat seimbang ke antarmuka yang sama.
+
+02:38.360 --> 02:44.570
+Paket dari aliran yang sama selalu seimbang beban pada antarmuka yang sama. Mereka tidak memuat round-robin seimbang
+
+02:44.570 --> 02:51.230
+di semua antarmuka di saluran port. Sebagai contoh, kita tidak memuat balance paket
+
+02:51.230 --> 02:57.410
+pertama dari PC-1 ke Server-1 pada antarmuka gi0/1 dan kemudian paket kedua pada
+
+02:57.410 --> 03:00.620
+aliran yang sama ke gi0/2.
+
+03:01.010 --> 03:07.990
+Alasan untuk itu adalah bahwa penyeimbangan beban round-robin dapat menyebabkan paket tiba tidak sesuai pesanan di
+
+03:08.000 --> 03:11.390
+tujuan dan itu akan merusak beberapa aplikasi.
+
+03:11.390 --> 03:13.340
+Jadi itu memastikan itu tidak terjadi.
+
+03:13.520 --> 03:19.220
+Kami selalu memuat paket keseimbangan dari aliran yang sama ke antarmuka yang sama, jadi paket tersebut akan selalu tiba secara
+
+03:19.220 --> 03:19.700
+berurutan.
+
+03:21.030 --> 03:26.670
+Jadi ini tidak terjadi, Anda melihat paket pertama pada aliran pergi ke antarmuka gi0/1, paket
+
+03:26.940 --> 03:31.190
+kedua di aliran yang sama melalui gi0/2, kami tidak melakukan itu.
+
+03:32.850 --> 03:39.240
+Jadi karena cara kerjanya, karena aliran tunggal selalu mendapat beban seimbang ke antarmuka yang
+
+03:39.690 --> 03:46.320
+sama, aliran tunggal mana pun menerima bandwidth dari satu tautan di saluran port sebagai maksimumnya.
+
+03:46.770 --> 03:52.980
+Itu adalah bandwidth maksimum 1Gbps per aliran dalam contoh kami di mana kami menggunakan tautan 1Gbps di
+
+03:52.980 --> 03:54.090
+antara sakelar kami.
+
+03:54.450 --> 03:59.610
+Tapi ada bandwidth agregat 4Gbps di semua aliran yang tersedia.
+
+04:00.540 --> 04:04.910
+Jadi, Anda dapat menganggap saluran pelabuhan sebagai jalan raya multi-jalur.
+
+04:05.250 --> 04:11.700
+Mobil selalu berada di jalurnya sendiri dan satu jalur, tetapi karena ada banyak jalur, lalu lintas secara
+
+04:11.700 --> 04:14.130
+keseluruhan sampai di sana lebih cepat.
+
+04:14.310 --> 04:20.220
+Jelas contoh yang aneh, jika kami hanya memiliki satu uplink daripada empat, kami tidak memiliki banyak bandwidth keseluruhan yang
+
+04:20.220 --> 04:23.190
+tersedia di antara sakelar. Etherchannel
+
+04:23.190 --> 04:29.620
+menyediakan redundansi serta load balancing. Jika link gagal, aliran akan seimbang beban
+
+04:29.630 --> 04:31.700
+ke link yang tersisa.
+
+04:31.920 --> 04:35.310
+Oke, jadi begitulah cara kerja load balancing dan redundansi.
+
+04:35.660 --> 04:39.150
+Sampai jumpa di kuliah selanjutnya untuk etherchannel lainnya.

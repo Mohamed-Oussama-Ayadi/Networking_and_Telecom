@@ -1,0 +1,20 @@
+Exemple de  Supports de transmission sans fil
+      -Faisceau hertzien: c'est un système de transmission entre deux points fixes à travers une onde életromagnétique à l'aide des antennes
+      -Ondes radioéléctriques: correspondent à des fréquences comprises entre 10 kHz et 2 GHz. Un émetteur diffuse ces ondes captées par des récepteurs dispersés géographiquement.
+//////////////////////////////////////////////////////////////////////////////////////////////////
+Supports de transmission sans fil
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+La transmission sans fil utilise des ones electromagnétiques comme support.
+Les longueurs d'onde utilisées sont souvent des ondes radio, des micro-ondes, ou des ondes infrarouges.
+Les réseaux sans fils utilisent des ondes radio avec une fréquence entre 9KHz et 300GHz
+
+ Les inconvénients:
+ *au-delà d'une certaine distance, le signal transmis est trop faible pour être capté -> Limité
+--Fonctionnement et fiabilité--
+*l’instabilité en raison des conditions météorologiques.
+--Compatibilité--
+*Les sysèmes informatiques et  systèmes d’exploitation plus anciens ne sont pas du tout compatibles avec les supports de transmission sans fil.
+--Vitesse--
+*ils sont bien moins rapides que les réseaux câblés
+--Sécurité--
+*Les réseaux sans fil ont tendance à souffrir de plus d’attaques de sécurité que les réseaux câblés

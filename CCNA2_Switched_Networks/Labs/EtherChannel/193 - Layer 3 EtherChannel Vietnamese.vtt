@@ -1,0 +1,247 @@
+WEBVTT
+
+00:07.260 --> 00:14.070
+Trong bài giảng này, bạn sẽ tìm hiểu về các kênh etherchannels lớp 3. Trong các bài giảng trước trong phần này, bạn đã
+
+00:14.230 --> 00:17.400
+thấy cách cấu hình kênh etherchan lớp 2.
+
+00:17.550 --> 00:20.550
+Chúng ta cũng có thể cấu hình các kênh etherchannels lớp 3.
+
+00:20.670 --> 00:28.050
+Bạn có thể thấy điều đó với ví dụ cấu hình ở đây. Và cấu hình thực sự hoàn toàn giống nhau.
+
+00:28.320 --> 00:35.940
+Sự khác biệt duy nhất là chúng tôi làm cho các cổng thành cổng lớp 3 với lệnh không có cổng chuyển đổi.
+
+00:36.120 --> 00:42.270
+Vì vậy, đó là một lệnh tiêu chuẩn bạn có thể sử dụng trên công tắc lớp 3 bất cứ khi nào bạn đang
+
+00:42.270 --> 00:48.390
+sử dụng etherchannel hoặc không nói rằng cổng đó là cổng lớp 3 để bạn có thể đặt địa chỉ IP ở đó.
+
+00:48.510 --> 00:54.800
+Vì vậy, chúng ta hãy nhìn vào cấu hình. Vì vậy, tại cấu hình toàn cầu, tôi đã nói phạm vi giao diện gi1
+
+00:54.810 --> 00:55.770
+/ 0/1 - 2 Và
+
+00:55.920 --> 01:01.470
+sau đó tôi nói không có cổng chuyển nào để tạo các cổng lớp 3 đó và sau đó tôi sẽ định cấu hình chúng như
+
+01:01.470 --> 01:02.400
+một kênh cổng.
+
+01:02.530 --> 01:07.320
+Vì vậy, tôi nói chế độ nhóm kênh 1 và sau đó là các tùy chọn tương tự như chúng ta đã có cho lớp 2.
+
+01:07.500 --> 01:14.210
+Nó có thể hoạt động, tự động, mong muốn, bật hoặc bị động, tùy thuộc vào bất cứ khi nào bạn muốn đặt nó thành một
+
+01:14.250 --> 01:16.860
+kênh điện tử tĩnh khi bật hoặc chúng ta
+
+01:17.100 --> 01:23.610
+có thể sử dụng chủ động hoặc bị động cho LACP hoặc chúng ta có thể sử dụng tự động hoặc mong muốn cho PaGP.
+
+01:25.140 --> 01:31.500
+Vì vậy, điều đó sẽ nhóm các cổng lại với nhau thành một kênh etherchannel. Sau đó, chúng tôi có thể đặt cấu hình khác của chúng tôi trên
+
+01:31.500 --> 01:32.670
+kênh etherchannel của chúng tôi.
+
+01:32.850 --> 01:36.080
+Đó là nơi chúng ta sẽ đặt địa chỉ IP của mình.
+
+01:36.330 --> 01:40.560
+Vì vậy, chúng tôi nói cổng giao diện-kênh 1, một cổng kết nối với số nhóm kênh.
+
+01:40.710 --> 01:47.550
+Và trong ví dụ này, chúng ta nói địa chỉ ip 192. 168. 0. 1 255.
+
+01:47.550 --> 01:47.550
+255. 255. 252.
+
+01:47.550 --> 01:51.060
+Và hãy nhớ không tắt giao diện.
+
+01:51.360 --> 01:55.710
+OK, đó là một kênh etherchannel lớp 3. Đó là cấu hình hoàn chỉnh.
+
+01:55.980 --> 02:01.740
+Vì vậy, đây có thể là một bài giảng thực sự ngắn, nhưng có một hàm ý khác của điều này. Một điều khác mà tôi muốn nói
+
+02:01.740 --> 02:05.790
+với bạn ở đây, và đó là thiết kế mạng.
+
+02:06.480 --> 02:13.920
+Vì vậy, hãy nhìn vào thiết kế khuôn viên trường truyền thống của chúng tôi với lớp truy cập và phân phối cốt lõi. Và cách mà điều này sẽ được thực hiện ban
+
+02:13.920 --> 02:20.790
+đầu là sẽ có các liên kết lớp 2 giữa các thiết bị chuyển mạch lớp truy cập và
+
+02:20.790 --> 02:24.210
+các thiết bị chuyển mạch lớp phân phối.
+
+02:24.480 --> 02:32.550
+Và cổng mặc định cho các máy chủ cuối sẽ nằm trên các công tắc lớp phân phối và chúng ta sẽ có cây
+
+02:32.550 --> 02:39.450
+bao trùm chạy giữa lớp truy cập và lớp phân phối vì chúng là các liên kết lớp 2.
+
+02:40.230 --> 02:47.220
+Vâng, một xu hướng mà bạn có thể thấy ngày càng tăng hiện nay là thực sự đặt các liên kết lớp 3 ở khắp mọi nơi.
+
+02:47.640 --> 02:52.230
+Và lợi ích bạn nhận được từ việc làm đó là nó có nghĩa là bạn không sử dụng cây bao trùm nữa.
+
+02:52.440 --> 02:55.800
+Spanning-cây là một điều ác cần thiết.
+
+02:55.980 --> 03:02.160
+Mặt xấu của cây bao trùm là nó có xu hướng đóng một nửa số liên kết của bạn và nó cũng
+
+03:02.160 --> 03:04.920
+rất chậm để phục hồi sau khi bị lỗi.
+
+03:05.070 --> 03:08.550
+Vì vậy, nó xấu, nhưng nó vẫn làm những điều tốt.
+
+03:08.550 --> 03:13.500
+Bạn vẫn cần nó vì sẽ tệ hơn nếu bạn có vòng lặp lớp 2 trong mạng của mình, bởi vì điều đó
+
+03:13.500 --> 03:15.830
+về cơ bản sẽ khiến mạng của bạn bị hỏng.
+
+03:16.080 --> 03:20.580
+Vì vậy, chúng tôi đảm bảo rằng chúng tôi không có vòng lặp lớp 2 bằng cách bật cây bao trùm.
+
+03:20.700 --> 03:26.490
+Nhưng mặt xấu của nó là quá trình khôi phục sau lỗi chậm và nó làm tắt một nửa các liên kết của chúng tôi.
+
+03:26.580 --> 03:32.910
+Vì vậy, sẽ tốt hơn nếu chúng ta có thể có các liên kết lớp 3 ở khắp mọi nơi và không sử dụng cây bao trùm nữa, phải không?
+
+03:32.910 --> 03:36.660
+Bây giờ, bạn có thể tự hỏi, tốt, được, tốt, tại sao chúng ta không luôn làm như vậy?
+
+03:36.690 --> 03:40.890
+Tại sao chúng ta đã từng có các liên kết lớp 2 giữa lớp truy cập và lớp phân phối?
+
+03:40.890 --> 03:42.840
+Bây giờ, trong rất nhiều mạng hiện
+
+03:42.840 --> 03:47.340
+đại, chúng ta vẫn có các liên kết lớp 2 từ quyền truy cập đến lớp phân phối.
+
+03:47.520 --> 03:51.420
+Nhưng xu hướng ngày càng tăng mà bạn sẽ thấy bây giờ là lớp 3
+
+03:51.610 --> 03:57.270
+ở khắp mọi nơi và lý do có thể là các thiết bị chuyển mạch lớp 3 đã giảm giá rất nhiều.
+
+03:57.510 --> 04:03.720
+Ngày trước, thiết bị chuyển mạch lớp 3 đắt hơn rất nhiều so với thiết bị chuyển mạch lớp 2.
+
+04:03.870 --> 04:09.480
+Và lớp truy cập của bạn sẽ chuyển đổi nơi bạn có số lượng cổng cao, nơi bạn đã cắm tất cả các
+
+04:09.480 --> 04:15.270
+máy chủ của mình, vì vậy bạn có rất nhiều nút chuyển lớp truy cập và không thể chuyển từ điểm chi phí sang
+
+04:15.510 --> 04:18.930
+lớp 3 chuyển trên tất cả các công tắc lớp truy cập của bạn.
+
+04:19.170 --> 04:25.680
+Nhưng vì thời gian đã trôi qua và giá các thiết bị chuyển mạch lớp 3 đã giảm xuống, nên việc làm điều đó bây
+
+04:25.680 --> 04:27.260
+giờ là khả thi hơn.
+
+04:27.480 --> 04:33.960
+Vì vậy, nếu bạn đặt các công tắc lớp 3 ở khắp mọi nơi, kể cả trong lớp truy cập, thì bây giờ bạn thực sự có các liên
+
+04:33.960 --> 04:39.240
+kết lớp 3 từ lớp truy cập đến lớp phân phối. Có nghĩa là bạn đã có địa chỉ IP trên
+
+04:39.240 --> 04:42.480
+cổng này ở đây và địa chỉ IP trên cổng này ở đây.
+
+04:42.570 --> 04:48.780
+Vì vậy, bởi vì mọi thứ đều là lớp 3, bạn không còn chạy cây khung nữa. Spanning-tree chỉ hoạt động trên các
+
+04:48.780 --> 04:51.450
+liên kết lớp 2.
+
+04:51.630 --> 04:57.870
+Vì vậy, cách mà bạn xác định các đường dẫn giữa các thiết bị chuyển mạch của bạn sẽ không được xác định bởi
+
+04:57.870 --> 04:59.070
+cây bao trùm nữa.
+
+04:59.220 --> 05:01.950
+Nó được xác định bởi giao thức định tuyến của bạn.
+
+05:01.950 --> 05:06.800
+Vì vậy, khi bạn đang sử dụng các liên kết lớp 3 ở khắp mọi nơi, bạn cũng sẽ định cấu hình giao thức định tuyến tại
+
+05:07.170 --> 05:13.620
+đây và tùy thuộc vào giao thức định tuyến để xử lý việc xác định đường dẫn. Với các giao thức định tuyến của bạn, chúng hỗ trợ cân
+
+05:13.620 --> 05:18.150
+bằng tải chi phí ngang nhau, vì vậy bạn sẽ không gặp tình trạng các liên kết bị tắt.
+
+05:18.300 --> 05:22.830
+Tất cả các liên kết của bạn sẽ vẫn có sẵn và lưu lượng truy cập sẽ được cân bằng tải trên tất cả chúng.
+
+05:23.060 --> 05:25.800
+Ngoài ra, các giao thức định tuyến của bạn sẽ phục hồi sau khi bị lỗi.
+
+05:25.800 --> 05:28.610
+Chúng hội tụ nhanh hơn rất nhiều so với cây bao trùm.
+
+05:28.740 --> 05:35.790
+Vì vậy, đó là một lợi ích bạn nhận được ở đó. Bây giờ, khi bạn làm điều này, điều cuối cùng tôi sẽ cho bạn biết về
+
+05:35.940 --> 05:40.380
+nó, đó là cổng mặc định sẽ không nằm trên các chuyển mạch lớp phân phối bây giờ như ở lớp 2.
+
+05:40.380 --> 05:46.140
+Trên lớp truy cập, cổng mặc định cho máy chủ lưu trữ cuối của bạn sẽ nằm trên các nút chuyển lớp truy cập.
+
+05:46.260 --> 05:52.710
+Và nếu bạn nghĩ về nó, đó là vì chúng ta sẽ có một mạng con IP ở đây và chúng
+
+05:52.710 --> 05:59.370
+ta sẽ có một mạng con IP khác ở đây. Và cổng mặc định cho máy chủ của bạn phải nằm trong cùng một
+
+05:59.370 --> 06:00.270
+mạng con IP.
+
+06:00.450 --> 06:05.280
+Vì vậy, cổng mặc định của bạn bây giờ sẽ được định cấu hình trên các thiết bị chuyển mạch lớp truy cập của bạn và bạn
+
+06:05.280 --> 06:06.480
+sẽ có định tuyến ở khắp
+
+06:06.480 --> 06:08.500
+mọi nơi, các liên kết lớp 3 ở mọi nơi trên đó.
+
+06:08.940 --> 06:09.260
+ĐƯỢC RỒI.
+
+06:09.540 --> 06:15.780
+Ồ, và tôi đã đưa điều này vào bài giảng etherchannel vì rất thường xuyên khi bạn làm điều đó, bạn
+
+06:15.780 --> 06:22.320
+sẽ có các kênh etherchannel đi lên giữa các công tắc của bạn và khi bạn có lớp 3 ở khắp mọi nơi,
+
+06:22.320 --> 06:24.900
+tất nhiên, sẽ có được lớp 3 etherchannels.
+
+06:25.050 --> 06:27.450
+OK, đó là tất cả những gì tôi cần nói với
+
+06:27.450 --> 06:29.190
+bạn ở đây. Hẹn gặp lại các bạn trong bài giảng tiếp theo.

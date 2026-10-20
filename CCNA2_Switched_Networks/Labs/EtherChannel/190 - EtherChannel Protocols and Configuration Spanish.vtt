@@ -1,0 +1,379 @@
+WEBVTT
+
+00:06.610 --> 00:15.300
+En esta lección, aprenderá sobre los diferentes protocolos de etherchannel y cómo configurarlos y verificarlos.
+
+00:15.760 --> 00:23.350
+Entonces hay tres protocolos disponibles. Eso es LACP y PaGP y estático.
+
+00:23.350 --> 00:28.680
+Entonces, el primero es LACP, el protocolo de control de agregación de enlaces.
+
+00:29.110 --> 00:31.390
+Este es un estándar abierto.
+
+00:31.390 --> 00:35.620
+Por lo tanto, es compatible con todos los conmutadores de proveedores. Con LACP, los conmutadores de ambos
+
+00:35.620 --> 00:43.000
+lados negocian la creación y el mantenimiento del canal del puerto. Y de los tres métodos disponibles, este es
+
+00:43.000 --> 00:45.530
+el preferido para usar.
+
+00:46.540 --> 00:53.720
+El siguiente que tenemos es PaGP, que es el protocolo de agregación de puertos propietario de Cisco.
+
+00:54.040 --> 00:56.710
+Esto funciona de manera similar a LACP.
+
+00:56.950 --> 01:02.140
+Dondequiera que los conmutadores de ambos lados vuelvan a negociar la creación y el mantenimiento del canal del puerto.
+
+01:02.380 --> 01:06.820
+Pero no se recomienda usar PaGP porque es propietario.
+
+01:07.660 --> 01:13.570
+Y la tercera opción que tenemos es configurar un etherchannel estático. Con estática, los conmutadores no negocian la
+
+01:13.570 --> 01:19.840
+creación y el mantenimiento, pero la configuración aún debe marchar en ambos lados para que surja
+
+01:19.840 --> 01:21.630
+el canal del puerto.
+
+01:21.820 --> 01:24.940
+Entonces, con los tres, tiene dos conmutadores que
+
+01:25.200 --> 01:29.430
+tienen enlaces entre ellos y los configurará en un canal de puerto.
+
+01:29.710 --> 01:35.860
+Debe configurar los mismos ajustes en ambos lados, en ambos conmutadores. Y para estática, esta es la que
+
+01:35.880 --> 01:43.300
+usaremos si LACP no es compatible con ambos lados. LACP será compatible con todos los conmutadores de Cisco,
+
+01:43.300 --> 01:50.200
+pero tal vez se esté conectando a otro conmutador de proveedor, a un servidor o algo por el
+
+01:50.200 --> 01:50.700
+estilo.
+
+01:51.160 --> 01:53.890
+Entonces esas son las tres opciones diferentes.
+
+01:54.160 --> 01:58.600
+La configuración para todos es muy, muy similar.
+
+01:58.780 --> 02:05.050
+En realidad, todos usan el mismo comando, que es el comando del grupo de canales, pero son las palabras clave
+
+02:05.050 --> 02:10.870
+que usamos junto con el Grupo de canales las que deciden cuál de los tres protocolos se utilizará.
+
+02:12.770 --> 02:20.150
+Para los parámetros para los sin mentón, mencioné esto hace un minuto donde dije que la configuración debe
+
+02:20.150 --> 02:23.060
+coincidir en ambos lados del enlace.
+
+02:23.360 --> 02:27.410
+Las interfaces deben tener una configuración coincidente.
+
+02:27.830 --> 02:33.860
+Entonces, las configuraciones que tienen que ser las mismas en ambos lados incluyen la velocidad y el dúplex, ya sea que el puerto
+
+02:33.860 --> 02:36.050
+esté configurado en modo de acceso o troncal.
+
+02:36.260 --> 02:43.110
+La VLAN nativa, las VLAN permitidas allí y la VLAN de acceso, si es un puerto de acceso.
+
+02:44.270 --> 02:53.360
+Entonces, mirando la configuración. El primero que miramos es LACP. Sus interfaces LACP se pueden configurar como
+
+02:53.360 --> 02:54.860
+activas o pasivas.
+
+02:55.010 --> 03:01.480
+Veamos, vamos a configurar un canal de puerto entre Switch1 y Switch2. Si las interfaces de Switch1 son
+
+03:01.490 --> 03:07.160
+tan activas y Switch2 como pasivas, el canal de puerto aparecerá.
+
+03:08.030 --> 03:16.040
+Pero si ambos lados se configuran como pasivos, el canal del puerto no se activará. Y si ambos lados están activos, aparecerá el
+
+03:16.250 --> 03:18.280
+canal del puerto.
+
+03:18.860 --> 03:23.390
+Por lo que se recomienda configurar ambos lados como activos.
+
+03:23.390 --> 03:28.280
+Sus opciones son ambos lados como activo o un lado está activo y un lado es pasivo.
+
+03:28.430 --> 03:33.470
+Es más fácil configurar ambos como activos porque entonces no necesita preocuparse por cuál es el lado
+
+03:33.470 --> 03:35.560
+activo y cuál es el lado pasivo.
+
+03:37.340 --> 03:43.880
+Así que aquí está nuestra configuración, está configurada a nivel de interfaz. Por lo tanto, especifique las interfaces que desea agrupar en
+
+03:43.880 --> 03:45.430
+el canal del puerto.
+
+03:45.520 --> 03:53.030
+Aquí vemos el rango de interfaz fa0 / 23-24, y luego nuestro comando es el modo canal-grupo
+
+03:53.030 --> 03:54.350
+1 activo.
+
+03:54.590 --> 04:01.550
+Tan pronto como ingrese ese comando, creará una nueva interfaz lógica, que es su interfaz de canal de
+
+04:01.550 --> 04:02.210
+puerto.
+
+04:02.420 --> 04:07.190
+Aquí estamos configurando el grupo de canales 1, por lo que crearía el canal de puerto 1.
+
+04:07.220 --> 04:13.550
+La razón por la que hay un número aquí es que puede tener diferentes canales de puerto que van
+
+04:13.550 --> 04:16.340
+a diferentes conmutadores vecinos. Digamos que tenemos Switch1.
+
+04:16.350 --> 04:22.010
+Tenemos un canal de puerto que va a Switch2, podríamos hacer ese canal de puerto 1. Si también tenemos un canal de puerto que
+
+04:22.010 --> 04:23.870
+va a Switch3, podríamos
+
+04:24.020 --> 04:26.200
+hacer ese canal de puerto 2.
+
+04:27.110 --> 04:33.740
+Entonces ese es el comando para crear su canal de puerto. Una vez creado el canal de puerto, la mayoría de las
+
+04:33.740 --> 04:37.370
+configuraciones de la interfaz se establecen en el nivel de canal de puerto.
+
+04:37.580 --> 04:38.420
+Entonces, para
+
+04:38.420 --> 04:42.950
+hacer eso, decimos interface portchannel 1, y luego switchport mode trunk.
+
+04:43.070 --> 04:47.250
+También configuraríamos la VLAN nativa, las VLAN permitidas, etc. en este nivel.
+
+04:47.270 --> 04:48.180
+Y también debe configurar esos ajustes coincidentes en el interruptor del otro lado. Entonces ves
+
+04:50.150 --> 04:56.410
+que la configuración aquí es exactamente la misma.
+
+04:56.420 --> 04:59.150
+Lo hicimos primero en Switch1 y luego hacemos una configuración coincidente en Switch2.
+
+04:59.310 --> 05:04.640
+Así que eso fue LACP.
+
+05:05.330 --> 05:07.970
+Entonces, si es LACP, es un comando de grupo de canales y luego usa activo o pasivo. La configuración de PaGP es la
+
+05:07.970 --> 05:17.360
+misma, pero en lugar de usar activo o pasivo, usamos deseable o automático.
+
+05:17.540 --> 05:23.870
+Y son reglas similares a las que teníamos con LACP donde si
+
+05:24.020 --> 05:31.280
+un lado es deseable y el otro es automático, entonces aparecerá el canal de puerto.
+
+05:31.280 --> 05:32.630
+Si ambos lados son automáticos, no lo será.
+
+05:32.810 --> 05:35.420
+Y si ambos lados son deseables, lo será.
+
+05:35.600 --> 05:38.360
+Entonces, nuevamente, si va a usar PaGP, lo cual no se recomienda, configure ambos lados como desee.
+
+05:38.540 --> 05:44.900
+Entonces no necesita preocuparse por cuál es deseable y cuál es automático.
+
+05:44.900 --> 05:48.260
+Entonces, mirando la configuración, exactamente igual que para LACP. Pero aquí decimos que es deseable el modo
+
+05:49.070 --> 05:57.080
+canal-grupo 1 en lugar del canal uno, modo canal-grupo 1 activo.
+
+05:57.230 --> 06:01.420
+Entonces, por la palabra clave al final, puede saber si será LACP o PaGP. O, cuando llegamos a la
+
+06:01.430 --> 06:08.360
+siguiente diapositiva, estática. Para estática, nuevamente, es exactamente la misma configuración, pero decimos que el modo del grupo
+
+06:08.360 --> 06:11.060
+de canales 1 está activado. Tan activo
+
+06:11.060 --> 06:19.190
+para LACP, deseable para PaGP y encendido para estático. Resto de la configuración exactamente igual
+
+06:19.460 --> 06:24.410
+para todos ellos.
+
+06:24.410 --> 06:25.970
+Así es como lo configuramos. Cómo lo verificamos, hay un
+
+06:27.110 --> 06:35.660
+comando de navaja suiza para verificar etherchannel, que es mostrar el resumen de etherchannel. Y ves las banderas justo debajo.
+
+06:35.660 --> 06:41.330
+Entonces te dice qué significan realmente todas las letras aquí.
+
+06:41.490 --> 06:44.450
+Mirando hacia abajo, podemos ver que este es el Grupo 1, nuestro primer canal de puerto. La interfaz portchannel es Portchannel 1, y entre
+
+06:44.690 --> 06:50.700
+paréntesis veo una S mayúscula y una U mayúscula.
+
+06:50.700 --> 06:55.880
+La S mayúscula significa que está en el canal del puerto de capa 2.
+
+06:56.150 --> 06:59.780
+También puede configurar un canal de puerto de capa 3. En la interfaz, diría no switchport y pondría
+
+06:59.960 --> 07:04.970
+allí una dirección IP.
+
+07:04.970 --> 07:08.120
+Pero más comúnmente será un canal de puerto de capa 2.
+
+07:08.420 --> 07:11.450
+La U mayúscula significa que está en uso, lo que básicamente significa que está activo.
+
+07:11.630 --> 07:17.150
+Puedo ver que el protocolo es LACP y, a la derecha,
+
+07:17.600 --> 07:23.240
+puedo ver que mis puertos son fa0 / 23 y fa0 / 24.
+
+07:23.240 --> 07:27.230
+Una P mayúscula significa que están en el canal del puerto. Para un canal de puerto de capa 2, si
+
+07:27.380 --> 07:32.810
+ve letras distintas a las que
+
+07:32.810 --> 07:38.720
+ve aquí, hay un problema con el canal de puerto y no va a aparecer. Si hay un problema con su canal de puerto, con diferencia, el problema más común es que su configuración
+
+07:38.720 --> 07:42.380
+no coincide en ambos lados.
+
+07:42.620 --> 07:48.340
+Así que observe la interfaz, tanto a nivel de interfaz
+
+07:48.350 --> 07:54.350
+física como también a nivel de interfaz de canal de puerto.
+
+07:54.350 --> 07:54.710
+Y solo asegúrese de que la configuración sea exactamente la misma en ambos lados.
+
+07:54.860 --> 07:58.600
+Además, asegúrese de haber seleccionado las interfaces correctas que también están cableadas entre sí.
+
+07:58.880 --> 08:03.990
+De acuerdo, ese fue nuestro comando show
+
+08:04.760 --> 08:06.230
+etherchannel summary. También puede mostrar etherchannel y eso le dará una
+
+08:06.230 --> 08:10.190
+salida más detallada, pero el resumen realmente le dice todo lo que necesita saber.
+
+08:10.190 --> 08:14.210
+El último comando a mirar es show spanning-tree vlan. Porque, como explicamos antes, la razón para usar etherchannel es evitar que
+
+08:14.780 --> 08:21.350
+el árbol de expansión cierre algunos de sus enlaces.
+
+08:21.350 --> 08:28.310
+Entonces, después de haber configurado esto, desea verificar que el árbol de expansión
+
+08:28.460 --> 08:31.340
+esté funcionando como le gustaría.
+
+08:31.340 --> 08:34.190
+Entonces, el ejemplo aquí es antes de que configuremos etherchannel. Si miras la imagen de la derecha, tenemos un Switch Access
+
+08:34.560 --> 08:41.210
+3 con enlaces ascendentes que van a nuestro switch CD1, el de distribución principal.
+
+08:41.240 --> 08:47.150
+CD1 es el puente raíz para el árbol de expansión.
+
+08:47.150 --> 08:51.710
+Y si miramos a Access3, tiene dos enlaces que van hasta CD1.
+
+08:52.040 --> 08:56.240
+Si no los ponemos en un canal de puerto, entonces el
+
+08:56.390 --> 09:01.940
+árbol de expansión los ve como un bucle potencial y bloqueará uno de los enlaces. Mirando la salida de nuestro comando show spanning-tree vlan 1 aquí, mire hacia
+
+09:02.030 --> 09:07.400
+abajo en la parte inferior, puedo
+
+09:07.400 --> 09:08.230
+ver
+
+09:08.620 --> 09:09.820
+que fa0 /
+
+09:09.980 --> 09:11.660
+23 se está reenviando. Es el puerto raíz de Access3. Y fa0 / 24 está bloqueando para evitar el bucle.
+
+09:11.660 --> 09:19.820
+Entonces, estas son interfaces Ethernet rápidas.
+
+09:20.060 --> 09:21.830
+En nuestro ejemplo, solo obtengo 100 Mbps de ancho de banda de enlace ascendente en lugar de 200 Mbps con mis dos puertos.
+
+09:21.830 --> 09:28.790
+Para solucionarlo, configuramos etherchannel.
+
+09:29.390 --> 09:32.180
+Después de haber configurado etherchannel, podemos poner el mismo comando. Y de nuevo, muestre el vlan 1 del
+
+09:32.390 --> 09:37.220
+árbol de expansión. Y ahora, si retrocedo
+
+09:37.370 --> 09:39.230
+una diapositiva, antes del
+
+09:39.770 --> 09:47.030
+canal de puerto, verá que el árbol de expansión vio las interfaces físicas, fa0 / 23 y fa0 / 24.
+
+09:47.030 --> 09:50.810
+Cuando los colocamos en un canal de puerto, el árbol de expansión solo ve esa interfaz lógica.
+
+09:51.080 --> 09:57.410
+Por lo tanto, lo ve como un enlace, que no es un bucle potencial en lo que respecta al árbol de expansión.
+
+09:57.530 --> 10:03.050
+Así que ahora en el canal del puerto, se está reenviando. No tengo ningún puerto que esté bloqueando.
+
+10:03.410 --> 10:08.930
+Ahora obtengo el ancho de banda completo de ambas interfaces físicas.
+
+10:09.050 --> 10:12.530
+Bien, esa fue nuestra configuración y verificación.
+
+10:12.950 --> 10:18.920
+Nos vemos en la próxima conferencia.

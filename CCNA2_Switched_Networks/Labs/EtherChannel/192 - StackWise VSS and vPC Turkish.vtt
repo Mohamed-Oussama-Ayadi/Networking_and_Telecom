@@ -1,0 +1,274 @@
+WEBVTT
+
+00:06.370 --> 00:17.370
+Bu derste, Cisco'nun StackWise, vPC ve VSS çoklu şasi etherchannel seçenekleri hakkında bilgi edineceksiniz.
+
+00:17.650 --> 00:25.400
+Bağlantının her iki tarafındaki anahtarlarda eşleşen etherchannel ayarlarının yapılandırılması gerekir.
+
+00:25.420 --> 00:26.800
+Bunu zaten biliyorsun.
+
+00:27.220 --> 00:34.360
+Buradaki şemada gördüğünüz gibi bir anahtardan yedek yukarı akış anahtarlarına ayrı bağlantı noktası kanalları
+
+00:34.360 --> 00:35.710
+yapılandırabilirsiniz,
+
+00:35.900 --> 00:44.050
+erişim katmanı Access3 anahtarım var ve CD1'e giden paketlenmiş bağlantılara sahip bir bağlantı noktası kanalı var ve CD2'ye
+
+00:44.410 --> 00:51.400
+giden bir bağlantı noktası kanalında paketlenmiş diğer fiziksel arabirimlere sahip başka bir ayrı bağlantı
+
+00:51.400 --> 00:56.500
+noktası kanalı var. Bununla ilgili sorun, spanning-tree'nin
+
+00:56.560 --> 01:04.960
+bu ayrı port kanallarını iki ayrı arayüz olarak görmesi ve burada olduğu gibi bir döngü oluşursa
+
+01:04.960 --> 01:08.670
+bir yolu engellemesidir.
+
+01:08.890 --> 01:10.450
+Yani örneğimizde,
+
+01:10.450 --> 01:12.640
+CD1 kök köprüdür.
+
+01:13.000 --> 01:18.430
+Dolayısıyla Access3'ten buna giden bağlantı noktası kanalı Yönlendirme olacaktır.
+
+01:18.790 --> 01:26.950
+Ancak CD2'ye giden liman kanalı potansiyel bir döngü oluşturacaktır. Bu yüzden spanning-tree bu bağlantı noktası kanalını
+
+01:26.950 --> 01:29.040
+engelleyecektir.
+
+01:29.770 --> 01:37.090
+Burada yukarı bağlantı olarak yapılandırılmış dört fiziksel arabirimim var, ancak bunlardan yalnızca ikisi Yönlendiriliyor,
+
+01:37.090 --> 01:40.890
+bu nedenle olası bant genişliğimin yalnızca yarısını alıyorum.
+
+01:41.200 --> 01:46.750
+Bu da bizi tekrar mevcut fiziksel bant genişliğimizin yalnızca yarısını
+
+01:46.750 --> 01:53.290
+kullanma sorununa geri getiriyor. Aynı topolojiyi son derste laboratuvarda yapılandırmıştık.
+
+01:53.440 --> 01:57.310
+Yani etherchannel'ı yapılandırdıktan sonra işler daha iyiydi.
+
+01:57.580 --> 02:00.060
+Biz yapmadan önce böyleydi.
+
+02:00.520 --> 02:08.260
+Yani yine, CD1 kök köprüdür ve Access3'ten görüyorsunuz, bu dört fiziksel yukarı bağlantıya sahiptir,
+
+02:08.410 --> 02:14.770
+ancak bunlardan yalnızca biri trafiği iletmektedir, bu da CD1'e bağlı arayüzdür
+
+02:14.770 --> 02:17.850
+ve Access4'te de tamamen aynıdır.
+
+02:17.860 --> 02:24.940
+Yani dört fiziksel bağlantı noktası, bunlardan yalnızca biri trafiği iletiyor. Etherchannel'ı yapılandırdıktan sonra,
+
+02:25.210 --> 02:30.520
+artık bir yerine dört iletme trafiğinden ikisine sahibiz.
+
+02:30.700 --> 02:31.810
+Yani daha iyi.
+
+02:31.990 --> 02:36.670
+Ve aslında laboratuvar hala çalışıyor, o yüzden oraya gidip bunu doğrulayalım.
+
+02:36.790 --> 02:42.040
+Bu yüzden Access3'e geçip etherchannel özetini göstereceğim.
+
+02:42.950 --> 02:52.730
+Ve iki bağlantı noktası kanalım olduğunu görebilirsiniz, biri ilk çekirdek dağıtım katmanı anahtarına
+
+02:52.730 --> 02:56.690
+gidiyor. İkincisi, ikinciye doğru gidiyor. İkisi de kalktı.
+
+02:57.080 --> 03:03.910
+Sonra bilgisayarlarımın içinde bulunduğu VLAN olan show spanning-tree vlan 10'u yapıyorum.
+
+03:04.430 --> 03:07.100
+Bu 2 bağlantı noktası kanalından birinin trafiği
+
+03:07.100 --> 03:09.070
+ilettiğini görebiliyorum.
+
+03:09.290 --> 03:19.180
+Bu, kök köprüye bağlı bağlantı noktası kanalıdır ve diğeri potansiyel bir döngü oluşturduğu için engellenmektedir.
+
+03:19.790 --> 03:22.720
+Yani hala mükemmel değil.
+
+03:23.240 --> 03:32.420
+Slaytlara geri dönersek, bunu fiziksel olarak bağlı tüm yukarı bağlantılarımızda gerçekten
+
+03:32.420 --> 03:37.190
+iletecek şekilde yapılandırmanın bir yolu var.
+
+03:37.370 --> 03:41.630
+Bunu yapmanın yolu da Çoklu şasi EtherChannel'dir.
+
+03:41.900 --> 03:49.520
+Yani bazı anahtarlar bunu destekleyecektir. Yapılandırdığımızda, anahtar farklı anahtarlardan paylaşılan
+
+03:49.700 --> 03:51.770
+bir etherchannel'ı destekler.
+
+03:51.980 --> 03:59.270
+Şimdi elimdeki diyagramı görüyorsunuz. Bir slayt, birkaç slayt geriye gidersem,
+
+04:00.280 --> 04:06.810
+normalde, biri CD1'e ve diğeri CD2'ye giden 2 ayrı bağlantı
+
+04:07.600 --> 04:16.330
+noktası kanalımız olurdu. Ancak bu çekirdek dağıtım katmanı anahtarları çok şasili etherchannel'ı desteklediğinde, her ikisine
+
+04:16.480 --> 04:18.950
+de giden tek bir bağlantı noktası kanalı yapabilirim.
+
+04:19.500 --> 04:23.740
+Şimdi, yine, anahtarlar eşleşen ayarlarla yapılandırılmalıdır.
+
+04:23.890 --> 04:31.030
+Etherchannel'ı yapılandırırken, bağlantıların her iki tarafında da eşleşen ayarlara ihtiyacınız vardır. Burada, Access3'ün yukarı yönde giden bir bağlantı
+
+04:31.030 --> 04:36.010
+noktası kanalı vardır ve CD1 ve CD2 anahtarlarının aşağı yönde giden paylaşılan
+
+04:36.010 --> 04:43.420
+bir bağlantı noktası kanalı vardır. Bu nedenle CD1 ve CD2'nin birbirleriyle konuşmayı ve aşağı
+
+04:43.420 --> 04:51.290
+yönde paylaşılan bir bağlantı noktası kanalına sahip olmayı destekleyen ileri düzey anahtarlar olması gerekir.
+
+04:51.400 --> 04:56.200
+Yani bu, bazı Cisco anahtar modellerinde desteklenmektedir.
+
+04:57.350 --> 05:04.310
+Bunu yapılandırdığınızda, spanning-tree hala etkindir, ancak her iki tarafta da yalnızca
+
+05:04.310 --> 05:11.570
+tek bir mantıksal arabirim görür. Access3'ten yukarı yönde giden bir bağlantı noktası kanalı görür ve CD1'den
+
+05:11.570 --> 05:15.380
+aşağı yönde giden ve CD2 ile paylaşılan tek bir bağlantı noktası kanalı görür.
+
+05:15.530 --> 05:17.870
+Yani bunu sadece tek bir bağlantı olarak görür.
+
+05:18.020 --> 05:19.520
+Yani burada bir döngü yok.
+
+05:19.740 --> 05:22.600
+Spanning-tree hiçbir bağlantı noktasını engellemez.
+
+05:22.760 --> 05:24.470
+Hepsini yönlendiriyoruz.
+
+05:24.650 --> 05:31.190
+Tüm fiziksel bant genişliğimizi tam olarak kullanabiliyoruz, tüm arayüzlerde tam yük dengeleme ve yedekliliği
+
+05:31.190 --> 05:32.270
+destekliyor.
+
+05:32.390 --> 05:37.760
+Arayüzlerden herhangi biri devre dışı kalırsa, kullanılabilir başka bir arayüze aktarılır.
+
+05:38.960 --> 05:50.630
+Cisco'nun bunu destekleyen mevcut teknolojileri StackWise, VSS ve vPC'dir.
+
+05:51.500 --> 05:58.250
+Şimdi, tek bir anahtar bunların hepsini desteklemeyecektir. Farklı anahtar platformları, farklı seçenekleri
+
+05:58.250 --> 05:59.390
+destekler.
+
+05:59.570 --> 06:05.660
+Ve eğer bir anahtar birini destekliyorsa, bu yalnızca bir tane olacaktır. Yani anahtar ya StackWise'ı destekleyecek
+
+06:05.660 --> 06:11.650
+ya VSS'yi destekleyecek ya da vPC'yi destekleyecek, aynı anda iki ya da üçünü değil.
+
+06:11.930 --> 06:14.270
+Ve bu sadece üst seviye anahtarlar için geçerli.
+
+06:14.270 --> 06:19.390
+Cisco'nun alt uç anahtarlarından birine sahipseniz, bu desteklenmeyecektir.
+
+06:19.700 --> 06:28.940
+Peki hangi seçenek hangi anahtar ailesinde destekleniyor? StackWise, Catalyst 3750, 3850 ve 9000 de dahil olmak
+
+06:28.940 --> 06:30.140
+üzere Catalyst
+
+06:30.140 --> 06:30.770
+anahtar
+
+06:30.770 --> 06:32.360
+platformlarında
+
+06:32.360 --> 06:34.500
+bulunmaktadır.
+
+06:34.820 --> 06:41.870
+Çünkü Cisco çok düzenli olarak yeni anahtar modelleri çıkarıyor ve yeni bir anahtar modeli çıktığında,
+
+06:42.020 --> 06:47.080
+muhtemelen bu üç seçenekten birini destekleyecektir.
+
+06:47.090 --> 06:49.190
+Dolayısıyla bu zaman içinde güncellenecektir.
+
+06:50.000 --> 06:56.630
+Buradaki resme bakacak olursanız, bu StackWise ile yapılandırılan bir anahtar yığınıdır.
+
+06:56.780 --> 07:01.970
+StackWise, bu anahtarların arkasında özel tescilli kablolar kullanır.
+
+07:02.270 --> 07:10.070
+Bir StackWise yığınını yapılandırdığınızda, ayrı fiziksel anahtarların tümü tek bir anahtarmış gibi çalışır
+
+07:10.070 --> 07:14.330
+ve aynı zamanda tek bir anahtarmış gibi yapılandırılır.
+
+07:14.690 --> 07:21.890
+Bu, bir sonraki seçenek olan VSS'ye, yani Sanal Anahtarlama Sistemine benzer. Bu, Catalyst 4500 ve 6500
+
+07:21.890 --> 07:25.910
+ailelerinde desteklenir.
+
+07:26.240 --> 07:28.580
+Son seçenek ise biraz daha farklı
+
+07:28.880 --> 07:35.150
+olan vPC, yani Sanal Port Kanalı'dır. Bu, Nexus anahtarlarında desteklenir.
+
+07:35.420 --> 07:42.170
+Nexus'ta bunu kullandığınızda, anahtarları bir araya getirmek ve daha sonra tek bir anahtarmış gibi yönetilmek yerine,
+
+07:42.170 --> 07:48.950
+hala iki ayrı anahtar olarak yapılandırılırlar, ancak üzerlerinde eşleşen bir yapılandırma yaparsınız ve bu, bu anahtarlardan
+
+07:48.950 --> 07:53.390
+paylaşılan bir bağlantı noktası kanalına izin verir.
+
+07:53.820 --> 08:00.080
+Tamam, bunlar MCE seçenekleri. CCNA sınavı düzeyinde Cisco, bunlara
+
+08:00.470 --> 08:05.990
+genel bir bakış bilmenizi bekler, ancak bunları nasıl yapılandıracağınızı
+
+08:05.990 --> 08:13.610
+bilmenizi beklemez. CCNP seviyesine veya Veri Merkezi gibi diğer CCNA programlarından birine geçerseniz,
+
+08:13.610 --> 08:17.660
+bu teknolojileri nasıl yapılandıracağınızı ve izleyeceğinizi öğreneceksiniz.

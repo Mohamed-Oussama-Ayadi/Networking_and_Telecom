@@ -1,0 +1,277 @@
+WEBVTT
+
+00:06.370 --> 00:16.510
+Dans cette conférence, vous découvrirez les options Ethernet multi-châssis de Cisco de StackWise, vPC et
+
+00:16.510 --> 00:17.370
+VSS.
+
+00:17.650 --> 00:25.400
+Les paramètres etherchannel correspondants doivent être configurés sur les commutateurs des deux côtés de la liaison.
+
+00:25.420 --> 00:26.800
+Vous le savez déjà.
+
+00:27.220 --> 00:34.360
+Vous pouvez configurer des canaux de port séparés d'un commutateur vers des commutateurs en amont redondants comme vous le
+
+00:34.360 --> 00:35.710
+voyez dans le
+
+00:35.900 --> 00:44.050
+diagramme ici, j'ai mon commutateur Access3 de couche d'accès et il a un canal de port avec des liens groupés allant jusqu'à
+
+00:44.410 --> 00:51.400
+CD1 et il a un autre port séparé canal avec d'autres interfaces physiques qui sont regroupées dans un
+
+00:51.400 --> 00:56.500
+canal de port allant jusqu'à CD2. Le problème avec ceci est
+
+00:56.560 --> 01:04.960
+que spanning-tree verrait ces canaux de ports séparés comme deux interfaces séparées et il bloquera un chemin si une
+
+01:04.960 --> 01:08.670
+boucle est formée comme c'est le cas ici.
+
+01:08.890 --> 01:10.450
+Ainsi, dans notre
+
+01:10.450 --> 01:12.640
+exemple, CD1 est le pont racine.
+
+01:13.000 --> 01:18.430
+Ainsi, le canal de port d'Access3 vers celui-ci sera le transfert.
+
+01:18.790 --> 01:26.950
+Mais le canal du port allant jusqu'à CD2, formerait une boucle potentielle. Donc, spanning-tree va bloquer ce canal
+
+01:26.950 --> 01:29.040
+de port.
+
+01:29.770 --> 01:37.090
+J'ai donc quatre interfaces physiques configurées en tant que liaisons montantes ici, mais seulement deux d'entre elles sont en transfert, donc
+
+01:37.090 --> 01:40.890
+je n'obtiens que la moitié de ma bande passante possible.
+
+01:41.200 --> 01:46.750
+Cela nous ramène donc au même problème consistant à n'utiliser à nouveau que la
+
+01:46.750 --> 01:53.290
+moitié de notre bande passante physique disponible. Nous avons configuré cette même topologie en laboratoire lors de la dernière conférence.
+
+01:53.440 --> 01:57.310
+Donc les choses allaient mieux après avoir configuré etherchannel.
+
+01:57.580 --> 02:00.060
+C'était comme ça avant que nous le fassions.
+
+02:00.520 --> 02:08.260
+Encore une fois, CD1 est le pont racine et vous voyez à partir d'Access3, il a ces quatre liaisons
+
+02:08.410 --> 02:14.770
+montantes physiques, mais une seule d'entre elles transférait le trafic, qui était l'interface connectée à
+
+02:14.770 --> 02:17.850
+CD1 et exactement la même sur Access4.
+
+02:17.860 --> 02:24.940
+Donc quatre ports physiques, dont un seul acheminant le trafic. Après avoir configuré l'etherchannel, nous avons
+
+02:25.210 --> 02:30.520
+maintenant deux des quatre transferts de trafic au lieu d'un.
+
+02:30.700 --> 02:31.810
+Alors c'est mieux.
+
+02:31.990 --> 02:36.670
+Et en fait, j'ai toujours le labo en marche, alors allons-y et vérifions ça.
+
+02:36.790 --> 02:42.040
+Je vais donc passer à Access3 et faire un résumé de l'émission etherchannel.
+
+02:42.950 --> 02:52.730
+Et vous pouvez voir que j'ai mes deux canaux de port, l'un va jusqu'au premier commutateur de couche de distribution
+
+02:52.730 --> 02:56.690
+de base. Le second va jusqu'au second. Ils sont tous les deux debout.
+
+02:57.080 --> 03:03.910
+Ensuite, je fais un show spanning-tree vlan 10, qui est un VLAN dans lequel se trouvent mes PC.
+
+03:04.430 --> 03:07.100
+Je peux voir que sur ces 2 canaux de
+
+03:07.100 --> 03:09.070
+port, l'un d'eux transfère le trafic.
+
+03:09.290 --> 03:17.660
+C'est le canal de port connecté au pont racine et l'autre est bloquant car il forme une
+
+03:17.660 --> 03:19.180
+boucle potentielle.
+
+03:19.790 --> 03:22.720
+Donc ce n'est toujours pas parfait.
+
+03:23.240 --> 03:32.420
+Si nous revenons aux diapositives, il existe un moyen de configurer cela de manière à transmettre
+
+03:32.420 --> 03:37.190
+réellement toutes nos liaisons montantes physiquement connectées.
+
+03:37.370 --> 03:41.630
+Et la façon dont nous le faisons est avec Multi-chassis EtherChannel.
+
+03:41.900 --> 03:49.520
+Ainsi, certains commutateurs prendront en charge cela. Lorsque nous le configurons, le commutateur prend en charge un etherchannel partagé
+
+03:49.700 --> 03:51.770
+à partir de différents commutateurs.
+
+03:51.980 --> 03:59.270
+Vous voyez donc le diagramme que j'ai ici maintenant. Si je retourne une diapositive,
+
+04:00.280 --> 04:06.810
+quelques diapositives, normalement, nous aurions 2 canaux de ports séparés, l'un
+
+04:07.600 --> 04:16.330
+allant jusqu'au CD1 et l'autre allant jusqu'au CD2. Cependant, lorsque ces commutateurs de couche de distribution principale prennent en charge l'Etherchannel multi-châssis, je peux créer un
+
+04:16.480 --> 04:18.950
+canal de port unique qui va vers les deux.
+
+04:19.500 --> 04:23.740
+Maintenant, encore une fois, les commutateurs doivent être configurés avec des paramètres correspondants.
+
+04:23.890 --> 04:31.030
+Lorsque vous configurez etherchannel, vous avez besoin de paramètres correspondants des deux côtés des liens. Donc ici, Access3 a un canal
+
+04:31.030 --> 04:36.010
+de port en amont et les commutateurs CD1 et CD2
+
+04:36.010 --> 04:43.420
+ont un canal de port partagé en aval. Ainsi, CD1 et CD2 doivent être des commutateurs
+
+04:43.420 --> 04:51.290
+de niveau avancés qui prennent en charge la communication entre eux et disposent d'un canal de port partagé en aval.
+
+04:51.400 --> 04:56.200
+Cela est donc pris en charge sur certains modèles de commutateur Cisco.
+
+04:57.350 --> 05:04.310
+Lorsque vous configurez cela, le spanning-tree est toujours activé, mais il ne voit qu'une
+
+05:04.310 --> 05:11.570
+seule interface logique des deux côtés. Il voit un canal de port en amont d'Access3 et il voit
+
+05:11.570 --> 05:15.380
+un canal de port unique en aval de CD1 et partagé avec CD2.
+
+05:15.530 --> 05:17.870
+Il considère donc cela comme un simple lien.
+
+05:18.020 --> 05:19.520
+Il n'y a donc pas de boucle là-bas.
+
+05:19.740 --> 05:22.600
+Spanning-tree ne bloque aucun des ports.
+
+05:22.760 --> 05:24.470
+Nous les avons tous transmis.
+
+05:24.650 --> 05:31.190
+Nous obtenons la pleine utilisation de toute notre bande passante physique, prenons en charge l'équilibrage de charge complet et la redondance sur
+
+05:31.190 --> 05:32.270
+toutes les interfaces.
+
+05:32.390 --> 05:37.760
+Si l'une des interfaces tombe en panne, elle basculera vers une autre interface disponible.
+
+05:38.960 --> 05:50.630
+Ainsi, les technologies disponibles chez Cisco qui prennent en charge cela sont StackWise, VSS et vPC.
+
+05:51.500 --> 05:58.250
+Désormais, un seul commutateur ne prendra pas en charge tous ces éléments. Différentes plates-formes de commutateurs prennent en charge
+
+05:58.250 --> 05:59.390
+différentes options.
+
+05:59.570 --> 06:05.660
+Et si un commutateur en prend en charge un, ce n'en sera qu'un. Ainsi, le commutateur prendra en charge StackWise ou
+
+06:05.660 --> 06:11.650
+il prendra en charge VSS ou il prendra en charge vPC, pas deux ou trois en même temps.
+
+06:11.930 --> 06:14.270
+Et ce n'est que sur les commutateurs haut de gamme.
+
+06:14.270 --> 06:19.390
+Si vous possédez l'un des commutateurs Cisco bas de gamme, il ne sera pas pris en charge.
+
+06:19.700 --> 06:28.940
+Alors, quelle option est prise en charge sur quelle famille de commutateurs ? Eh bien, StackWise est sur les plates-formes de commutation
+
+06:28.940 --> 06:30.770
+Catalyst, y compris
+
+06:30.770 --> 06:32.360
+les Catalyst
+
+06:32.360 --> 06:34.500
+3750, 3850 et 9000.
+
+06:34.820 --> 06:41.870
+Parce que Cisco sort très régulièrement de nouveaux modèles de commutateurs et lorsque nous sortons un nouveau modèle de
+
+06:42.020 --> 06:47.080
+commutateur, il est susceptible de prendre en charge l'une de ces trois options.
+
+06:47.090 --> 06:49.190
+Celui-ci sera donc mis à jour au fur et à mesure.
+
+06:50.000 --> 06:56.630
+Si vous regardez l'image ici, il s'agit d'une pile de commutateurs qui sont configurés avec StackWise.
+
+06:56.780 --> 07:01.970
+StackWise utilise des câbles propriétaires spéciaux à l'arrière de ces commutateurs.
+
+07:02.270 --> 07:10.070
+Lorsque vous configurez une pile StackWise, les commutateurs physiques distincts fonctionnent tous comme s'il s'agissait d'un seul commutateur et
+
+07:10.070 --> 07:14.330
+ils sont configurés comme s'il s'agissait également d'un seul commutateur.
+
+07:14.690 --> 07:21.890
+C'est similaire à l'option suivante, qui est VSS, le Virtual Switching System. Cela est pris en charge
+
+07:21.890 --> 07:25.910
+sur les familles Catalyst 4500 et 6500.
+
+07:26.240 --> 07:28.580
+Et la dernière option est l'une
+
+07:28.880 --> 07:35.150
+des siennes, un peu différente est vPC, Virtual Port Channel. Cela est pris en charge sur les commutateurs Nexus.
+
+07:35.420 --> 07:42.170
+Et plutôt que d'empiler les commutateurs ensemble puis d'être gérés comme s'il s'agissait d'un seul commutateur, lorsque vous l'utilisez
+
+07:42.170 --> 07:48.950
+sur le Nexus, ils sont toujours configurés comme deux commutateurs distincts, mais vous effectuez une configuration correspondante sur eux
+
+07:48.950 --> 07:53.390
+et cela permet un partage canal de port de ces commutateurs.
+
+07:53.820 --> 08:00.080
+OK, ce sont donc les options MCE. Au niveau de l'examen CCNA, Cisco s'attend
+
+08:00.470 --> 08:05.990
+à ce que vous en connaissiez un large aperçu, mais ils ne s'attendent
+
+08:05.990 --> 08:13.610
+pas à ce que vous sachiez comment les configurer. Si vous passez au niveau CCNP ou à l'une des autres pistes
+
+08:13.610 --> 08:17.660
+CCNA comme Data Center, vous apprendrez alors comment configurer et surveiller ces technologies.

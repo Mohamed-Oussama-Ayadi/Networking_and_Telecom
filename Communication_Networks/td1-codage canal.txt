@@ -1,0 +1,22 @@
+exercice 1:
+1)a=......0 e=.....1  v=........0
+2) 1111010111010010
+    11100111|11010101
+               v            x
+le codeur ne peut pas detecter l'erreur car il ya un nombre pair d'erreur
+3a)oui(b4 b6)
+3b)on peut detecter les erreurs mais non les localiser
+
+
+ exercice2:
+1)
+
+R(x)= x+1
+
+ CRC=0011
+2)
+
+il ya des erreurs de transmission des données 
+
+3) R(x)=x
+ message codé : 001111110110

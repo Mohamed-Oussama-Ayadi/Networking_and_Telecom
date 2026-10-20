@@ -1,0 +1,247 @@
+WEBVTT
+
+00:07.260 --> 00:14.070
+In diesem Vortrag lernen Sie Layer-3-Etherkanäle kennen. In den früheren Vorlesungen in diesem Abschnitt haben
+
+00:14.230 --> 00:17.400
+Sie gesehen, wie Layer-2-Etherkanäle konfiguriert werden.
+
+00:17.550 --> 00:20.550
+Wir können auch Layer-3-Etherchannels konfigurieren.
+
+00:20.670 --> 00:28.050
+Das sehen Sie am Konfigurationsbeispiel hier. Und die Konfiguration ist eigentlich genau dieselbe.
+
+00:28.320 --> 00:35.940
+Der einzige Unterschied besteht darin, dass wir die Ports mit dem Befehl no switchport zu einem Layer-3-Port machen.
+
+00:36.120 --> 00:42.270
+Das ist also ein Standardbefehl, den Sie auf einem Layer-3-Switch verwenden können, wenn Sie Etherchannel verwenden
+
+00:42.270 --> 00:48.390
+oder nicht, dass der Port ein Layer-3-Port ist, damit Sie dort eine IP-Adresse eingeben können.
+
+00:48.510 --> 00:54.800
+Schauen wir uns also die Konfiguration an. Bei der globalen Konfiguration habe ich den Schnittstellenbereich gi1/0/1
+
+00:54.810 --> 00:55.770
+- 2 angegeben.
+
+00:55.920 --> 01:01.470
+Und dann sage ich kein Switchport, um diese Layer-3-Ports zu erstellen, und dann werde ich sie als
+
+01:01.470 --> 01:02.400
+Port-Kanal konfigurieren.
+
+01:02.530 --> 01:07.320
+Also sage ich Kanalgruppe 1 Modus und dann die gleichen Optionen wie wir für Layer 2 hatten.
+
+01:07.500 --> 01:14.210
+Es kann aktiv, automatisch, wünschenswert, an oder passiv sein, je nachdem, wann Sie es zu einem statischen
+
+01:14.250 --> 01:16.860
+Etherchannel mit on machen möchten, oder
+
+01:17.100 --> 01:23.610
+wir können aktiv oder passiv für LACP verwenden oder wir können auto oder wünschenswert für PaGP verwenden.
+
+01:25.140 --> 01:31.500
+Dadurch werden die Ports zu einem Etherchannel zusammengefasst. Wir können dann unsere andere Konfiguration auf unseren
+
+01:31.500 --> 01:32.670
+Etherchannel stellen.
+
+01:32.850 --> 01:36.080
+Dort setzen wir unsere IP-Adresse ein.
+
+01:36.330 --> 01:40.560
+Wir sagen also Schnittstellenport-Kanal 1, der mit der Kanalgruppennummer verknüpft ist.
+
+01:40.710 --> 01:47.550
+Und in diesem Beispiel würden wir IP-Adresse 192 sagen. 168. 0. 1 255.
+
+01:47.550 --> 01:47.550
+255. 255. 252.
+
+01:47.550 --> 01:51.060
+Und denken Sie daran, die Schnittstelle nicht herunterzufahren.
+
+01:51.360 --> 01:55.710
+OK, das ist also ein Layer-3-Etherchannel. Das ist die komplette Konfiguration.
+
+01:55.980 --> 02:01.740
+Das hätte also ein wirklich kurzer Vortrag sein können, aber das hat noch eine andere Bedeutung. Über etwas anderes möchte ich
+
+02:01.740 --> 02:05.790
+hier mit Ihnen sprechen, und das ist das Netzwerkdesign.
+
+02:06.480 --> 02:13.920
+Betrachten wir also unser traditionelles Campus-Design mit der Kernverteilungs- und Zugriffsschicht. Dies würde ursprünglich so
+
+02:13.920 --> 02:20.790
+erfolgen, dass Layer-2-Links zwischen den Access-Layer-Switches und
+
+02:20.790 --> 02:24.210
+den Distribution-Layer-Switches bestehen.
+
+02:24.480 --> 02:32.550
+Und das Standard-Gateway für die Endhosts wäre auf den Switches der Verteilungsschicht, und wir hätten Spanning-Tree-Verbindungen
+
+02:32.550 --> 02:39.450
+zwischen der Zugriffs- und der Verteilungsschicht, da es sich um Layer-2-Links handelt.
+
+02:40.230 --> 02:47.220
+Nun, ein Trend, den Sie jetzt zunehmend beobachten können, besteht darin, Layer-3-Links überall zu platzieren.
+
+02:47.640 --> 02:52.230
+Der Vorteil besteht darin, dass Sie Spanning-Tree nicht mehr verwenden.
+
+02:52.440 --> 02:55.800
+Spanning-Tree ist ein notwendiges Übel.
+
+02:55.980 --> 03:02.160
+Die schlechte Seite von Spanning-Tree ist, dass es dazu neigt, die Hälfte Ihrer Links herunterzufahren, und es ist auch
+
+03:02.160 --> 03:04.920
+sehr langsam, sich nach einem Ausfall zu erholen.
+
+03:05.070 --> 03:08.550
+Es ist also schlecht, aber es tut immer noch Gutes.
+
+03:08.550 --> 03:13.500
+Sie brauchen es immer noch, weil es viel schlimmer wäre, wenn Sie eine Schicht-2-Schleife in Ihrem Netzwerk hätten, da dies
+
+03:13.500 --> 03:15.830
+Ihr Netzwerk im Grunde nur zum Einsturz bringen würde.
+
+03:16.080 --> 03:20.580
+Wir stellen also sicher, dass wir keine Layer-2-Schleifen haben, indem wir Spanning-Tree aktiviert haben.
+
+03:20.700 --> 03:26.490
+Aber die schlechte Seite ist, dass es sich nach Fehlern nur langsam erholt und die Hälfte unserer Links herunterfährt.
+
+03:26.580 --> 03:32.910
+Es wäre also besser, wenn wir überall Layer-3-Links haben und keinen Spanning-Tree mehr verwenden könnten, oder?
+
+03:32.910 --> 03:36.660
+Jetzt fragen Sie sich vielleicht, na ja, gut, warum haben wir das nicht immer gemacht?
+
+03:36.690 --> 03:40.890
+Warum hatten wir früher Layer-2-Links zwischen der Zugriffsschicht und der Verteilungsschicht?
+
+03:40.890 --> 03:42.840
+Jetzt haben wir in
+
+03:42.840 --> 03:47.340
+vielen modernen Netzwerken immer noch Layer-2-Links vom Zugang zur Verteilungsschicht.
+
+03:47.520 --> 03:51.420
+Aber ein zunehmender Trend, den Sie jetzt sehen werden, ist, dass
+
+03:51.610 --> 03:57.270
+Layer 3 überall ist und der Grund dafür ist, dass Layer 3-Switches im Preis stark gesunken sind.
+
+03:57.510 --> 04:03.720
+Damals waren Layer-3-Switches viel teurer als Layer-2-Switches.
+
+04:03.870 --> 04:09.480
+Und Ihre Access-Layer-Switches, bei denen Sie eine hohe Portanzahl hatten, bei denen Sie alle
+
+04:09.480 --> 04:15.270
+Ihre Hosts angeschlossen hatten, also viele Access-Layer-Switches hatten und es aus Kostengründen einfach nicht möglich
+
+04:15.510 --> 04:18.930
+war, Layer-3-Switches einzubinden auf allen Ihren Access-Layer-Switches.
+
+04:19.170 --> 04:25.680
+Aber da die Zeit jetzt vergangen ist und die Preise für Layer-3-Switches gesunken sind, ist
+
+04:25.680 --> 04:27.260
+dies jetzt machbarer.
+
+04:27.480 --> 04:33.960
+Wenn Sie also überall Layer-3-Switches einbauen, auch in der Access-Schicht, haben Sie jetzt tatsächlich die
+
+04:33.960 --> 04:39.240
+Layer-3-Links von der Access-Schicht zur Verteilungsschicht. Das heißt, Sie haben eine IP-Adresse auf
+
+04:39.240 --> 04:42.480
+diesem Port hier und eine IP-Adresse auf diesem Port hier.
+
+04:42.570 --> 04:48.780
+Da also alles Layer 3 ist, läuft kein Spanning-Tree mehr. Spanning-Tree funktioniert nur
+
+04:48.780 --> 04:51.450
+auf Layer-2-Links.
+
+04:51.630 --> 04:57.870
+Die Art und Weise, wie Sie die Pfade zwischen Ihren Switches bestimmen, wird also nicht mehr
+
+04:57.870 --> 04:59.070
+von Spanning-Tree bestimmt.
+
+04:59.220 --> 05:01.950
+Es wird durch Ihr Routing-Protokoll bestimmt.
+
+05:01.950 --> 05:06.800
+Wenn Sie also überall Layer-3-Links verwenden, konfigurieren Sie auch hier ein Routing-Protokoll, und es
+
+05:07.170 --> 05:13.620
+liegt an dem Routing-Protokoll, die Pfadbestimmung zu übernehmen. Ihre Routing-Protokolle unterstützen einen Lastausgleich
+
+05:13.620 --> 05:18.150
+zu gleichen Kosten, sodass keine Verbindungen heruntergefahren werden.
+
+05:18.300 --> 05:22.830
+Alle Ihre Links sind weiterhin verfügbar und der Verkehr wird auf alle verteilt.
+
+05:23.060 --> 05:25.800
+Außerdem erholen sich Ihre Routing-Protokolle nach Fehlern.
+
+05:25.800 --> 05:28.610
+Sie konvergieren viel schneller als Spanning-Tree.
+
+05:28.740 --> 05:35.790
+Das ist also ein Vorteil, den Sie dort bekommen. Wenn Sie dies tun, möchte ich Ihnen als letztes noch sagen, dass sich das
+
+05:35.940 --> 05:40.380
+Standard-Gateway jetzt nicht mehr auf den Switches der Verteilungsschicht befindet, wie es bei Schicht 2 der Fall wäre.
+
+05:40.380 --> 05:46.140
+Auf der Zugriffsschicht befindet sich das Standard-Gateway für Ihren Endhost auf den Switches der Zugriffsschicht.
+
+05:46.260 --> 05:52.710
+Und wenn Sie darüber nachdenken, muss es daran liegen, dass wir hier unten ein IP-Subnetz
+
+05:52.710 --> 05:59.370
+und hier ein anderes IP-Subnetz haben werden. Und das Standard-Gateway für Ihre Hosts muss sich im selben
+
+05:59.370 --> 06:00.270
+IP-Subnetz befinden.
+
+06:00.450 --> 06:05.280
+Ihr Standard-Gateway wird jetzt also auf Ihren Access-Layer-Switches konfiguriert und Sie
+
+06:05.280 --> 06:06.480
+werden überall
+
+06:06.480 --> 06:08.500
+Routing haben, Layer-3-Links überall darüber.
+
+06:08.940 --> 06:09.260
+OK.
+
+06:09.540 --> 06:15.780
+Oh, und ich habe dies in den Etherchannel-Vortrag aufgenommen, weil sehr oft wenn Sie das
+
+06:15.780 --> 06:22.320
+tun, Etherchannels zwischen Ihren Switches hochgehen und wenn Sie Layer 3 überall haben, werden es
+
+06:22.320 --> 06:24.900
+natürlich auch seien Sie Schicht-3-Ätherkanäle.
+
+06:25.050 --> 06:27.450
+OK, das war alles, was ich Ihnen hier
+
+06:27.450 --> 06:29.190
+sagen musste. Wir sehen uns im nächsten Vortrag.

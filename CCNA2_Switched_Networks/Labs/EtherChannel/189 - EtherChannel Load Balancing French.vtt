@@ -1,0 +1,157 @@
+WEBVTT
+
+00:06.360 --> 00:14.130
+Dans cette conférence, vous découvrirez le fonctionnement de l'équilibrage de charge etherchannel, et je vais utiliser le diagramme que vous voyez
+
+00:14.130 --> 00:17.970
+sur la diapositive ici tout au long de cette conférence.
+
+00:18.390 --> 00:24.990
+J'ai donc deux commutateurs qui ont quatre liens entre eux qui ont été regroupés dans un canal Ethernet, et chacun de
+
+00:25.170 --> 00:31.140
+ces quatre liens est une interface Ethernet 1 Gbit/s. En commençant simplement par gi0/1
+
+00:31.140 --> 00:38.920
+à gauche, puis à gi0/4 à droite. Dans l'interrupteur du bas, j'ai quelques
+
+00:38.940 --> 00:41.700
+PC branchés là-bas.
+
+00:41.700 --> 00:43.530
+J'ai PC-1 et PC-2.
+
+00:43.770 --> 00:45.000
+Et puis le
+
+00:45.000 --> 00:49.110
+commutateur du haut, j'ai des serveurs. Il y a Serveur-1 et Serveur-2.
+
+00:49.440 --> 00:57.780
+Donc, dans cette conférence, nous allons couvrir comment la charge Ethernet équilibre les différents flux qui traversent les liens
+
+00:57.780 --> 00:59.520
+entre les commutateurs.
+
+00:59.730 --> 01:08.250
+Un flux est une communication d'un client à un serveur à l'aide d'une application particulière. Si PC-1, dans notre exemple, ouvre une session Web
+
+01:08.250 --> 01:15.780
+sur Server-1 et que PC-2 ouvre une session FTP sur Server-2, nous aurions deux flux
+
+01:15.780 --> 01:18.270
+passant par nos commutateurs.
+
+01:18.690 --> 01:26.220
+Et avec etherchannel, un flux unique est équilibré en charge sur une interface de canal de port unique.
+
+01:26.580 --> 01:33.600
+Par exemple, tous les paquets du flux de PC-1 vers Server-1 passent toujours par l'interface gi0/1.
+
+01:33.600 --> 01:41.340
+Tous les paquets et flux de PC-2 vers Server-2 passent toujours par l'interface gi0/2.
+
+01:42.390 --> 01:48.600
+Ainsi, en regardant cela avec une animation, le premier paquet et le flux de PC-1 vers Server-1,
+
+01:49.020 --> 01:50.970
+il atteint le premier commutateur.
+
+01:51.150 --> 01:56.640
+Le commutateur décide sur quelle interface il va équilibrer la charge.
+
+01:56.820 --> 02:01.740
+Il choisit gi0/1 dans notre exemple et cela va au serveur.
+
+02:02.040 --> 02:06.690
+Le prochain paquet dans le flux ira également à la même interface.
+
+02:06.690 --> 02:12.780
+Donc, il entre dans le commutateur, il l'équilibre à nouveau sur la même interface, puis il monte vers le serveur.
+
+02:13.730 --> 02:21.830
+Sur le deuxième flux, de PC-2 à Server-2 qui entre dans le commutateur, le commutateur utilisera cet algorithme pour
+
+02:21.830 --> 02:27.520
+décider sur quelle interface il doit équilibrer la charge - gi0/2 dans notre
+
+02:27.650 --> 02:33.020
+exemple, et il va au serveur. Lorsque les deuxième, troisième et quatrième paquets et ainsi
+
+02:33.020 --> 02:37.130
+de suite arrivent de ce flux, ils seront tous équilibrés en charge sur la même interface.
+
+02:38.360 --> 02:44.570
+Les paquets du même flux sont toujours équilibrés en charge sur la même interface. Ils ne sont pas équilibrés en charge à tour
+
+02:44.570 --> 02:51.230
+de rôle sur toutes les interfaces du canal de port. Par exemple, nous n'équilibrons pas la charge
+
+02:51.230 --> 02:57.410
+du premier paquet de PC-1 vers Server-1 sur l'interface gi0/1, puis le deuxième paquet
+
+02:57.410 --> 03:00.620
+sur ce même flux vers gi0/2.
+
+03:01.010 --> 03:07.990
+La raison en est que l'équilibrage de charge à tour de rôle peut entraîner l'arrivée de paquets dans le
+
+03:08.000 --> 03:11.390
+désordre à la destination et endommager certaines applications.
+
+03:11.390 --> 03:13.340
+Il s'assure donc que cela n'arrive pas.
+
+03:13.520 --> 03:19.220
+Nous chargeons toujours les paquets d'équilibrage du même flux vers la même interface, ils arriveront donc toujours dans
+
+03:19.220 --> 03:19.700
+l'ordre.
+
+03:21.030 --> 03:26.670
+Donc cela ne se produit pas, vous voyez que le premier paquet du flux est passé sur l'interface gi0/1,
+
+03:26.940 --> 03:31.190
+le deuxième paquet du même flux sur gi0/2, nous ne le faisons pas.
+
+03:32.850 --> 03:39.240
+Donc, parce que la façon dont cela fonctionne, parce qu'un seul flux obtient toujours une charge équilibrée sur la
+
+03:39.690 --> 03:46.320
+même interface, tout flux unique reçoit une bande passante d'un seul lien dans le canal de port comme son maximum.
+
+03:46.770 --> 03:52.980
+C'est un maximum de bande passante de 1 Gbit/s par flux dans notre exemple où nous utilisions des liaisons de 1 Gbit/s
+
+03:52.980 --> 03:54.090
+entre nos commutateurs.
+
+03:54.450 --> 03:59.610
+Mais il existe une bande passante globale de 4 Gbit/s sur tous les flux disponibles.
+
+04:00.540 --> 04:04.910
+Ainsi, vous pouvez considérer un canal portuaire comme une autoroute à plusieurs voies.
+
+04:05.250 --> 04:11.700
+Les voitures restent toujours dans leur propre voie et sur une seule voie, mais comme il y a plusieurs voies,
+
+04:11.700 --> 04:14.130
+le trafic global y parvient plus rapidement.
+
+04:14.310 --> 04:20.220
+Évidemment, un exemple étrange, si nous n'avions qu'une seule liaison montante au lieu de quatre, nous n'avons pas autant de bande passante
+
+04:20.220 --> 04:23.190
+globale disponible entre les commutateurs. Etherchannel assure
+
+04:23.190 --> 04:29.620
+la redondance ainsi que l'équilibrage de charge. Si un lien échoue, les flux seront équilibrés en
+
+04:29.630 --> 04:31.700
+charge sur les liens restants.
+
+04:31.920 --> 04:35.310
+OK, c'est ainsi que fonctionnent l'équilibrage de charge et la redondance.
+
+04:35.660 --> 04:39.150
+Rendez-vous dans la prochaine conférence pour plus d'etherchannel.

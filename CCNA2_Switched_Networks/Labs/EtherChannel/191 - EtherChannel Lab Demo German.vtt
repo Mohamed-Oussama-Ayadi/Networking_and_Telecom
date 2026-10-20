@@ -1,0 +1,430 @@
+WEBVTT
+
+00:06.230 --> 00:15.470
+In diesem Abschnitt erfahren Sie, wie Sie Portchannels und Etherchannel mit einer Labordemo konfigurieren. Ich verwende also
+
+00:15.470 --> 00:20.830
+dieselbe Labortopologie, die ich im Abschnitt Spanning-Tree verwendet habe.
+
+00:21.110 --> 00:28.070
+Wir haben also unsere beiden Core Distribution Layer Switches, CD1 und CD2, und wir haben
+
+00:28.070 --> 00:32.210
+ein paar Access Layer Switches, Access3 und Access4.
+
+00:32.510 --> 00:37.250
+Die VLANs und die Trunks habe ich bereits eingerichtet.
+
+00:37.520 --> 00:48.380
+Ich habe CD1 als primäre Spanning-Tree-Root-Bridge und CD2 als sekundäre Spanning-Tree-Root-Bridge konfiguriert.
+
+00:48.740 --> 00:57.590
+Wenn Sie sich das Diagramm hier ansehen, können Sie sowohl von Acc3 als auch von Access Layer Switch
+
+00:57.590 --> 01:05.600
+4 sehen, dass sie vier Uplinks haben, aber nur einer davon ist aktiv und leitet Verkehr
+
+01:05.600 --> 01:07.370
+weiter. Bei
+
+01:07.400 --> 01:14.210
+beiden ist es eine Schnittstelle, die CD1 gegenübersteht, weil CD1 die Root-Bridge ist.
+
+01:14.390 --> 01:21.050
+Ich habe dort also vier Uplinks, aber ich kann nur die Bandbreite von einem nutzen, also möchte ich das
+
+01:21.050 --> 01:21.710
+verbessern.
+
+01:22.340 --> 01:27.110
+Also erstelle ich einen Portchannel von Access3 bis zu CD1.
+
+01:27.380 --> 01:34.460
+Ich werde auch einen anderen Portchannel als Access3 erstellen, der zu CD2 führt.
+
+01:34.460 --> 01:37.700
+Es geht zu einem anderen Switch, also wird es ein anderer Portchannel sein.
+
+01:37.940 --> 01:45.890
+Und dann konfiguriere ich von Access4 aus seine Portkanäle - einer geht zu CD1, einer geht zu CD2.
+
+01:46.280 --> 01:55.120
+Den ersten Portchannel würde ich von Access3 auf CD1 machen und dafür LACP verwenden.
+
+01:55.370 --> 02:01.520
+Es wird also auf Schnittstellen auf Access3 fa0/23 und 24 sein.
+
+02:01.670 --> 02:05.350
+Und auf der CD1-Seite ist es genauso.
+
+02:05.360 --> 02:09.560
+Also werde ich sie mit der gleichen passenden Konfiguration konfigurieren.
+
+02:09.860 --> 02:17.270
+Ich mache dann den Portchannel von Access3 zu CD2 und verwende PAgP für diesen.
+
+02:17.510 --> 02:19.300
+Nun, in der realen Welt,
+
+02:19.310 --> 02:22.370
+ist es hoffentlich offensichtlich, dass das eine verrückte Sache wäre.
+
+02:22.550 --> 02:29.540
+Sie würden immer auf ein Protokoll für Ihre Portkanäle standardisieren und es wird empfohlen, LACP zu verwenden.
+
+02:29.810 --> 02:33.440
+Sie können static verwenden, wenn eine Seite LACP nicht unterstützt.
+
+02:33.740 --> 02:34.880
+Aber für die
+
+02:34.900 --> 02:39.380
+Labordemo möchte ich Ihnen alle verschiedenen Protokolle zeigen, also mache ich das erste mit LACP.
+
+02:39.530 --> 02:44.030
+Den zweiten mache ich mit PAgP.
+
+02:44.030 --> 02:49.340
+Drittens geht Portchannel von Access4 bis CD2 auf derselben Seite.
+
+02:49.340 --> 02:55.730
+Auf der rechten Seite der Topologie verwende ich dafür statisch, also sehen Sie alle drei und wir
+
+02:55.730 --> 02:59.660
+haben noch einen übrig, also verwende ich dafür wieder LACP.
+
+03:00.020 --> 03:02.570
+OK, das werde ich also konfigurieren.
+
+03:02.600 --> 03:07.070
+Beginnen wir also mit unserem Switch Access3.
+
+03:07.430 --> 03:10.100
+Ich mache den ersten Portchannel.
+
+03:10.100 --> 03:18.470
+Das wird also LACP bis CD1 auf den Schnittstellen fa0/23 und 24 sein.
+
+03:18.830 --> 03:26.240
+Also gehe ich zum Access3-Switch, wenn ich ihn hier finden kann. Da ist es.
+
+03:27.180 --> 03:33.620
+Und eigentlich möchte ich Ihnen auch Spanning-Tree zuerst zeigen. Damit wir das überprüfen können - zeigen Sie Spanning-Tree.
+
+03:33.620 --> 03:46.490
+Und meine PCs sind in VLAN 10. show spanning-tree VLAN10 und ich kann sehen, dass ich auf fa0/1
+
+03:46.490 --> 03:47.450
+weiterleite.
+
+03:47.810 --> 03:56.630
+Das ist eigentlich nach unten zum PC, also zeige ich run und überprüfe die config und das Interface fa0/1 Das sieht
+
+03:56.990 --> 03:58.390
+alles gut aus.
+
+03:58.640 --> 04:01.000
+Also in VLAN 10.
+
+04:01.010 --> 04:08.840
+Zugriff im Switchport-Modus nach unten zum PC. Also vorher Uplinks sind fa0/21 bis 24 und nur einer
+
+04:08.840 --> 04:10.490
+davon leitet jetzt weiter.
+
+04:10.490 --> 04:16.850
+Das ist ein Port, der mit CD1 verbunden ist, das ist meine Root-Bridge.
+
+04:17.240 --> 04:19.640
+Also lass uns das in einen Etherchannel stecken.
+
+04:19.640 --> 04:26.360
+Also gehe ich zur globalen Konfiguration, Schnittstellenbereich fa0/23-24.
+
+04:26.540 --> 04:33.890
+ist, was mit CD1 verbunden ist und um einen Portkanal bereitzustellen, es ist der
+
+04:33.920 --> 04:43.430
+Kanalgruppe 1-Modus, dann möchte ich, dass es LACP ist, also mache ich den Modus aktiv und sobald ich
+
+04:43.430 --> 04:48.050
+das tue, erstellt es eine Portchannel-Schnittstelle für mich.
+
+04:48.050 --> 04:52.400
+Wenn ich also einen Do show ip interface brief mache,
+
+04:53.910 --> 04:59.400
+kann ich oben dort oben sehen, ich habe jetzt diese neue Portchannel-Schnittstelle und muss
+
+04:59.400 --> 05:03.030
+meine Einstellungen auf Schnittstellenebene auf dem Portchannel konfigurieren.
+
+05:03.030 --> 05:12.120
+Dazu gehe ich zu Schnittstellenports. Ich kann nur po als Kurzschrift machen. Schnittstelle po1 für Portchannel 1.
+
+05:12.540 --> 05:21.690
+Und dann möchte ich hier Switchport-Modus-Trunk sagen, weil er mit einem anderen Switch verbunden ist.
+
+05:21.690 --> 05:28.590
+Und das native VLAN 199 des Switchport-Trunks ist das native VLAN, das wir verwenden.
+
+05:28.600 --> 05:34.540
+Die erlaubten VLANs würde ich auch hier ganz normal und in einer Produktionsumgebung einstellen.
+
+05:34.590 --> 05:41.670
+Okay, das war's. Fertig auf der Access3-Seite. Machen wir es auf der anderen Seite der
+
+05:41.670 --> 05:46.110
+Links, die sich auf CD1 befindet. Ich werde hier genau die gleiche Konfiguration eingeben.
+
+05:46.410 --> 05:53.070
+Also config t und den Schnittstellenbereich fa0/23-24.
+
+05:53.410 --> 05:57.090
+Jetzt müssen die Schnittstellen auf
+
+05:57.090 --> 06:04.620
+beiden Seiten nicht die gleiche Nummernschnittstelle sein. Es könnte auf dieser Seite eine Schnittstelle fa0/9 und 10 sein, auf der anderen Seite 23 und
+
+06:04.620 --> 06:04.980
+24.
+
+06:04.980 --> 06:06.600
+Und das wird gut funktionieren.
+
+06:06.930 --> 06:10.350
+Am besten und einfachsten ist es jedoch, wenn Sie
+
+06:10.650 --> 06:13.740
+auf beiden Seiten die gleiche Schnittstellennummer verwenden können.
+
+06:13.830 --> 06:18.180
+Es macht es für uns als menschliche Administratoren einfach einfacher zu verstehen, was vor sich geht.
+
+06:18.660 --> 06:25.740
+OK, also habe ich Schnittstellen angegeben und dann Kanalgruppe 1 Modus aktiv.
+
+06:25.740 --> 06:31.020
+Ich könnte hier passiv sagen, aber es ist am besten, auf beiden Seiten aktiv zu sein, und dann kann man
+
+06:31.020 --> 06:31.880
+sie nicht verwechseln.
+
+06:32.250 --> 06:34.860
+Ich sehe, dass der Portchannel hochkommt.
+
+06:34.860 --> 06:38.640
+Ich erhalte einen nativen VLAN-Mismatch, weil ich ihn noch nicht konfiguriert habe.
+
+06:38.910 --> 06:40.240
+Also machen wir das jetzt.
+
+06:40.260 --> 06:51.030
+Also gehe ich zur Schnittstelle Portchannel 1, Switchport-Modus-Trunk und Switchport-Trunk natives VLAN 199 Und ich sehe, dass es die Blockierung entsperrt, weil ich
+
+06:51.030 --> 06:52.290
+jetzt auf
+
+06:52.710 --> 06:58.380
+beiden Seiten das gleiche native VLAN habe, also sieht das gut aus.
+
+06:58.800 --> 07:04.320
+Als Nächstes müssen Sie also überprüfen, ob Portchannel in
+
+07:04.710 --> 07:06.930
+Ordnung ist,
+
+07:08.280 --> 07:14.880
+also mache ich eine Zusammenfassung von show etherchannel das U ist
+
+07:14.880 --> 07:17.970
+für in Gebrauch, was im
+
+07:17.970 --> 07:25.560
+Grunde bedeutet, dass es aktiviert ist und die Ports fa0/23 und 24 hat.
+
+07:25.950 --> 07:28.920
+Und sie sind beide im Hafenkanal. Damit alles gut aussieht.
+
+07:29.160 --> 07:35.310
+Das war also meine LACP-Konfiguration.
+
+07:35.910 --> 07:44.040
+Lassen Sie uns als Nächstes PAgP von Access3 ausführen, um CD2 zu wechseln.
+
+07:46.520 --> 07:52.880
+Also geh hier auf meine Kommandozeile und das wird der Schnittstellenbereich fa0/21 sein - 22
+
+07:52.880 --> 07:59.870
+sind die Schnittstellen, die mit dem CD2-Schalter auf der rechten Seite verbunden sind und ich sage Kanalgruppe
+
+07:59.870 --> 08:01.000
+Jetzt habe
+
+08:01.490 --> 08:10.460
+ich bereits 1 verwendet , also verwende ich 2 für den nächsten und sage "Modus wünschenswert", um es zu PAgP zu machen.
+
+08:11.720 --> 08:19.730
+Ich sehe, dass der Portchannel erstellt wurde und gehe dann zur Schnittstelle Portchannel 2 über. Nun, Switchport-Modus-Trunk und Switchport-Trunk natives
+
+08:19.780 --> 08:23.650
+Vlan 199 Ich muss sicherstellen,
+
+08:25.030 --> 08:28.390
+dass ich die Marscheinstellungen
+
+08:29.250 --> 08:35.940
+auf der anderen Seite konfiguriert habe, was auf CD2
+
+08:36.780 --> 08:43.200
+vorbei ist jetzt auf beiden Seiten die gleichen
+
+08:43.200 --> 08:48.420
+Schnittstellen verwenden.
+
+08:48.420 --> 08:48.420
+Ich denke nicht wirklich darüber nach.
+
+08:48.690 --> 08:54.780
+Ich weiß, dass es auf beiden Seiten gleich ist und habe nur vergessen, dort das Schlüsselwort range einzugeben.
+
+08:54.780 --> 08:58.680
+Also gebe ich einen Bereich an und verwende denselben auf beiden Seiten.
+
+08:58.680 --> 08:59.760
+Also schön und logisch.
+
+08:59.760 --> 09:04.380
+Es erspart mir Verwirrung und Verwechslungen. Und Kanalgruppe, ich habe hier
+
+09:04.900 --> 09:10.980
+noch keinen Portkanal erstellt, aber da ich auf der anderen Seite 2 verwendet habe, werde
+
+09:10.980 --> 09:18.760
+ich auch auf dieser Seite 2 verwenden, um die Dinge logisch zu halten, daher ist der Kanalgruppen-2-Modus wünschenswert .
+
+09:19.290 --> 09:28.440
+Dies ist auch ein PAgP, dann muss ich dieses Mal zur Schnittstelle Portchannel 2 und
+
+09:28.440 --> 09:34.110
+Switchport-Modus-Trunk gehen, Switchport-Trunk natives vlan 199 OK, das ist
+
+09:35.360 --> 09:36.500
+also
+
+09:37.470 --> 09:41.630
+mein erster. Sie sind fertig. Lassen Sie uns überprüfen, ob es in Ordnung kam.
+
+09:42.450 --> 09:43.370
+Also
+
+09:43.410 --> 09:45.750
+zeige die Etherchannel-Zusammenfassung Und die
+
+09:46.680 --> 09:48.220
+ist auch oben.
+
+09:48.240 --> 09:51.240
+Es ist auch alles gut. Also die ersten beiden waren fertig.
+
+09:51.690 --> 09:55.980
+Als nächstes gehe ich zu Access4.
+
+09:56.950 --> 10:01.930
+Und ich werde die Portkanäle konfigurieren, die auf der gleichen rechten Seite der Topologie nach oben gehen.
+
+10:01.960 --> 10:10.390
+Also gehe ich zur globalen Konfiguration und der Schnittstellenbereich fa0/23 - 24 auf
+
+10:10.390 --> 10:17.420
+der rechten Seite und Kanalgruppe 1-Modus werde ich dieses Mal
+
+10:17.440 --> 10:19.330
+statisch machen.
+
+10:19.330 --> 10:20.620
+Es wird also weitergehen.
+
+10:21.650 --> 10:29.690
+Und das ist meine statische Konfiguration, ich kann jetzt Schnittstelle Portchannel 1, Switchport-Modus-Trunk
+
+10:29.690 --> 10:34.100
+und Switchport-Trunk natives VLAN 199 verwenden.
+
+10:34.460 --> 10:44.510
+Ich muss die andere Seite dazu konfigurieren und verknüpfen, die sich auf CD2 befindet, also gehe ich zur globalen Konfiguration.
+
+10:44.910 --> 10:57.440
+Das ist Schnittstellenbereich fa0/23-24 und dann Kanalgruppe 1 Modus an.
+
+10:58.870 --> 11:07.900
+Und ich sehe, dass ich hier eine Fehlermeldung bekomme, dass fa0/23 wegen des DTP-Modus nicht kompatibel ist.
+
+11:08.350 --> 11:13.660
+Nun, wenn ich mir mein Interface ansehe, dann mache ich einen Showrun und ich
+
+11:14.230 --> 11:16.410
+kann auf den Interfaces fa0/23 und
+
+11:16.420 --> 11:18.430
+fa0/24 sehen, dass die
+
+11:18.780 --> 11:22.670
+Einstellungen dort gleich sind und auf der anderen Seite auch gleich.
+
+11:22.960 --> 11:28.210
+Dies ist also nur der Fehler mit dem Paket-Tracer.
+
+11:28.450 --> 11:32.410
+Der Etherchannel sollte sowieso in einer Sekunde hochkommen.
+
+11:33.010 --> 11:42.280
+Vervollständigen wir also einfach die Konfigurationen. Ich gehe config t
+
+11:42.280 --> 11:51.570
+und dann Schnittstelle Portchannel 1, Switchport-Modus-Trunk und Switchport-Trunk natives VLAN 199.
+
+11:51.580 --> 11:53.630
+Und das sollte diese Fehlermeldung beseitigen.
+
+11:53.680 --> 11:54.480
+Das sieht gut aus.
+
+11:55.360 --> 12:02.650
+Und wenn ich dann eine Etherchannel-Zusammenfassung der Show mache, kann ich sehen, dass sie dort auftaucht.
+
+12:02.830 --> 12:09.280
+Wenn Sie dies zum ersten Mal im Packet Tracer konfigurieren, kann es beim statischen Ausführen manchmal diese Fehlermeldung
+
+12:09.280 --> 12:12.390
+geben, aber schließen Sie die Konfiguration trotzdem ab.
+
+12:12.610 --> 12:16.540
+Sie müssen möglicherweise eine Minute warten, und dann sollte der Portkanal angezeigt werden.
+
+12:16.810 --> 12:26.020
+Es gibt also den Portchannel, den ich zuvor erstellt habe, den PAgP-Kanal, der zu Access3 geht, und dies ist die statische, die ich
+
+12:26.140 --> 12:31.990
+gerade konfiguriert habe, um zu Access4 herunterzufahren. Sie können sehen, wo im Protokoll ein Strich angezeigt wird.
+
+12:31.990 --> 12:34.180
+Das heißt, das ist statisch.
+
+12:34.630 --> 12:38.440
+OK, damit waren meine ersten drei Portchannels konfiguriert.
+
+12:38.530 --> 12:41.650
+Ich habe überprüft, ob sie einsatzbereit sind und funktionieren.
+
+12:41.830 --> 12:46.620
+Ich werde das vierte machen, das auch ein weiteres LACP sein wird.
+
+12:46.660 --> 12:50.080
+Sie müssen mich nicht dabei sehen, weil Sie mich bereits konfiguriert gesehen haben.
+
+12:50.440 --> 12:57.940
+Wir sehen uns also wieder hier für den nächsten Vortrag, in dem wir uns ansehen, wie sich dies auf Spanning-Tree
+
+12:57.940 --> 12:58.750
+auswirken wird.

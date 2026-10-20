@@ -1,0 +1,433 @@
+WEBVTT
+
+00:06.230 --> 00:15.470
+En esta sección, verá cómo configurar portchannels, etherchannel con una demostración de laboratorio, por lo que estoy usando la misma topología
+
+00:15.470 --> 00:20.830
+de laboratorio que usé en la sección de árbol de expansión.
+
+00:21.110 --> 00:28.070
+Así que tenemos nuestros conmutadores de capa de distribución de dos núcleos, CD1 y CD2, y tenemos un
+
+00:28.070 --> 00:32.210
+par de conmutadores de capa de acceso, Access3 y Access4.
+
+00:32.510 --> 00:37.250
+Ya configuré las VLAN y los troncales.
+
+00:37.520 --> 00:47.480
+He configurado CD1 como el puente raíz del árbol de expansión primario y CD2 como el puente raíz del árbol de expansión
+
+00:47.480 --> 00:48.380
+secundario.
+
+00:48.740 --> 00:57.590
+Entonces, si echas un vistazo al diagrama aquí, puedes ver tanto en Acc3 como en el switch de capa de acceso
+
+00:57.590 --> 01:05.600
+4 que tienen cuatro enlaces ascendentes, pero en realidad solo hay uno de ellos que está activo y reenvía
+
+01:05.600 --> 01:07.370
+tráfico. En
+
+01:07.400 --> 01:14.210
+ambos, es una interfaz que se enfrenta a CD1 porque CD1 es el puente raíz.
+
+01:14.390 --> 01:21.050
+Tengo cuatro enlaces ascendentes allí, pero solo puedo usar el ancho de banda de uno, así que quiero mejorar
+
+01:21.050 --> 01:21.710
+eso.
+
+01:22.340 --> 01:27.110
+Así que voy a crear un canal de puerto desde Access3 hasta CD1.
+
+01:27.380 --> 01:34.460
+También voy a crear un canal de puerto diferente de Access3, subiendo a CD2.
+
+01:34.460 --> 01:37.700
+Va a un conmutador diferente, por lo que será un canal de puerto diferente.
+
+01:37.940 --> 01:45.890
+Y luego, desde Access4, configuraré sus canales de puerto: uno va al CD1 y el otro al CD2.
+
+01:46.280 --> 01:55.120
+El primer canal de puerto, lo haría desde Access3 a CD1 y usaré LACP para eso.
+
+01:55.370 --> 02:01.520
+Así que estará en las interfaces de Access3 fa0 / 23 y 24.
+
+02:01.670 --> 02:05.350
+Y es lo mismo en el lado CD1 también.
+
+02:05.360 --> 02:09.560
+Así que los voy a configurar con la misma configuración coincidente.
+
+02:09.860 --> 02:17.270
+Luego haré el canal de puerto de Access3 a CD2 y usaré PAgP para este.
+
+02:17.510 --> 02:19.300
+Ahora, en el mundo
+
+02:19.310 --> 02:22.370
+real, con suerte es obvio que sería una locura.
+
+02:22.550 --> 02:29.540
+Siempre estandarizaría un protocolo para sus canales de puerto y se recomienda usar LACP.
+
+02:29.810 --> 02:33.440
+Puede usar estática si un lado no es compatible con LACP.
+
+02:33.740 --> 02:34.880
+Pero para la
+
+02:34.900 --> 02:39.380
+demostración de laboratorio, quiero mostrarles todos los diferentes protocolos, así que haré el primero con LACP.
+
+02:39.530 --> 02:44.030
+Haré el segundo con PAgP.
+
+02:44.030 --> 02:49.340
+En tercer lugar, el canal de puerto irá desde Access4 hasta CD2 en el mismo lado.
+
+02:49.340 --> 02:55.730
+En el lado derecho de la topología, usaré static para eso, por lo que verá los tres y
+
+02:55.730 --> 02:59.660
+nos queda uno, así que usaré LACP para eso nuevamente.
+
+03:00.020 --> 03:02.570
+Bien, eso es lo que voy a configurar.
+
+03:02.600 --> 03:07.070
+Así que comencemos con nuestro switch Access3.
+
+03:07.430 --> 03:10.100
+Haré el primer canal de puerto.
+
+03:10.100 --> 03:18.470
+Entonces eso será LACP hasta CD1 en las interfaces fa0 / 23 y 24.
+
+03:18.830 --> 03:26.240
+Así que pasaré al conmutador Access3 si puedo encontrarlo aquí. Ahí está.
+
+03:27.180 --> 03:33.620
+Y de hecho, quiero mostrarte primero el árbol de expansión también. Entonces podemos verificar esto: mostrar árbol de expansión.
+
+03:33.620 --> 03:46.490
+Y mis PC están en VLAN 10. muestre el spanning-tree VLAN10 y puedo ver que estoy reenviando en fa0 /
+
+03:46.490 --> 03:47.450
+1.
+
+03:47.810 --> 03:56.630
+Eso es en realidad boca abajo hacia la PC, así que muestro ejecutar y verifico la configuración y la interfaz fa0 / 1. Todo
+
+03:56.990 --> 03:58.390
+se ve bien.
+
+03:58.640 --> 04:01.000
+Entonces está en la VLAN 10.
+
+04:01.010 --> 04:08.840
+acceso al modo switchport mirando hacia abajo a la PC. Entonces, los enlaces ascendentes anteriores eran de fa0 / 21 a 24 y ahora solo
+
+04:08.840 --> 04:10.490
+uno de ellos se reenvía.
+
+04:10.490 --> 04:16.850
+Ese es un puerto que está conectado a CD1, que es mi puente raíz.
+
+04:17.240 --> 04:19.640
+Pongamos esto en un canal de ethernet.
+
+04:19.640 --> 04:26.360
+Así que iré a la configuración global, rango de interfaz fa0 / 23-24.
+
+04:26.540 --> 04:33.890
+es lo que está conectado a CD1 y para aprovisionar un canal de puerto, es el
+
+04:33.920 --> 04:43.430
+modo de grupo de canales 1, entonces quiero que sea LACP, así que activaré el modo y, tan pronto como lo
+
+04:43.430 --> 04:48.050
+haga, crearé una interfaz de canal de puerto para mí.
+
+04:48.050 --> 04:52.400
+Entonces, si hago un resumen de la interfaz do show ip que puedo ver
+
+04:53.910 --> 04:59.400
+en la parte superior, ahora tengo esta nueva interfaz de canal de puerto y necesito configurar los ajustes
+
+04:59.400 --> 05:03.030
+de mi nivel de interfaz en el canal de puerto.
+
+05:03.030 --> 05:12.120
+Para hacer eso, voy a los puertos de interfaz. Puedo hacer po como taquigrafía. interfaz po1 para el canal de puerto 1.
+
+05:12.540 --> 05:21.690
+Y luego aquí quiero decir troncal en modo switchport porque se está conectando a otro switch.
+
+05:21.690 --> 05:28.590
+Y la VLAN nativa 199 de switchport trunk es la VLAN nativa que estamos usando.
+
+05:28.600 --> 05:34.540
+También establecería las VLAN permitidas aquí normalmente y en un entorno de producción.
+
+05:34.590 --> 05:41.670
+OK, eso es todo. Hecho en el lado de Access3. Hagámoslo del otro lado de los enlaces,
+
+05:41.670 --> 05:46.110
+que está en el CD1. Voy a poner exactamente la misma configuración aquí.
+
+05:46.410 --> 05:53.070
+Entonces config ty su rango de interfaz fa0 / 23-24.
+
+05:53.410 --> 05:57.090
+Ahora las interfaces en ambos lados
+
+05:57.090 --> 06:04.620
+no tienen que ser la misma interfaz numérica. Podría ser una interfaz fa0 / 9 y 10 en este lado, y 23 y 24 en el otro
+
+06:04.620 --> 06:04.980
+lado.
+
+06:04.980 --> 06:06.600
+Y eso funcionará bien.
+
+06:06.930 --> 06:10.350
+Pero es mejor y más fácil si es posible, puede
+
+06:10.650 --> 06:13.740
+usar el mismo número de interfaz en ambos lados.
+
+06:13.830 --> 06:18.180
+Simplemente hace que sea más fácil para nosotros, como administradores humanos, comprender lo que está sucediendo.
+
+06:18.660 --> 06:25.740
+Bien, he especificado interfaces y luego activo el modo del grupo de canales 1.
+
+06:25.740 --> 06:31.020
+Podría decir pasivo aquí, pero es una mejor práctica hacerlo activo en ambos lados y luego no se
+
+06:31.020 --> 06:31.880
+pueden confundir.
+
+06:32.250 --> 06:34.860
+Veo que aparece el canal del puerto.
+
+06:34.860 --> 06:38.640
+Recibo una falta de coincidencia de vlan nativo porque aún no lo he configurado.
+
+06:38.910 --> 06:40.240
+Así que hagámoslo ahora.
+
+06:40.260 --> 06:51.030
+Así que iré a la interfaz portchannel 1, switchport mode trunk y switchport trunk native vlan 199 Y veo que lo desbloquea porque
+
+06:51.030 --> 06:52.290
+ahora tengo
+
+06:52.710 --> 06:58.380
+la misma VLAN nativa en ambos lados, así que se ve bien.
+
+06:58.800 --> 07:04.320
+Así que ahora, lo siguiente que debe hacer es verificar que el canal de puerto salió
+
+07:04.710 --> 07:06.930
+bien, así que haré un resumen
+
+07:08.280 --> 07:14.880
+de mostrar etherchannel Y todo se ve bien, eso es lo que quería ver, para el canal de puerto 1,
+
+07:14.880 --> 07:17.970
+SU, lo que significa que es una interfaz de
+
+07:17.970 --> 07:25.560
+capa 2 y la U está en uso, lo que básicamente significa que está activa y sus puertos fa0 / 23 y 24.
+
+07:25.950 --> 07:28.920
+Y ambos están en el canal del puerto. Para que todo se vea bien.
+
+07:29.160 --> 07:35.310
+Entonces esa era mi configuración de LACP.
+
+07:35.910 --> 07:44.040
+A continuación, hagamos PAgP desde Access3 subiendo para cambiar CD2.
+
+07:46.520 --> 07:52.880
+Así que acceda a mi línea de comando aquí y este será el rango de interfaz
+
+07:52.880 --> 07:59.870
+fa0 / 21 - 22 son las interfaces que están conectadas al conmutador CD2 en el lado
+
+07:59.870 --> 08:01.000
+derecho y
+
+08:01.490 --> 08:10.460
+diré grupo de canales Ahora ya he usado 1 , usaré 2 para el siguiente y diré 'modo deseable' para convertirlo en PAgP.
+
+08:11.720 --> 08:19.730
+Veo que se crea el canal de puerto y luego paso a la interfaz de canal de puerto 2. Ahora, switchport mode trunk y switchport trunk native
+
+08:19.780 --> 08:23.650
+vlan 199 Necesito asegurarme de haber configurado
+
+08:25.030 --> 08:28.390
+la configuración de marcha en el
+
+08:29.250 --> 08:35.940
+otro lado, que está en CD2 Entonces, una configuración y su interfaz fa0
+
+08:36.780 --> 08:43.200
+/ 21 - 22, espero que pueda ver el beneficio de utilizando
+
+08:43.200 --> 08:46.390
+las mismas interfaces en ambos lados
+
+08:46.410 --> 08:48.420
+ahora. Realmente no estoy pensando en eso.
+
+08:48.690 --> 08:54.780
+Sé que es lo mismo en ambos lados y me olvidé de poner la palabra clave range allí.
+
+08:54.780 --> 08:58.680
+Entonces especifico un rango y estoy usando el mismo en ambos lados.
+
+08:58.680 --> 08:59.760
+Entonces es lindo y lógico.
+
+08:59.760 --> 09:04.380
+Me ahorra confundirme y mezclar las cosas. Y el grupo de canales, todavía
+
+09:04.900 --> 09:10.980
+no he creado un canal de puerto aquí, pero como usé 2 en el otro lado, también usaré
+
+09:10.980 --> 09:18.760
+2 en este lado, nuevamente, para mantener las cosas lógicas, por lo que el modo de grupo de canales 2 es deseable .
+
+09:19.290 --> 09:28.440
+Esto también es un PAgP, entonces necesito ir a la interfaz portchannel 2 esta vez y switchport
+
+09:28.440 --> 09:34.110
+mode trunk, switchport trunk native vlan 199 OK, así que
+
+09:35.360 --> 09:36.500
+ese
+
+09:37.470 --> 09:41.630
+es mi primero. Ya terminaste. Comprobemos si salió bien.
+
+09:42.450 --> 09:43.370
+Así que
+
+09:43.410 --> 09:45.750
+muestre el resumen de etherchannel y
+
+09:46.680 --> 09:48.220
+este también está activo.
+
+09:48.240 --> 09:51.240
+También está todo bien. Entonces, los dos primeros estaban hechos.
+
+09:51.690 --> 09:55.980
+A continuación, pasaré a Access4.
+
+09:56.950 --> 10:01.930
+Y configuraré los canales del puerto subiendo por el mismo lado derecho de la topología.
+
+10:01.960 --> 10:10.390
+Así que voy a la configuración global y su rango de interfaz fa0 / 23 - 24
+
+10:10.390 --> 10:17.420
+en el lado derecho y el modo de grupo de canales 1 lo haré
+
+10:17.440 --> 10:19.330
+estático esta vez.
+
+10:19.330 --> 10:20.620
+Así que va a estar encendido.
+
+10:21.650 --> 10:29.690
+Y esa es mi configuración estática, ahora puedo ir a la interfaz del canal 1 del puerto, al tronco del modo del puerto del
+
+10:29.690 --> 10:34.100
+interruptor y al vlan nativo 199 del tronco del interruptor del puerto.
+
+10:34.460 --> 10:44.510
+Necesito configurar el otro lado de este y el enlace, que está en el CD2, así que iré a la configuración global.
+
+10:44.910 --> 10:57.440
+Ese es el rango de interfaz fa0 / 23-24 y luego el modo de grupo de canales 1 activado.
+
+10:58.870 --> 11:07.900
+Y veo que recibo un mensaje de error aquí que indica que fa0 / 23 no es compatible debido al modo DTP.
+
+11:08.350 --> 11:13.660
+Bueno, si miro mi interfaz, haré un show run y puedo ver en la
+
+11:14.230 --> 11:16.410
+interfaz fa0 / 23 y fa0
+
+11:16.420 --> 11:18.430
+/ 24 que las
+
+11:18.780 --> 11:22.670
+configuraciones son las mismas allí y también en el otro lado.
+
+11:22.960 --> 11:28.210
+Así que este es solo un problema técnico con el trazador de paquetes.
+
+11:28.450 --> 11:32.410
+El etherchannel debería aparecer en un segundo de todos modos.
+
+11:33.010 --> 11:42.280
+Así que completemos las configuraciones. Iré a config t y luego
+
+11:42.280 --> 11:51.570
+a la interfaz portchannel 1, switchport mode trunk y switchport trunk native vlan 199.
+
+11:51.580 --> 11:53.630
+Y eso debería eliminar ese mensaje de error.
+
+11:53.680 --> 11:54.480
+Eso se ve bien.
+
+11:55.360 --> 12:02.650
+Y luego, si hago un resumen de etherchannel de la demostración y sí, puedo ver que apareció allí.
+
+12:02.830 --> 12:09.280
+A veces, cuando configura esto por primera vez en el trazador de paquetes, cuando hace lo estático, puede arrojarle ese mensaje
+
+12:09.280 --> 12:12.390
+de error, pero simplemente complete la configuración de todos modos.
+
+12:12.610 --> 12:16.540
+Puede que tenga que darle un minuto y luego debería aparecer el canal del puerto.
+
+12:16.810 --> 12:26.020
+Así que está el canal de puerto que creé anteriormente, el PAgP, que va a Access3 y este es el estático que
+
+12:26.140 --> 12:31.990
+acabo de configurar yendo a Access4. Puede ver dónde muestra un guión en el protocolo.
+
+12:31.990 --> 12:34.180
+Eso significa que es estático.
+
+12:34.630 --> 12:38.440
+De acuerdo, ese es mi primer canal de tres puertos configurado.
+
+12:38.530 --> 12:41.650
+Verifiqué que están listos y funcionando.
+
+12:41.830 --> 12:46.620
+Haré el cuarto, que también será otro LACP.
+
+12:46.660 --> 12:50.080
+No necesitas verme haciendo eso porque ya me viste configurado.
+
+12:50.440 --> 12:57.940
+Así que nos vemos aquí para la próxima conferencia, donde veremos cómo afectará esto al árbol de
+
+12:57.940 --> 12:58.750
+expansión.

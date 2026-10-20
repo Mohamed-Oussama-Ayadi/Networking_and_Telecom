@@ -1,0 +1,247 @@
+WEBVTT
+
+00:07.260 --> 00:14.070
+Nesta aula, você aprenderá sobre canais da camada 3. Nas aulas anteriores desta seção, você viu como
+
+00:14.230 --> 00:17.400
+configurar canais Ethernet da camada 2.
+
+00:17.550 --> 00:20.550
+Podemos configurar canais Ethernet da camada 3 também.
+
+00:20.670 --> 00:28.050
+Você pode ver isso com o exemplo de configuração aqui. E a configuração é exatamente a mesma.
+
+00:28.320 --> 00:35.940
+A única diferença é que tornamos as portas uma porta da camada 3 com o comando no switchport.
+
+00:36.120 --> 00:42.270
+Portanto, esse é um comando padrão que você pode usar em um switch de camada 3 sempre que estiver usando etherchannel ou
+
+00:42.270 --> 00:48.390
+não para dizer que a porta é uma porta de camada 3 para que você possa colocar um endereço IP nela.
+
+00:48.510 --> 00:54.800
+Então, vamos dar uma olhada na configuração. Então, na configuração global, eu disse interface range gi1 /
+
+00:54.810 --> 00:55.770
+0/1 - 2 E
+
+00:55.920 --> 01:01.470
+então eu digo não switchport para fazer essas portas de camada 3 e então vou configurá-las como um canal
+
+01:01.470 --> 01:02.400
+de porta.
+
+01:02.530 --> 01:07.320
+Portanto, digo modo do grupo de canais 1 e as mesmas opções que tínhamos para a camada 2.
+
+01:07.500 --> 01:14.210
+Pode ser ativo, automático, desejável, ligado ou passivo, dependendo de quando você quiser torná-lo um
+
+01:14.250 --> 01:16.860
+etherchannel estático com ligado, ou
+
+01:17.100 --> 01:23.610
+podemos usar ativo ou passivo para LACP ou podemos usar automático ou desejável para PaGP.
+
+01:25.140 --> 01:31.500
+Isso agrupará as portas em um etherchannel. Podemos então colocar nossa outra configuração em
+
+01:31.500 --> 01:32.670
+nosso etherchannel.
+
+01:32.850 --> 01:36.080
+É onde colocaremos nosso endereço IP.
+
+01:36.330 --> 01:40.560
+Portanto, dizemos porta-canal 1 da interface, aquele que está vinculado ao número do grupo de canais.
+
+01:40.710 --> 01:47.550
+E então, neste exemplo, diríamos o endereço IP 192. 168 0 1 255.
+
+01:47.550 --> 01:47.550
+255 255 252.
+
+01:47.550 --> 01:51.060
+E lembre-se de não desligar a interface.
+
+01:51.360 --> 01:55.710
+OK, então esse é um canal etéreo de camada 3. Essa é a configuração completa.
+
+01:55.980 --> 02:01.740
+Portanto, esta poderia ter sido uma palestra muito curta, mas há outra implicação disso. Quero falar sobre outra
+
+02:01.740 --> 02:05.790
+coisa aqui, que é o design da rede.
+
+02:06.480 --> 02:13.920
+Portanto, olhando para o nosso design de campus tradicional com a distribuição de núcleo e camada de acesso. E da maneira que isso seria feito
+
+02:13.920 --> 02:20.790
+originalmente, haveria links da camada 2 entre os switches da camada de acesso e
+
+02:20.790 --> 02:24.210
+os switches da camada de distribuição.
+
+02:24.480 --> 02:32.550
+E o gateway padrão para os hosts finais estaria nos switches da camada de distribuição e teríamos spanning tree
+
+02:32.550 --> 02:39.450
+rodando entre o acesso e a camada de distribuição porque eles são links da camada 2.
+
+02:40.230 --> 02:47.220
+Bem, uma tendência que você pode ver cada vez mais agora é colocar links da camada 3 em todos os lugares.
+
+02:47.640 --> 02:52.230
+E o benefício que você obtém com isso significa que você não está mais usando a árvore geradora.
+
+02:52.440 --> 02:55.800
+Spanning-tree é um mal necessário.
+
+02:55.980 --> 03:02.160
+O lado ruim do spanning tree é que ele tende a desligar metade de seus links e também
+
+03:02.160 --> 03:04.920
+é muito lento para se recuperar de falhas.
+
+03:05.070 --> 03:08.550
+Então é ruim, mas ainda faz coisas boas.
+
+03:08.550 --> 03:13.500
+Você ainda precisa disso porque seria muito pior se tivesse um loop da camada 2 em sua
+
+03:13.500 --> 03:15.830
+rede, porque isso basicamente derrubaria sua rede.
+
+03:16.080 --> 03:20.580
+Portanto, nos certificamos de que não temos loops da camada 2 ao ter a árvore de abrangência habilitada.
+
+03:20.700 --> 03:26.490
+Mas o lado ruim é que ele demora para se recuperar de falhas e desliga metade de nossos links.
+
+03:26.580 --> 03:32.910
+Portanto, seria melhor se pudéssemos ter links da camada 3 em todos os lugares e não usar mais a árvore estendida, certo?
+
+03:32.910 --> 03:36.660
+Agora, você pode estar se perguntando, bem, OK, bem, por que não sempre fizemos isso?
+
+03:36.690 --> 03:40.890
+Por que costumávamos ter links da camada 2 entre a camada de acesso e a camada de distribuição?
+
+03:40.890 --> 03:42.840
+Agora, em muitas redes modernas,
+
+03:42.840 --> 03:47.340
+ainda temos links da camada 2 do acesso à camada de distribuição.
+
+03:47.520 --> 03:51.420
+Mas uma tendência crescente que você verá agora é que a camada 3
+
+03:51.610 --> 03:57.270
+está em toda parte e a razão pela qual isso é possível é que os switches da camada 3 caíram muito.
+
+03:57.510 --> 04:03.720
+Antigamente, os switches da camada 3 eram muito mais caros do que os switches da camada 2.
+
+04:03.870 --> 04:09.480
+E seus switches de camada de acesso onde você tinha uma alta contagem de portas, onde todos os seus hosts estavam
+
+04:09.480 --> 04:15.270
+conectados, então você tinha muitos switches de camada de acesso e simplesmente não era possível do ponto de vista de custo para
+
+04:15.510 --> 04:18.930
+switches de camada 3 em todos os switches da camada de acesso.
+
+04:19.170 --> 04:25.680
+Mas, como o tempo passou agora e os preços dos switches da camada 3 diminuíram, é mais
+
+04:25.680 --> 04:27.260
+viável fazer isso agora.
+
+04:27.480 --> 04:33.960
+Portanto, se você colocar switches da camada 3 em todos os lugares, inclusive na camada de acesso, agora você realmente tem os links da camada
+
+04:33.960 --> 04:39.240
+3 da camada de acesso para a camada de distribuição. Significa que você tem um endereço IP
+
+04:39.240 --> 04:42.480
+nesta porta aqui e um endereço IP nesta porta aqui.
+
+04:42.570 --> 04:48.780
+Então, como tudo está na camada 3, você não tem mais o spanning tree em execução. Spanning-tree funciona apenas em links
+
+04:48.780 --> 04:51.450
+da camada 2.
+
+04:51.630 --> 04:57.870
+Portanto, a maneira como os caminhos estão sendo determinados entre seus switches não está mais sendo determinada pela
+
+04:57.870 --> 04:59.070
+árvore de abrangência.
+
+04:59.220 --> 05:01.950
+Ele está sendo determinado pelo seu protocolo de roteamento.
+
+05:01.950 --> 05:06.800
+Portanto, quando estiver usando links da camada 3 em qualquer lugar, você configurará um protocolo de roteamento aqui também,
+
+05:07.170 --> 05:13.620
+e cabe ao protocolo de roteamento lidar com a determinação do caminho. Com seus protocolos de roteamento, eles suportam balanceamento
+
+05:13.620 --> 05:18.150
+de carga de custo igual, então você não terá links sendo desligados.
+
+05:18.300 --> 05:22.830
+Todos os seus links ainda estarão disponíveis e o tráfego terá a carga balanceada em todos eles.
+
+05:23.060 --> 05:25.800
+Além disso, seus protocolos de roteamento se recuperam de falhas.
+
+05:25.800 --> 05:28.610
+Eles convergem muito mais rápido do que o Spanning Tree.
+
+05:28.740 --> 05:35.790
+Então, esse é um benefício que você obtém lá. Agora, quando você fizer isso, a última coisa que direi sobre isso é que
+
+05:35.940 --> 05:40.380
+o gateway padrão não estará nos switches da camada de distribuição agora como estaria com a camada 2.
+
+05:40.380 --> 05:46.140
+Na camada de acesso, o gateway padrão para seu host final estará nos switches da camada de acesso.
+
+05:46.260 --> 05:52.710
+E se você pensar sobre isso, tem que ser porque teremos uma sub-rede IP aqui
+
+05:52.710 --> 05:59.370
+e teremos uma sub-rede IP diferente aqui. E o gateway padrão para seus hosts deve estar na mesma
+
+05:59.370 --> 06:00.270
+sub-rede IP.
+
+06:00.450 --> 06:05.280
+Portanto, seu gateway padrão agora será configurado em seus switches da camada de acesso e você terá roteamento em todos
+
+06:05.280 --> 06:06.480
+os lugares, links da
+
+06:06.480 --> 06:08.500
+camada 3 em todos os lugares acima disso.
+
+06:08.940 --> 06:09.260
+OK.
+
+06:09.540 --> 06:15.780
+Ah, e eu coloquei isso na palestra etherchannel porque muitas vezes quando você está fazendo isso, você
+
+06:15.780 --> 06:22.320
+terá etherchannels subindo entre seus switches e quando você tiver a camada 3 em todos os lugares, é
+
+06:22.320 --> 06:24.900
+claro, haverá ser canais da camada 3.
+
+06:25.050 --> 06:27.450
+OK, isso é tudo que eu precisava
+
+06:27.450 --> 06:29.190
+dizer aqui. Até a próxima palestra.

@@ -1,0 +1,247 @@
+WEBVTT
+
+00:07.260 --> 00:14.070
+Dalam kuliah ini, Anda akan belajar tentang etherchannels layer 3. Dalam kuliah sebelumnya di bagian ini, Anda telah
+
+00:14.230 --> 00:17.400
+melihat cara mengonfigurasi etherchannels layer 2.
+
+00:17.550 --> 00:20.550
+Kami juga dapat mengonfigurasi etherchannels layer 3.
+
+00:20.670 --> 00:28.050
+Anda dapat melihatnya dengan contoh konfigurasi di sini. Dan konfigurasinya sebenarnya sama persis.
+
+00:28.320 --> 00:35.940
+Satu-satunya perbedaan adalah kami menjadikan port sebagai port layer 3 dengan perintah no switchport.
+
+00:36.120 --> 00:42.270
+Jadi itu adalah perintah standar yang dapat Anda gunakan pada switch layer 3 setiap kali Anda menggunakan etherchannel atau
+
+00:42.270 --> 00:48.390
+tidak untuk mengatakan bahwa port tersebut adalah port layer 3 sehingga Anda dapat meletakkan alamat IP di sana.
+
+00:48.510 --> 00:54.800
+Jadi mari kita lihat konfigurasinya. Jadi pada konfigurasi global, saya telah mengatakan rentang antarmuka gi1/0/1
+
+00:54.810 --> 00:55.770
+- 2 Dan
+
+00:55.920 --> 01:01.470
+kemudian saya mengatakan tidak ada switchport untuk membuat port layer 3 itu dan kemudian saya akan mengonfigurasinya sebagai
+
+01:01.470 --> 01:02.400
+saluran port.
+
+01:02.530 --> 01:07.320
+Jadi saya katakan mode channel-group 1 dan kemudian opsi yang sama seperti yang kita miliki untuk layer 2.
+
+01:07.500 --> 01:14.210
+Itu bisa aktif, otomatis, diinginkan, aktif, atau pasif, tergantung kapan Anda ingin menjadikannya etherchannel statis
+
+01:14.250 --> 01:16.860
+dengan aktif, atau kita dapat
+
+01:17.100 --> 01:23.610
+menggunakan aktif atau pasif untuk LACP atau kita dapat menggunakan otomatis atau diinginkan untuk PaGP.
+
+01:25.140 --> 01:31.500
+Sehingga akan mengelompokkan port-port tersebut menjadi sebuah etherchannel. Kami kemudian dapat menempatkan konfigurasi kami yang lain di
+
+01:31.500 --> 01:32.670
+etherchannel kami.
+
+01:32.850 --> 01:36.080
+Di situlah kita akan meletakkan alamat IP kita.
+
+01:36.330 --> 01:40.560
+Jadi kita katakan antarmuka port-channel 1, yang terikat dengan nomor grup saluran.
+
+01:40.710 --> 01:47.550
+Dan kemudian dalam contoh ini, kami akan mengatakan alamat ip 192. 168. 0. 1 255.
+
+01:47.550 --> 01:47.550
+255. 255. 252.
+
+01:47.550 --> 01:51.060
+Dan ingat untuk tidak melakukan shutdown pada antarmuka.
+
+01:51.360 --> 01:55.710
+OK, jadi itu adalah etherchannel layer 3. Itu konfigurasi lengkapnya.
+
+01:55.980 --> 02:01.740
+Jadi ini bisa menjadi kuliah yang sangat singkat, tapi ada implikasi lain dari ini. Hal lain yang ingin saya bicarakan
+
+02:01.740 --> 02:05.790
+dengan Anda di sini, dan itu adalah desain jaringan.
+
+02:06.480 --> 02:13.920
+Jadi melihat desain kampus tradisional kami dengan distribusi inti dan lapisan akses. Dan cara yang akan dilakukan pada
+
+02:13.920 --> 02:20.790
+awalnya adalah akan ada tautan lapisan 2 antara sakelar lapisan akses
+
+02:20.790 --> 02:24.210
+dan sakelar lapisan distribusi.
+
+02:24.480 --> 02:32.550
+Dan gateway default untuk host akhir akan berada di switch layer distribusi dan kami akan menjalankan
+
+02:32.550 --> 02:39.450
+spanning-tree antara akses dan layer distribusi karena mereka adalah link layer 2.
+
+02:40.230 --> 02:47.220
+Nah, tren yang semakin bisa Anda lihat sekarang ini justru menempatkan link layer 3 di mana-mana.
+
+02:47.640 --> 02:52.230
+Dan manfaat yang Anda dapatkan dari melakukan itu berarti Anda tidak menggunakan spanning-tree lagi.
+
+02:52.440 --> 02:55.800
+Spanning-tree adalah kejahatan yang diperlukan.
+
+02:55.980 --> 03:02.160
+Sisi buruk dari spanning-tree adalah cenderung mematikan setengah dari tautan Anda dan juga sangat
+
+03:02.160 --> 03:04.920
+lambat untuk pulih dari kegagalan.
+
+03:05.070 --> 03:08.550
+Jadi itu buruk, tetapi masih melakukan hal-hal baik.
+
+03:08.550 --> 03:13.500
+Anda masih membutuhkannya karena akan jauh lebih buruk jika Anda memiliki loop layer 2 di jaringan Anda, karena
+
+03:13.500 --> 03:15.830
+itu pada dasarnya hanya akan menurunkan jaringan Anda.
+
+03:16.080 --> 03:20.580
+Jadi kami memastikan bahwa kami tidak memiliki loop layer 2 dengan mengaktifkan spanning-tree.
+
+03:20.700 --> 03:26.490
+Tetapi sisi buruknya adalah lambat untuk pulih dari kegagalan dan mematikan setengah dari tautan kami.
+
+03:26.580 --> 03:32.910
+Jadi akan lebih baik jika kita bisa memiliki link layer 3 di mana-mana dan tidak menggunakan spanning-tree lagi, bukan?
+
+03:32.910 --> 03:36.660
+Sekarang, Anda mungkin bertanya-tanya, baiklah, mengapa kita tidak selalu melakukannya?
+
+03:36.690 --> 03:40.890
+Mengapa kami dulu memiliki tautan lapisan 2 antara lapisan akses dan lapisan distribusi?
+
+03:40.890 --> 03:42.840
+Sekarang, di banyak jaringan
+
+03:42.840 --> 03:47.340
+modern kami masih memiliki tautan lapisan 2 dari akses ke lapisan distribusi.
+
+03:47.520 --> 03:51.420
+Tetapi tren yang meningkat yang akan Anda lihat sekarang adalah bahwa
+
+03:51.610 --> 03:57.270
+lapisan 3 ada di mana-mana dan alasannya mungkin karena sakelar lapisan 3 telah banyak turun harganya.
+
+03:57.510 --> 04:03.720
+Kembali pada hari itu, sakelar lapisan 3 jauh lebih mahal daripada sakelar lapisan 2.
+
+04:03.870 --> 04:09.480
+Dan lapisan akses Anda beralih di mana Anda memiliki jumlah port yang tinggi, di mana Anda memiliki semua
+
+04:09.480 --> 04:15.270
+host Anda terhubung, jadi Anda memiliki banyak sakelar lapisan akses dan itu tidak mungkin dari sudut pandang biaya ke
+
+04:15.510 --> 04:18.930
+sakelar lapisan 3 di pada semua sakelar lapisan akses Anda.
+
+04:19.170 --> 04:25.680
+Tetapi karena waktu telah berjalan sekarang dan harga telah turun untuk sakelar lapisan 3, lebih layak
+
+04:25.680 --> 04:27.260
+untuk melakukannya sekarang.
+
+04:27.480 --> 04:33.960
+Jadi jika Anda memasang sakelar layer 3 di mana-mana, termasuk di lapisan akses, sekarang Anda sebenarnya memiliki tautan lapisan
+
+04:33.960 --> 04:39.240
+3 dari lapisan akses ke lapisan distribusi. Artinya Anda memiliki alamat IP pada port ini
+
+04:39.240 --> 04:42.480
+di sini dan alamat IP pada port ini di sini.
+
+04:42.570 --> 04:48.780
+Jadi karena semuanya adalah layer 3, Anda tidak perlu menjalankan spanning-tree lagi. Spanning-tree hanya berfungsi pada
+
+04:48.780 --> 04:51.450
+tautan lapisan 2.
+
+04:51.630 --> 04:57.870
+Jadi cara Anda menentukan jalur di antara sakelar Anda tidak lagi ditentukan
+
+04:57.870 --> 04:59.070
+oleh spanning-tree.
+
+04:59.220 --> 05:01.950
+Itu ditentukan oleh protokol perutean Anda.
+
+05:01.950 --> 05:06.800
+Jadi, ketika Anda menggunakan tautan lapisan 3 di mana-mana, Anda juga akan mengonfigurasi protokol perutean di
+
+05:07.170 --> 05:13.620
+sini, dan terserah pada protokol perutean untuk menangani penentuan jalur. Dengan protokol perutean Anda, mereka mendukung penyeimbangan
+
+05:13.620 --> 05:18.150
+beban biaya yang sama, sehingga Anda tidak akan memiliki tautan yang dimatikan.
+
+05:18.300 --> 05:22.830
+Semua tautan Anda akan tetap tersedia dan lalu lintas akan seimbang di semua tautan tersebut.
+
+05:23.060 --> 05:25.800
+Juga, protokol perutean Anda pulih dari kegagalan.
+
+05:25.800 --> 05:28.610
+Mereka bertemu jauh lebih cepat daripada spanning-tree.
+
+05:28.740 --> 05:35.790
+Jadi itulah manfaat yang Anda dapatkan di sana. Sekarang, ketika Anda melakukan ini, hal terakhir yang akan saya ceritakan kepada Anda,
+
+05:35.940 --> 05:40.380
+adalah bahwa gateway default tidak akan berada di sakelar lapisan distribusi sekarang seperti halnya dengan lapisan 2.
+
+05:40.380 --> 05:46.140
+Pada lapisan akses, gateway default untuk host akhir Anda akan berada di sakelar lapisan akses.
+
+05:46.260 --> 05:52.710
+Dan jika Anda memikirkannya, itu pasti karena kita akan memiliki subnet IP di sini dan kita
+
+05:52.710 --> 05:59.370
+akan memiliki subnet IP yang berbeda di sini. Dan gateway default untuk host Anda harus berada di subnet IP
+
+05:59.370 --> 06:00.270
+yang sama.
+
+06:00.450 --> 06:05.280
+Jadi gateway default Anda sekarang akan dikonfigurasi pada sakelar lapisan akses Anda dan Anda akan memiliki
+
+06:05.280 --> 06:06.480
+perutean di mana-mana,
+
+06:06.480 --> 06:08.500
+tautan lapisan 3 di mana-mana di atasnya.
+
+06:08.940 --> 06:09.260
+OKE.
+
+06:09.540 --> 06:15.780
+Oh, dan saya telah memasukkan ini ke dalam kuliah etherchannel karena sangat sering ketika Anda melakukan itu,
+
+06:15.780 --> 06:22.320
+Anda akan memiliki etherchannels naik di antara sakelar Anda dan ketika Anda memiliki lapisan 3 di mana-mana, tentu
+
+06:22.320 --> 06:24.900
+saja, akan ada menjadi lapisan 3 etherchannels.
+
+06:25.050 --> 06:27.450
+Oke, itu saja yang perlu saya ceritakan
+
+06:27.450 --> 06:29.190
+di sini. Sampai jumpa di kuliah berikutnya.

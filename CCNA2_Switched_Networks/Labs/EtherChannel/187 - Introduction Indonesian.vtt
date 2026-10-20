@@ -1,0 +1,37 @@
+WEBVTT
+
+00:06.260 --> 00:15.320
+Di bagian ini, Anda akan belajar tentang etherchannel, yang dapat digunakan untuk menggabungkan beberapa antarmuka fisik
+
+00:15.560 --> 00:18.960
+ke dalam satu antarmuka logis.
+
+00:19.310 --> 00:24.460
+Saya akan membahas mengapa kita membutuhkan etherchannel dan peringatan
+
+00:24.470 --> 00:27.170
+spoiler, itu karena spanning-tree.
+
+00:27.660 --> 00:34.990
+Saya juga akan membahas bagaimana etherchannel load-balancing dan redundansi bekerja.
+
+00:35.390 --> 00:43.310
+Anda akan mempelajari semua protokol berbeda yang tersedia untuk etherchannel, cara mengonfigurasi dan
+
+00:43.310 --> 00:45.200
+cara memverifikasinya.
+
+00:45.860 --> 00:53.510
+Dan akhirnya, kita akan berbicara tentang masalah lain di mana jika switch Anda terhubung
+
+00:53.510 --> 01:03.170
+ke dua switch yang berbeda untuk redundansi, bahkan jika Anda menggunakan etherchannel, spanning-tree akan memotong bandwidth yang tersedia
+
+01:03.170 --> 01:04.310
+menjadi dua.
+
+01:04.690 --> 01:13.880
+Cisco memang memiliki beberapa teknologi yang akan menghindarinya - StackWise, VSS, dan vPC.
+
+01:13.880 --> 01:21.440
+Kami akan membahas ikhtisar opsi etherchannel multi-sasis tersebut dalam kuliah terakhir.

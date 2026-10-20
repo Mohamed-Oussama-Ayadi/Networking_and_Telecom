@@ -1,0 +1,283 @@
+WEBVTT
+
+00:06.460 --> 00:15.670
+Bu derste, neden etherchannel'a sahip olduğumuzu öğrenecek ve kampüs tasarım modelini çok hızlı bir
+
+00:15.670 --> 00:20.140
+şekilde tekrar gözden geçirerek başlayacağız.
+
+00:20.470 --> 00:25.420
+Böylece PC'lerimiz gibi son ana bilgisayarlarımız erişim
+
+00:25.440 --> 00:32.770
+katmanı anahtarlarımıza takılır. Erişim katmanı anahtarlarımız dağıtım katmanı anahtarlarına,
+
+00:32.770 --> 00:36.040
+onlar da çekirdek katmanı anahtarlarına bağlanır.
+
+00:36.850 --> 00:42.390
+Uç ana bilgisayarlar ağa sürekli trafik göndermez.
+
+00:42.610 --> 00:46.030
+Çoğu zaman ağ bağlantıları boşta kalıyor.
+
+00:46.270 --> 00:51.970
+Bir bilgisayarda oturduğunuzda ne yaptığınızı düşünürseniz, bir wWrd belgesi veya Excel elektronik
+
+00:51.970 --> 00:58.000
+tablosu veya bunun gibi bir şey üzerinde çalışıyorsanız, aslında ağ üzerinden giden bir trafik yoktur.
+
+00:58.360 --> 01:05.440
+Bu nedenle, her bir üst katmana sahip olduğunuz ana bilgisayar sayısından daha az uplink bağlayabilir ve yine de kabul edilebilir
+
+01:05.440 --> 01:11.830
+ağ performansını koruyabilirsiniz çünkü ana bilgisayarlarınızın sahip olduğu tüm olası bant genişliğini
+
+01:11.830 --> 01:16.660
+desteklemeniz gerekmez çünkü hepimiz aynı anda kullanmayacağız.
+
+01:17.390 --> 01:24.700
+Ancak bir slayt geri gidersem, burada iki binamız olduğunu görüyorsunuz, örnek için her binada dört erişim
+
+01:24.700 --> 01:32.590
+katmanı anahtarımız var ve diyelim ki bunlar 48 bağlantı noktalı anahtarlar ve her bir anahtara takılı 40 uç ana bilgisayarım
+
+01:32.590 --> 01:34.060
+var.
+
+01:34.270 --> 01:43.590
+Yani 4x40 eder. Ana Binada 160 ev sahibi, Bina 1'de de 160 ev sahibi.
+
+01:43.810 --> 01:51.130
+Her iki binadaki bir çift dağıtım anahtarına bağlanıyorlar.
+
+01:51.430 --> 01:58.930
+Yani her iki binada da 160 cihazım var, ancak erişim katmanından dağıtım katmanına giden 160
+
+01:58.930 --> 02:00.280
+uplink'im yok.
+
+02:00.520 --> 02:06.370
+Ayrıca, dağıtım katmanından çekirdek katmana giden bu miktarda uplink'e sahip değilim.
+
+02:06.520 --> 02:09.640
+O kadar çok koymama gerek yok çünkü bilgisayarlarımın
+
+02:09.640 --> 02:12.910
+aynı anda iletim yapmayacağını biliyorum.
+
+02:12.910 --> 02:14.860
+Aslında o kadar bant genişliğine ihtiyaçları yok.
+
+02:17.000 --> 02:25.050
+Kampüs LAN'ınızda ne kadar aşırı aboneliğe sahip olmanız gerektiğine dair bir başlangıç kuralı önerisi,
+
+02:25.050 --> 02:34.010
+erişim katmanından dağıtım katmanına 20:1'dir. Yani, erişim katmanında 1 Gbps ağ kartlarıyla bağlı 20
+
+02:34.010 --> 02:41.330
+bilgisayarınız varsa, bunların trafiğini desteklemek için dağıtım katmanına tek bir 1G
+
+02:41.330 --> 02:45.200
+yukarı bağlantıya ihtiyacınız olacaktır.
+
+02:45.680 --> 02:50.840
+Çekirdek katman bağlantılarına dağıtım için tavsiye edilen oran 4:1'dir.
+
+02:51.140 --> 02:58.790
+Ve bunların genel değerler olduğunu unutmayın. Bağlantılarınızın sıkışık olmadığını doğrulamak için ağınızdaki
+
+02:58.790 --> 03:04.940
+trafiği analiz etmelisiniz çünkü bu, ağınızdaki belirli trafik modellerine, hangi uygulamaları
+
+03:05.120 --> 03:07.700
+çalıştırdığınıza vb. bağlıdır. sizin için iyi bir aşırı abonelik oranı ne olacaktır.
+
+03:07.880 --> 03:11.240
+Bunlar iyi rakamlar.
+
+03:11.570 --> 03:13.550
+Anahtarlar genellikle erişim
+
+03:15.650 --> 03:23.480
+portlarındaki bant genişliğinden daha yüksek bant genişliğine sahip özel uplink portlarına sahiptir. Örneğin, bir çift 10 Gbps yukarı bağlantıya sahip 48 bağlantı noktalı 1 Gbps anahtar
+
+03:23.480 --> 03:31.760
+ve bu, abonelik oranına yardımcı olabilir.
+
+03:31.760 --> 03:34.210
+Örneğin, bu anahtara takılı 48x1Gbps
+
+03:34.640 --> 03:40.790
+istemciniz varsa, mümkün olan toplam bant genişliği 48 Gbps olacaktır.
+
+03:40.790 --> 03:44.170
+2x10Gbps yukarı bağlantılarınız var,
+
+03:44.570 --> 03:51.770
+yukarı bağlantı bağlantılarınızda yaklaşık 20Gbps, bu da 2 abonelik oranı verir. 4:1.
+
+03:51.770 --> 03:54.950
+Eğer bu 10Gbps uplinkler
+
+03:55.370 --> 04:01.370
+olmasaydı, uplinkler de 1Gbps olsaydı, abonelik oranı 24:1 olurdu.
+
+04:01.370 --> 04:03.190
+Belli ki o kadar iyi değil.
+
+04:03.200 --> 04:04.880
+Dolayısıyla normalde daha yüksek
+
+04:05.360 --> 04:11.750
+bant genişliğine sahip yukarı bağlantılara sahip anahtarlarınız olduğunda, aşırı abonelik bir sorun olmayacaktır.
+
+04:11.750 --> 04:13.550
+Ancak, 2 uplink bağlamak istediğimizde bir sorunumuz var ve bu sorun spanning-tree. Çünkü spanning-tree,
+
+04:13.940 --> 04:24.530
+yedeklilik sağlar, ancak yük dengeleme sağlamaz. Yayılan ağaç, döngülerden kaçınmak için
+
+04:24.560 --> 04:32.660
+her zaman en iyi yolu seçer.
+
+04:32.660 --> 04:36.290
+Dolayısıyla, bir anahtarın birden fazla eşit maliyetli yolu varsa, hiçbir zaman kök köprüye doğru geçiş yapmazlar.
+
+04:36.440 --> 04:42.200
+Bu portlardan birini, en düşük Port ID'sine sahip olanı seçecektir.
+
+04:42.470 --> 04:46.970
+Hepsi arasında yük dengelemesi yapmayacaktır.
+
+04:46.970 --> 04:49.610
+Şemadaki örneğimizde, erişim katmanı Access1 anahtarımızdan
+
+04:49.950 --> 04:56.480
+Dist1 anahtarına giden yukarı bağlantılarımız var ve 0/1 ve 0/2 olmak üzere iki adet 10Gbps Ethernet arayüzümüz var.
+
+04:56.480 --> 05:03.560
+0/1 en düşük Port ID'sine sahip olduğu ve T0/2 bloke olduğu için kök port olarak seçilecektir.
+
+05:04.010 --> 05:12.820
+Yani fiziksel olarak iki adet 10Gbps Ethernet uplink bağlamış olsak da, sadece
+
+05:13.040 --> 05:20.420
+10Gbps değerinde uplink bant genişliği elde ediyoruz.
+
+05:20.420 --> 05:21.740
+20Gbps değil, çünkü spanning-tree bu bağlantılardan birini engelleyecektir.
+
+05:21.980 --> 05:26.480
+İşte sorun da bu, mevcut, fiziksel olarak bağlı uplink bant genişliğimizin tamamını alamıyoruz.
+
+05:28.470 --> 05:34.800
+Çözüm etherchannel. Etherchannel birden fazla fiziksel arayüzü tek
+
+05:35.010 --> 05:44.100
+bir mantıksal arayüzde gruplar. Ve spanning-tree daha sonra bu etherchannel'ı tek bir arayüz olarak görür, böylece herhangi bir
+
+05:44.100 --> 05:46.080
+portu engellemez.
+
+05:46.080 --> 05:51.700
+Artık 20 Gbps değerinde bant genişliğinin tamamını alabiliyoruz.
+
+05:51.990 --> 05:55.770
+Önceki slayta bakarsanız, etherchannel kullanmadığımız
+
+05:56.190 --> 06:02.340
+zaman, spanning-tree bunu olası bir döngü olarak görür çünkü trafik T0/1'e
+
+06:02.340 --> 06:08.870
+çıkıp sonra T0/2'ye inebilir ve sonra tekrar T0/1'e çıkabilir.
+
+06:08.910 --> 06:11.460
+Etherchannel olmadığında potansiyel bir döngü var. Ancak etherchannel'ı spanning-tree için yapılandırdığımızda,
+
+06:11.490 --> 06:17.310
+her iki tarafta da tek bir bağlantı, tek bir arayüz olarak sayılır. Bu yüzden spanning-tree bunu
+
+06:17.310 --> 06:24.860
+potansiyel bir döngü olarak görmez.
+
+06:24.870 --> 06:27.180
+Ve şimdi tam 20 Gbps değerinde bant genişliğine sahibiz.
+
+06:27.400 --> 06:30.990
+Trafik, etherchannel'daki tüm bağlantılar arasında yük dengelemesine tabi tutulacaktır.
+
+06:32.190 --> 06:37.000
+Dolayısıyla, bilgisayarlarımdan yukarı yönde giden trafik, tüm bağlantılar arasında yük dengelemesine tabi tutulacaktır. Aynı şey diğer yönden gelen trafik için de geçerlidir, sadece
+
+06:37.170 --> 06:42.660
+yük dengeleme sağlamakla kalmaz,
+
+06:42.660 --> 06:45.720
+aynı zamanda yedeklilik de sağlar. Bir arayüz çökerse, trafiği kalan
+
+06:45.930 --> 06:52.350
+bağlantılara aktarılır.
+
+06:52.350 --> 06:54.420
+Yani anahtarlarımızdaki etherchannel buydu.
+
+06:55.590 --> 06:59.190
+Temelde aynı şeyi sunucularımızda da NIC Teaming ile yapabiliyoruz.
+
+06:59.430 --> 07:05.460
+Bir slayt geriye gidersek, etherchannel, birden fazla fiziksel bağlantı noktasını anahtarlar
+
+07:05.460 --> 07:12.900
+arası bağlantılarımızda tek bir mantıksal bağlantı noktasında bir araya getirebildiğimiz yerdir. Sunucularımızda, NIC Teaming ile birden fazla fiziksel ağ kartını tek bir mantıksal arayüzde
+
+07:12.900 --> 07:17.550
+bir araya getirebiliyoruz. Bundan elde ettiğimiz fayda, yük
+
+07:17.580 --> 07:25.200
+dengeleme ve yedekliliği tekrar elde etmemizdir.
+
+07:25.200 --> 07:29.820
+Ve işletim sistemi tek bir arayüz olarak gördüğü için, orada sadece bir
+
+07:30.030 --> 07:36.000
+IP adresimiz var, bu da işleri çok daha rahat ve yapılandırmayı basit hale getiriyor.
+
+07:36.000 --> 07:39.650
+Bu bilgiyi de buraya koyuyorum çünkü terminolojiyi
+
+07:39.960 --> 07:46.620
+size açıklamak ve temelde aynı şey için birkaç farklı isim olduğunu bilmenizi istedim.
+
+07:46.620 --> 07:51.540
+Anahtarlarımızdaki Etherchannel, port kanalı olarak da bilinir.
+
+07:52.230 --> 07:56.760
+Aslında, bölüm boyunca bu konudan bahsettiğimi duyduğunuzda, muhtemelen
+
+07:56.910 --> 08:02.250
+buna daha çok bir etherchannel port kanalı dediğimi duyacaksınız.
+
+08:02.250 --> 08:03.930
+Sektördeki insanlar, biz buna daha sık böyle deme eğilimindeyiz.
+
+08:04.140 --> 08:06.930
+Bağlantı birleştirme veya bağlantı demeti anlamına gelen LAG olarak da bilinir.
+
+08:07.200 --> 08:12.930
+Sunucularımızdaki fiziksel arayüzlerimizi bir araya getirdiğimizde, buna genellikle NIC Teaming adını veririz.
+
+08:13.350 --> 08:19.890
+Bonding, NIC dengeleme ve yine link aggregation olarak da adlandırılabilir.
+
+08:20.040 --> 08:25.440
+Tamam, bu yüzden etherchannel'ımız var.
+
+08:25.630 --> 08:29.580
+Spanning-tree ile ilgili sorunu aşmamızı sağlar.
+
+08:29.820 --> 08:32.520
+Ayrıca terminolojiye de hızlı bir genel bakış.
+
+08:32.670 --> 08:35.830
+Bir sonraki derste görüşmek üzere.

@@ -1,0 +1,14 @@
+Ex1:
+a) Théorème de Shannon:
+Fe(min)=2Fe(max)=2*20=40KHz
+b) N=T/Te=T*Fe=15*60*44.1*10^3=39.690*10^6 échantillons
+
+Ex3:
+a)∆e=(2*Vmax)/N
+           =(2*3072)/2048=3V
+b)n=log2(N)=log2(2048)=11 bits
+
+Ex4:
+D=n*Fe
+    =8*8000=64000(bits/s)
+avec Fe=8000Hz=8000 echantillons/s et n=8bits/echantillons

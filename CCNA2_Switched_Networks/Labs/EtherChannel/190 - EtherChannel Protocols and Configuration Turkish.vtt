@@ -1,0 +1,370 @@
+WEBVTT
+
+00:06.610 --> 00:15.300
+Bu derste, farklı etherchannel protokolleri hakkında bilgi edinecek ve bunları nasıl yapılandırıp doğrulayacağınızı öğreneceksiniz.
+
+00:15.760 --> 00:23.350
+Yani mevcut üç protokol var. Bu LACP, PaGP ve statiktir.
+
+00:23.350 --> 00:28.680
+Bunlardan ilki LACP, yani bağlantı birleştirme kontrol protokolüdür.
+
+00:29.110 --> 00:31.390
+Bu açık bir standarttır.
+
+00:31.390 --> 00:35.620
+Yani tüm tedarikçi anahtarları tarafından desteklenir. LACP ile, her iki taraftaki anahtarlar
+
+00:35.620 --> 00:43.000
+port kanalı oluşturma ve bakımını müzakere eder. Mevcut üç yöntemden de tercih
+
+00:43.000 --> 00:43.570
+edileni
+
+00:43.600 --> 00:45.530
+budur.
+
+00:46.540 --> 00:53.720
+Sırada Cisco'nun tescilli bağlantı noktası birleştirme protokolü olan PaGP var.
+
+00:54.040 --> 00:56.710
+Bu, LACP'ye benzer şekilde çalışır.
+
+00:56.950 --> 01:02.140
+Her iki taraftaki anahtarların port kanalı oluşturma ve bakımını tekrar müzakere ettiği her yerde.
+
+01:02.380 --> 01:06.820
+Ancak tescilli olduğu için PaGP'nin kullanılması önerilmez.
+
+01:07.660 --> 01:13.570
+Üçüncü seçeneğimiz ise statik bir etherchannel yapılandırmaktır. Statik ile, anahtarlar oluşturma ve bakım
+
+01:13.570 --> 01:19.840
+konusunda anlaşmazlar, ancak port kanalının ortaya çıkması için ayarların her iki tarafta
+
+01:19.840 --> 01:21.630
+da yürümesi gerekir.
+
+01:21.820 --> 01:24.940
+Yani üçünde de, aralarında bağlantı olan iki anahtarınız
+
+01:25.200 --> 01:29.430
+var ve bunları bir port kanalına yapılandıracaksınız.
+
+01:29.710 --> 01:35.860
+Her iki tarafta, her iki anahtarda da aynı ayarları yapılandırmanız gerekir. Ve statik için, LACP her iki tarafta da
+
+01:35.880 --> 01:43.300
+desteklenmiyorsa kullanacağımız budur. LACP tüm Cisco anahtarlarında desteklenecektir, ancak
+
+01:43.300 --> 01:50.700
+belki de başka bir satıcı anahtarına veya bir sunucuya ya da bunun gibi bir şeye bağlanıyorsunuzdur.
+
+01:51.160 --> 01:53.890
+Yani bunlar üç farklı seçenek.
+
+01:54.160 --> 01:58.600
+Hepsi için yapılandırma gerçekten çok benzerdir.
+
+01:58.780 --> 02:05.050
+Aslında hepsi aynı komutu kullanır, bu da kanal grubu komutudur, ancak üç protokolden hangisinin kullanılacağına
+
+02:05.050 --> 02:10.870
+karar veren Kanal Grubu ile birlikte kullandığımız anahtar kelimelerdir.
+
+02:12.770 --> 02:20.150
+Her iki çenesiz için parametreler için, bir dakika önce buna değindim ve yapılandırmanın bağlantının her iki tarafında
+
+02:20.150 --> 02:23.060
+da eşleşmesi gerektiğini söyledim.
+
+02:23.360 --> 02:27.410
+Arayüzlerin eşleşen bir yapılandırmaya sahip olması gerekir.
+
+02:27.830 --> 02:33.860
+Bu nedenle, her iki tarafta da aynı olması gereken ayarlar arasında hız ve dubleks, bağlantı noktasının erişim veya ana mod
+
+02:33.860 --> 02:36.050
+olarak ayarlanıp ayarlanmadığı yer alır.
+
+02:36.260 --> 02:43.110
+Yerel VLAN, izin verilen VLAN'lar ve eğer bir erişim portuysa erişim VLAN'ı.
+
+02:44.270 --> 02:53.360
+Konfigürasyona bakıyorum. İlk olarak LACP'ye bakacağız. LACP arayüzleriniz aktif ya da pasif olarak
+
+02:53.360 --> 02:54.860
+ayarlanabilir.
+
+02:55.010 --> 03:01.480
+Bakalım, Switch1 ve Switch2 arasında bir port kanalı yapılandıracağız. Switch1'in arayüzleri aktif ve
+
+03:01.490 --> 03:07.160
+Switch2 pasif ise, port kanalı yukarı çıkacaktır.
+
+03:08.030 --> 03:16.040
+Ancak her iki taraf da pasif olarak ayarlanmışsa, port kanalı açılmayacaktır. Ve eğer her iki taraf da aktifse, port kanalı
+
+03:16.250 --> 03:18.280
+açılacaktır.
+
+03:18.860 --> 03:23.390
+Bu yüzden her iki tarafın da aktif olarak yapılandırılması önerilir.
+
+03:23.390 --> 03:28.280
+Seçenekleriniz ya her iki tarafın da aktif olması ya da bir tarafın aktif diğer tarafın pasif olmasıdır.
+
+03:28.430 --> 03:33.470
+Her ikisini de aktif olarak yapılandırmak en kolayıdır çünkü o zaman hangisinin aktif hangisinin pasif olduğu
+
+03:33.470 --> 03:35.560
+konusunda endişelenmenize gerek kalmaz.
+
+03:37.340 --> 03:43.880
+İşte yapılandırmamız, arayüz seviyesinde yapılandırılmıştır. Bu yüzden port kanalında gruplamak istediğiniz
+
+03:43.880 --> 03:45.430
+arayüzleri belirtin.
+
+03:45.520 --> 03:53.030
+Burada fa0/23 - 24 arayüz aralığını görüyoruz ve ardından komutumuz kanal-grup
+
+03:53.030 --> 03:54.350
+1 modu aktif.
+
+03:54.590 --> 04:02.210
+Bu komutu girer girmez, yeni bir mantıksal arayüz oluşturacaktır, bu sizin portchannel arayüzünüzdür.
+
+04:02.420 --> 04:07.190
+Burada kanal grubu 1'i yapılandırıyoruz, bu da port kanalı 1'i oluşturacaktır.
+
+04:07.220 --> 04:13.550
+Burada bir sayı olmasının nedeni, farklı komşu anahtarlara giden farklı bağlantı kanallarına sahip
+
+04:13.550 --> 04:16.340
+olabilmenizdir. Diyelim ki Switch1'imiz var.
+
+04:16.350 --> 04:22.010
+Switch2'ye giden bir port kanalımız var, bunu port kanalı 1 yapabiliriz. Switch3'e giden bir port kanalımız
+
+04:22.010 --> 04:23.870
+da varsa, bunu port kanalı
+
+04:24.020 --> 04:26.200
+2 yapabiliriz.
+
+04:27.110 --> 04:33.740
+Port kanalınızı oluşturmak için gereken komut budur. Port kanalı oluşturulduktan sonra, arayüz ayarlarınızın
+
+04:33.740 --> 04:37.370
+çoğu port kanalı seviyesinde ayarlanır.
+
+04:37.580 --> 04:38.420
+Bunu yapmak için,
+
+04:38.420 --> 04:42.950
+interface portchannel 1 ve ardından switchport mode trunk diyoruz.
+
+04:43.070 --> 04:47.250
+Ayrıca yerel VLAN'ı, izin verilen VLAN'ları vb. de ayarlarız. bu seviyede.
+
+04:47.270 --> 04:48.180
+Ve bu eşleşen ayarları diğer taraftaki anahtarda da yapılandırmanız gerekir. Yani buradaki yapılandırmanın
+
+04:50.150 --> 04:56.410
+tamamen aynı olduğunu görüyorsunuz.
+
+04:56.420 --> 04:59.150
+Bunu önce Switch1'de yaptık ve sonra Switch2'de eşleşen bir yapılandırma yaptık.
+
+04:59.310 --> 05:04.640
+Yani bu LACP idi.
+
+05:05.330 --> 05:07.970
+LACP ise, kanal grubu komutudur ve sonra aktif ya da pasif kullanırsınız. PaGP için yapılandırma aynıdır, ancak aktif
+
+05:07.970 --> 05:17.360
+veya pasif kullanmak yerine, arzu edilen veya otomatik kullanırız.
+
+05:17.540 --> 05:23.870
+Ve LACP ile sahip olduğumuz benzer kurallar, bir taraf arzu
+
+05:24.020 --> 05:31.280
+edilirse ve diğeri otomatik ise, port kanalı ortaya çıkacaktır.
+
+05:31.280 --> 05:32.630
+Eğer iki taraf da otomatikse, olmaz.
+
+05:32.810 --> 05:35.420
+Ve her iki taraf da arzu ederse, olacaktır.
+
+05:35.600 --> 05:38.360
+Tekrar ediyorum, eğer PaGP kullanacaksanız, ki bu tavsiye edilmez, o zaman her iki tarafı da arzu edilen şekilde ayarlayın.
+
+05:38.540 --> 05:44.900
+O zaman hangisinin arzu edilir, hangisinin otomatik olduğu konusunda endişelenmenize gerek kalmaz.
+
+05:44.900 --> 05:48.260
+Yapılandırmaya baktığımızda, LACP için olduğu gibi tamamen aynı. Ancak burada kanal bir, kanal grubu 1 modu aktif
+
+05:49.070 --> 05:57.080
+yerine kanal grubu 1 modu isteniyor diyoruz.
+
+05:57.230 --> 06:01.420
+Böylece sondaki anahtar kelimeden LACP mi yoksa PaGP mi olacağını anlayabilirsiniz. Ya da bir sonraki slayta geçtiğimizde,
+
+06:01.430 --> 06:08.360
+statik. Statik için, yine tamamen aynı yapılandırma, ancak kanal grubu
+
+06:08.360 --> 06:11.060
+1 modu açık diyoruz. Yani LACP için aktif,
+
+06:11.060 --> 06:19.190
+PaGP için arzu edilir ve statik için açık. Yapılandırmanın geri kalanı hepsi için
+
+06:19.460 --> 06:24.410
+tamamen aynıdır.
+
+06:24.410 --> 06:25.970
+İşte bu şekilde yapılandırıyoruz. Bunu nasıl doğrulayacağız, etherchannel'ı
+
+06:27.110 --> 06:35.660
+kontrol etmek için bir İsviçre çakısı komutu var, o da show etherchannel summary. Ve hemen altındaki bayrakları görüyorsunuz.
+
+06:35.660 --> 06:41.330
+Yani burada tüm harflerin aslında ne anlama geldiğini anlatıyor.
+
+06:41.490 --> 06:44.450
+Aşağıya baktığımızda, bunun Grup 1, yani ilk port kanalımız olduğunu görebiliriz. Portchannel arayüzü Portchannel 1'dir ve parantez
+
+06:44.690 --> 06:50.700
+içinde büyük S ve büyük U harflerini görüyorum.
+
+06:50.700 --> 06:55.880
+Büyük S, 2. katman port kanalında olduğu anlamına gelir.
+
+06:56.150 --> 06:59.780
+Ayrıca bir katman 3 port kanalı da yapılandırabilirsiniz. Arayüzde, switchport yok dersiniz ve oraya
+
+06:59.960 --> 07:04.970
+bir IP adresi koyarsınız.
+
+07:04.970 --> 07:08.120
+Ancak daha yaygın olarak katman 2 port kanalı olacaktır.
+
+07:08.420 --> 07:11.450
+Büyük U, kullanımda olduğu anlamına gelir, bu da temelde açık olduğu anlamına gelir.
+
+07:11.630 --> 07:17.150
+Protokolün LACP olduğunu görebiliyorum ve sağ tarafta
+
+07:17.600 --> 07:23.240
+portlarımın fa0/23 ve fa0/24 olduğunu görebiliyorum.
+
+07:23.240 --> 07:27.230
+Büyük P harfi port kanalında oldukları anlamına gelir. Bir katman 2 port kanalı için, burada gördüğünüz harfler
+
+07:27.380 --> 07:32.810
+dışında herhangi bir harf görürseniz,
+
+07:32.810 --> 07:38.720
+port kanalında bir sorun vardır ve ortaya çıkmayacaktır. Port kanalınızda bir sorun varsa, açık ara en yaygın sorun ayarlarınızın her iki tarafta
+
+07:38.720 --> 07:42.380
+da eşleşmemesidir.
+
+07:42.620 --> 07:48.340
+Bu nedenle, hem fiziksel arayüz düzeyinde hem
+
+07:48.350 --> 07:54.350
+de port kanalı arayüz düzeyinde arayüze bakın.
+
+07:54.350 --> 07:54.710
+Ve ayarların her iki tarafta da tamamen aynı olduğundan emin olun.
+
+07:54.860 --> 07:58.600
+Ayrıca, birbirlerine bağlı doğru arayüzleri seçtiğinizden de emin olun.
+
+07:58.880 --> 08:06.230
+Tamam, bu bizim show etherchannel summary komutumuzdu.
+
+08:06.230 --> 08:06.230
+Sadece
+
+08:06.230 --> 08:10.190
+etherchannel'ı da gösterebilirsiniz ve bu size daha ayrıntılı çıktı verecektir, ancak özet size gerçekten bilmeniz gereken her şeyi söyler.
+
+08:10.190 --> 08:14.210
+Bakılacak son komut show spanning-tree vlan'dır. Çünkü daha önce de açıkladığımız gibi, etherchannel kullanmanın nedeni spanning-tree'nin
+
+08:14.780 --> 08:21.350
+bazı bağlantılarınızı kapatmasını önlemektir.
+
+08:21.350 --> 08:28.310
+Bunu yapılandırdıktan sonra, spanning-tree'nin istediğiniz gibi çalışıp çalışmadığını
+
+08:28.460 --> 08:31.340
+kontrol etmek istersiniz.
+
+08:31.340 --> 08:34.190
+Yani buradaki örnek etherchannel'ı yapılandırmadan önce. Sağ taraftaki resme bakarsanız, çekirdek dağıtım anahtarı olan CD1
+
+08:34.560 --> 08:41.210
+anahtarımıza giden yukarı bağlantılara sahip bir Switch Access 3'ümüz var.
+
+08:41.240 --> 08:47.150
+CD1 spanning-tree için kök köprüdür.
+
+08:47.150 --> 08:51.710
+Access3'e bakarsak, CD1'e giden iki bağlantı olduğunu görürüz.
+
+08:52.040 --> 08:56.240
+Eğer bunları bir port kanalına koymazsak, spanning-tree bunları
+
+08:56.390 --> 09:01.940
+potansiyel bir döngü olarak görür ve bağlantılardan birini engeller. Burada show spanning-tree vlan 1 komutumuzun çıktısına baktığımızda,
+
+09:02.030 --> 09:11.660
+alt tarafa bakın, fa0/23'ün iletildiğini görebiliyorum.
+
+09:11.660 --> 09:11.660
+Access3'teki kök bağlantı noktası. Ve fa0/24 döngüyü önlemek için engelleniyor.
+
+09:11.660 --> 09:19.820
+Yani bunlar hızlı Ethernet arayüzleridir.
+
+09:20.060 --> 09:21.830
+Örneğimizde, iki bağlantı noktamla 200Mbps yerine yalnızca 100Mbps yukarı bağlantı bant genişliği alıyorum.
+
+09:21.830 --> 09:28.790
+Bunu düzeltmek için etherchannel'ı yapılandırıyoruz.
+
+09:29.390 --> 09:32.180
+Etherchannel'ı yapılandırdıktan sonra aynı komutu verebiliriz. Ve yine, show spanning-tree vlan 1
+
+09:32.390 --> 09:37.220
+Ve şimdi bir slayt geri gidersem,
+
+09:37.370 --> 09:39.230
+port kanalından önce, spanning-tree'nin
+
+09:39.770 --> 09:47.030
+fa0/23 ve fa0/24 fiziksel arayüzlerini gördüğünü görürsünüz.
+
+09:47.030 --> 09:50.810
+Bunları bir port kanalına koyduğumuzda, spanning-tree sadece bu tek mantıksal arayüzü görür.
+
+09:51.080 --> 09:57.410
+Bu nedenle, spanning-tree söz konusu olduğunda potansiyel bir döngü olmayan tek bir bağlantı olarak görür.
+
+09:57.530 --> 10:03.050
+Yani şimdi port kanalında yönlendirme yapıyor. Engelleyen herhangi bir bağlantı noktam yok.
+
+10:03.410 --> 10:08.930
+Artık her iki fiziksel arabirimin de tam bant genişliğini alabiliyorum.
+
+10:09.050 --> 10:12.530
+Tamam, yapılandırmamız ve doğrulamamız bu şekildeydi.
+
+10:12.950 --> 10:18.920
+Bir sonraki derste görüşmek üzere.

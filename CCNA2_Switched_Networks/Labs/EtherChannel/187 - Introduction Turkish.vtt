@@ -1,0 +1,37 @@
+WEBVTT
+
+00:06.260 --> 00:15.320
+Bu bölümde, birden fazla fiziksel arabirimi tek bir mantıksal arabirimde bir araya getirmek için kullanılabilen etherchannel
+
+00:15.560 --> 00:18.960
+hakkında bilgi edineceksiniz.
+
+00:19.310 --> 00:24.460
+Neden etherchannel'a ihtiyacımız olduğunu anlatacağım ve spoiler
+
+00:24.470 --> 00:27.170
+uyarısı, spanning-tree yüzünden.
+
+00:27.660 --> 00:34.990
+Ayrıca etherchannel yük dengeleme ve yedekliliğin nasıl çalıştığını da ele alacağım.
+
+00:35.390 --> 00:43.310
+Etherchannel için mevcut olan tüm farklı protokollerin ne olduğunu, nasıl yapılandırılacağını ve nasıl doğrulanacağını
+
+00:43.310 --> 00:45.200
+öğreneceksiniz.
+
+00:45.860 --> 00:53.510
+Ve son olarak, anahtarlarınız yedeklilik için iki farklı anahtara bağlanıyorsa, etherchannel
+
+00:53.510 --> 01:04.310
+kullanıyor olsanız bile, spanning-tree'nin mevcut bant genişliğinizi yarıya indireceği başka bir sorundan bahsedeceğiz.
+
+01:04.690 --> 01:05.150
+Cisco'nun
+
+01:05.150 --> 01:13.880
+bunu önleyecek bazı teknolojileri vardır: StackWise, VSS ve vPC.
+
+01:13.880 --> 01:21.440
+Bu çok şasili etherchannel seçeneklerine genel bir bakışı son derste ele alacağız.

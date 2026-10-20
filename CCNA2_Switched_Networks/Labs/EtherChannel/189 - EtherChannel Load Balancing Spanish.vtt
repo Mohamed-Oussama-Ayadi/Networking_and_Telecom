@@ -1,0 +1,157 @@
+WEBVTT
+
+00:06.360 --> 00:14.130
+En esta lección, aprenderá cómo funciona el equilibrio de carga de etherchannel, y voy a usar el diagrama que ve en
+
+00:14.130 --> 00:17.970
+la diapositiva aquí a lo largo de esta lección.
+
+00:18.390 --> 00:24.990
+Así que tengo dos conmutadores que tienen cuatro enlaces entre ellos que se han agrupado en un etherchannel, y cada uno
+
+00:25.170 --> 00:31.140
+de esos cuatro enlaces es interfaces Ethernet de 1Gbps. Comenzando con gi0 / 1 a
+
+00:31.140 --> 00:38.920
+la izquierda yendo a gi0 / 4 a la derecha. En el interruptor inferior, tengo algunas
+
+00:38.940 --> 00:41.700
+PC conectadas allí.
+
+00:41.700 --> 00:43.530
+Tengo PC-1 y PC-2.
+
+00:43.770 --> 00:45.000
+Y luego
+
+00:45.000 --> 00:49.110
+el interruptor superior, tengo algunos servidores. Hay Servidor-1 y Servidor-2.
+
+00:49.440 --> 00:57.780
+Entonces, en esta lección, cubriremos cómo la carga de etherchannel equilibra los diferentes flujos que atraviesan los enlaces
+
+00:57.780 --> 00:59.520
+entre los conmutadores.
+
+00:59.730 --> 01:08.250
+Un flujo es una comunicación de un cliente a un servidor utilizando una aplicación en particular. Si la PC-1, en nuestro ejemplo de ejemplo, abre una
+
+01:08.250 --> 01:15.780
+sesión web en el Servidor-1 y la PC-2 abre una sesión FTP en el Servidor-2, tendremos dos
+
+01:15.780 --> 01:18.270
+flujos pasando por nuestros conmutadores.
+
+01:18.690 --> 01:26.220
+Y con etherchannel, la carga de un solo flujo se equilibra en una interfaz de canal de un solo puerto.
+
+01:26.580 --> 01:33.600
+Por ejemplo, todos los paquetes en el flujo de la PC-1 al Servidor-1, siempre pasan por la interfaz gi0 / 1.
+
+01:33.600 --> 01:41.340
+Todos los paquetes y el flujo de la PC-2 al Servidor-2 siempre pasan por la interfaz gi0 / 2.
+
+01:42.390 --> 01:48.600
+Entonces, mirando eso con una animación, el primer paquete y flujo de PC-1 a Server-1,
+
+01:49.020 --> 01:50.970
+golpea el primer interruptor.
+
+01:51.150 --> 01:56.640
+El conmutador decide sobre qué interfaz va a equilibrar la carga.
+
+01:56.820 --> 02:01.740
+Elige gi0 / 1 en nuestro ejemplo y eso va al servidor.
+
+02:02.040 --> 02:06.690
+El siguiente paquete del flujo también pasará a la misma interfaz.
+
+02:06.690 --> 02:12.780
+Entonces viene en el conmutador, lo equilibra de nuevo en la misma interfaz y luego sube al servidor.
+
+02:13.730 --> 02:21.830
+En el segundo flujo, de la PC-2 al Servidor-2 que ingresa al conmutador, el conmutador utilizará este algoritmo
+
+02:21.830 --> 02:27.520
+para decidir en qué interfaz equilibrar la carga, gi0 / 2 en nuestro
+
+02:27.650 --> 02:33.020
+ejemplo, y va al servidor. Cuando el segundo, el tercero, el cuarto, etc.,
+
+02:33.020 --> 02:37.130
+provengan de ese flujo, todos se equilibrarán en la carga en la misma interfaz.
+
+02:38.360 --> 02:44.570
+Los paquetes del mismo flujo siempre tienen balance de carga en la misma interfaz. No tienen una carga equilibrada por turnos
+
+02:44.570 --> 02:51.230
+en todas las interfaces del canal del puerto. Por ejemplo, no equilibramos la carga del primer paquete
+
+02:51.230 --> 02:57.410
+de la PC-1 al Servidor-1 en la interfaz gi0 / 1 y luego el segundo paquete en
+
+02:57.410 --> 03:00.620
+ese mismo flujo a gi0 / 2.
+
+03:01.010 --> 03:07.990
+La razón de esto es que el balanceo de carga por turnos podría hacer que los paquetes lleguen
+
+03:08.000 --> 03:11.390
+desordenados al destino y eso rompería algunas aplicaciones.
+
+03:11.390 --> 03:13.340
+Entonces se asegura de que eso no suceda.
+
+03:13.520 --> 03:19.220
+Siempre equilibramos la carga de paquetes del mismo flujo en la misma interfaz, por lo que siempre llegarán en
+
+03:19.220 --> 03:19.700
+orden.
+
+03:21.030 --> 03:26.670
+Entonces esto no sucede, ve que el primer paquete en el flujo pasó a la interfaz gi0 / 1,
+
+03:26.940 --> 03:31.190
+el segundo paquete en el mismo flujo sobre gi0 / 2, no hacemos eso.
+
+03:32.850 --> 03:39.240
+Entonces, debido a la forma en que esto funciona, debido a que un solo flujo siempre tiene la carga equilibrada en
+
+03:39.690 --> 03:46.320
+la misma interfaz, cualquier flujo único recibe un ancho de banda de un solo enlace en el canal del puerto como su máximo.
+
+03:46.770 --> 03:52.980
+Eso es un máximo de ancho de banda de 1 Gbps por flujo en nuestro ejemplo donde estábamos usando enlaces de 1 Gbps
+
+03:52.980 --> 03:54.090
+entre nuestros conmutadores.
+
+03:54.450 --> 03:59.610
+Pero hay un ancho de banda agregado de 4Gbps en todos los flujos disponibles.
+
+04:00.540 --> 04:04.910
+Por tanto, puede pensar en un canal del puerto como una autopista de varios carriles.
+
+04:05.250 --> 04:11.700
+Los autos siempre permanecen en su propio carril y en un solo carril, pero debido a que hay múltiples
+
+04:11.700 --> 04:14.130
+carriles, el tráfico general llega más rápido.
+
+04:14.310 --> 04:20.220
+Obviamente, un ejemplo extraño, si solo tuviéramos un enlace ascendente en lugar de cuatro, no tendremos tanto ancho de banda
+
+04:20.220 --> 04:23.190
+general disponible entre los conmutadores. Etherchannel proporciona
+
+04:23.190 --> 04:29.620
+redundancia y equilibrio de carga. Si un enlace falla, los flujos se equilibrarán en la
+
+04:29.630 --> 04:31.700
+carga de los enlaces restantes.
+
+04:31.920 --> 04:35.310
+Bien, así es como funcionan el equilibrio de carga y la redundancia.
+
+04:35.660 --> 04:39.150
+Nos vemos en la próxima conferencia para más etherchannel.
